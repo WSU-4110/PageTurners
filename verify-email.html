@@ -35,6 +35,7 @@
             if (user) {
                 user.sendEmailVerification().then(() => {
                     alert("Verification email resent. Please check your inbox.");
+                    window.location.href = "./dashboard.html";
                 }).catch(error => {
                     alert("Error resending verification email: " + error.message);
                 });
