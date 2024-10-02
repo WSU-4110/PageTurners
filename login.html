@@ -4,22 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="loginreg.css">
 </head>
 <body>
-    <h1>Log in to an Account</h1>
-    <form action="TBD" method="TBD" id="login-form">
-          <!--<label for="username">Username:</label>
-          <input type="text" id="username" name="username" required>-->
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        
-        <button type="submit">Login</button>
+  <div class="wrapper login">
+    <h1>Welcome Back!</h1>
+    <p>We're excited to see you again!</p>
+    <form id="login-form">
+      <input type="text" id="email" placeholder="Enter your email" required>
+      <input type="password" id="password" placeholder="Enter your password" required>
+      <p class="recover">
+        <a href="#">Forgot your password?</a>
+      </p>
+      <button type="submit" class="login">Sign in</button>
     </form>
+    
+    
+    <div class="not-member">
+      Not a member yet? <a href="register.html">Register now</a>
+    </div>
+  </div>
     <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
     <script type="module">
