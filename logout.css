@@ -1,0 +1,89 @@
+/* css for logout html general */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* css for logout html body */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f7f7f7;
+}
+
+/* css for logoutcon class */
+.logoutcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* css for logoutmessage class */
+.logoutmessage {
+  background-color: white;
+  padding: 2em;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+/* css for logoutmessage class h2 */
+.logoutmessage h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 1em;
+}
+
+/* css for logoutmessage class paragraph */
+.logoutmessage p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 2em;
+}
+
+/* css for logoutbuttons class */
+.logoutbuttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+}
+
+/* css for confirmbutton class and cancelbutton */
+.confirmbutton,
+.cancelbutton {
+  text-decoration: none;
+  padding: 0.75em 2em;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+/* css for confirmbutton class */
+.confirmbutton {
+  background-color: #ff6f61;
+  color: white;
+}
+
+/* css for confirmbutton class hover */
+.confirmbutton:hover {
+  background-color: #ff3d33;
+}
+
+/* css for cancelbutton class */
+.cancelbutton {
+  background-color: #ddd;
+  color: #333;
+}
+
+/* css for cancelbutton class hover */
+.cancelbutton:hover {
+  background-color: #bbb;
+}
