@@ -1,0 +1,129 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+
+.wrapper {
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #ffae66; /* Light orange for headings */
+}
+
+
+p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #666666; /* Light gray for paragraph text */
+}
+
+/* Form Inputs */
+input[type="text"], input[type="email"], input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #666666;
+  font-size: 16px;
+  border: 1px solid #ffae66; /* Light orange border */
+}
+
+input:focus {
+  outline: none;
+  background-color: #fff8f0; /* Light orange background on focus */
+}
+
+/* Button Styling */
+button {
+  padding: 12px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  background-color: #ffae66; /* Light orange button background */
+  color: #fff; /* White text */
+}
+
+button:hover {
+  background-color: #e09457; /* Darker light orange on hover */
+}
+
+/* Links and Hover Effects */
+.recover a, .not-member a {
+  color: #ffae66;
+  text-decoration: none;
+}
+
+.recover a:hover, .not-member a:hover {
+  text-decoration: underline;
+}
+
+/* Specific Colors and Backgrounds */
+.wrapper.register {
+  background-color: #fff8f0; /* Light orange background for register page */
+  color: #ffae66;
+}
+
+.wrapper.login {
+  background-color: #fff; /* White background for login page */
+  color: #ffae66;
+}
+
+button.register {
+  background-color: #ffae66; /* Light orange button for register */
+}
+
+button.login {
+  background-color: #fff; /* White button for login */
+  color: #ffae66; /* Light orange text for login button */
+}
+
+p.recover {
+  margin: 10px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .wrapper {
+    padding: 30px;
+  }
+  h1 {
+    font-size: 24px;
+  }
+  p {
+    font-size: 14px;
+  }
+}
+
+
+ 
+
+
+
+
