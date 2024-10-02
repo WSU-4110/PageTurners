@@ -3,7 +3,9 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/fireba
   import { getAuth, 
     createUserWithEmailAndPassword,
 signOut,
-signInWithEmailAndPassword } 
+signInWithEmailAndPassword,
+onAuthStateChanged
+ } 
 
 from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
   // TODO: Add SDKs for Firebase products that you want to use
@@ -25,6 +27,7 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
   const auth = getAuth();
+
   
 // signup form
 
@@ -47,6 +50,7 @@ console.log(email, password);
 createUserWithEmailAndPassword(auth, email,password).then(cred=>{
     console.log(cred);
     alert("Account Creation Success");
+    window.location.href = "./dashboard.html";
 });
 });
 }
@@ -63,6 +67,8 @@ if (loginForm != null)
 
         signInWithEmailAndPassword(auth,email,password).then( cred=> {
             console.log(cred);
+            window.signedinemail = email;
+            window.location.href = "./dashboard.html";
         }
         )
     })
@@ -76,10 +82,17 @@ logout.addEventListener('click', (e)=>{
 
     signOut(auth).then(()=>{
         console.log("User signed out");
+        window.location.href = "./bdashboard.html";
     })
+    
 });
 }
 
+onAuthStateChanged(auth, (user)=>{
+    if (user){
+    document.querySelector("#user-email").textContent = user.email;
+    }
+})
 
 
 
