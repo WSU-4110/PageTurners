@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <div class="logo-container">
+          <img src="logo.png" alt="PageTurners Logo" class="logo" />
+          <span class="site-title">PageTurners</span>
+        </div>
+        <nav class="nav-container">
+          <ul class="nav-list">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">My Clubs</a></li>
+            <li>
+              <a href="login.html"><button class="loginbutton">Login</button></a>
+            </li>
+            <li>
+              <a href="register.html"
+                ><button class="joinbutton">Register</button></a
+              >
+            </li>
+            <li>
+              <!-- Collapsible Search bar with magnifying glass -->
+              <form class="search-form" action="/search" method="GET">
+                <input
+                  type="text"
+                  name="query"
+                  placeholder="Search for books, clubs, or authors"
+                  class="search-input"
+                  id="search-input"
+                />
+                <button
+                  type="button"
+                  class="search-button"
+                  onclick="toggleSearch()"
+                >
+                  <img
+                    src="https://img.icons8.com/ios-glyphs/30/000000/search.png"
+                    alt="Search"
+                    class="search-icon"
+                  />
+                </button>
+              </form>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Edge-to-edge Image Carousel Section -->
+    <section class="image-carousel">
+      <div class="carousel">
+        <img id="carousel-image" src="first1.png" alt="First Picture" />
+      </div>
+      <div class="carousel-controls">
+        <span class="dot" onclick="changeImage(1)"></span>
+        <span class="dot" onclick="changeImage(2)"></span>
+        <span class="dot" onclick="changeImage(3)"></span>
+        <span class="dot" onclick="changeImage(4)"></span>
+        <span class="dot" onclick="changeImage(5)"></span>
+        <span class="dot" onclick="changeImage(6)"></span>
+        <span class="dot" onclick="changeImage(7)"></span>
+        <span class="dot" onclick="changeImage(8)"></span>
+        <span class="dot" onclick="changeImage(9)"></span>
+        <span class="dot" onclick="changeImage(10)"></span>
+      </div>
+    </section>
+
+    <main>
+      <section class="genres-section">
+        <div class="section-header">
+          <h3>Our Book Genres</h3>
+          <a href="#" class="browse-allbutton">Browse All</a>
+        </div>
+
+        <div class="genres-grid">
+          <div class="genre-card">
+            <img src="fiction.jpeg" alt="Fiction" />
+            <h4>Fiction</h4>
+          </div>
+          <div class="genre-card">
+            <img src="non-fiction.jpg" alt="Non-fiction" />
+            <h4>Non-fiction</h4>
+          </div>
+          <div class="genre-card">
+            <img src="fantasy.jpg" alt="Fantasy" />
+            <h4>Fantasy</h4>
+          </div>
+          <div class="genre-card">
+            <img src="action.jpeg" alt="Action" />
+            <h4>Action</h4>
+          </div>
+          <div class="genre-card">
+            <img src="adventure.jpeg" alt="Adventure" />
+            <h4>Adventure</h4>
+          </div>
+          <div class="genre-card">
+            <img src="drama.jpeg" alt="Drama" />
+            <h4>Drama</h4>
+          </div>
+          <div class="genre-card">
+            <img src="romance.jpeg" alt="Romance" />
+            <h4>Romance</h4>
+          </div>
+          <div class="genre-card">
+            <img src="historical.jpg" alt="Historical" />
+            <h4>Historical</h4>
+          </div>
+          <div class="genre-card">
+            <img src="crime.jpeg" alt="Crime" />
+            <h4>Crime</h4>
+          </div>
+        </div>
+      </section>
+
+      <section class="featured-books">
+        <div class="section-header">
+          <h3>Featured Books</h3>
+          <a href="#" class="browse-allbutton">Browse All</a>
+        </div>
+        <div class="books-grid">
+          <div class="book-card">
+            <img src="featuredbook1.jpg" alt="Featured Book 1" />
+          </div>
+          <div class="book-card">
+            <img src="featuredbook2.jpg" alt="Featured Book 2" />
+          </div>
+          <div class="book-card">
+            <img src="featuredbook3.jpg" alt="Featured Book 3" />
+          </div>
+          <div class="book-card">
+            <img src="featuredbook4.jpg" alt="Featured Book 4" />
+            <!--   <h4>Don't forget to write</h4> -->
+            <!-- <p>Sara Goodman Confino</p> -->
+          </div>
+          <div class="book-card">
+            <img src="featuredbook5.jpg" alt="Featured Book 5" />
+          </div>
+          <div class="book-card">
+            <img src="featuredbook6.jpg" alt="Featured Book 6" />
+          </div>
+          <div class="book-card">
+            <img src="featuredbook7.jpg" alt="Featured Book 7" />
+          </div>
+          <div class="book-card">
+            <img src="featuredbook8.jpg" alt="Featured Book 8" />
+          </div>
+          <div class="book-card">
+            <img src="featuredbook9.jpg" alt="Featured Book 9" />
+          </div>
+          <div class="book-card">
+            <img src="featuredbook10.jpg" alt="Featured Book 10" />
+          </div>
+        </div>
+      </section>
+
+      <section class="book-clubs">
+        <div class="section-header">
+          <h3>Trending Book Clubs</h3>
+          <a href="#" class="browse-allbutton">Browse All</a>
+        </div>
+        <div class="clubs-grid">
+          <div class="club-card">
+            <img src="bookclub1.jpeg" alt="Book Club 1" />
+            <h4>Lily's Book Club</h4>
+            <p>5 members</p>
+          </div>
+          <div class="club-card">
+            <img src="bookclub2.jpeg" alt="Book Club 2" />
+            <h4>The Authors Club</h4>
+            <p>3 members</p>
+          </div>
+          <div class="club-card">
+            <img src="bookclub3.jpeg" alt="Book Club 3" />
+            <h4>We love books</h4>
+            <p>10 members</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Trending Group Discussions Section -->
+      <section class="trending-groups">
+        <div class="section-header">
+          <h3>Trending Group Discussions</h3>
+          <a href="#" class="browse-allbutton">Browse All</a>
+        </div>
+        <div class="trending-scroll">
+          <div class="trending-card">
+            <img
+              src="trendinggroupdiscussion1.jpeg"
+              alt="Trending Group Discussion 1"
+            />
+            <div class="trending-content">
+              <h4>Why do we read books?</h4>
+              <p>10 replies</p>
+              <a href="#" class="joinbutton">Join</a>
+            </div>
+          </div>
+          <div class="trending-card">
+            <img
+              src="trendinggroupdiscussion2.jpeg"
+              alt="Trending Group Discussion 2"
+            />
+            <div class="trending-content">
+              <h4>We are all different</h4>
+              <p>5 replies</p>
+              <a href="#" class="joinbutton">Join</a>
+            </div>
+          </div>
+          <div class="trending-card">
+            <img
+              src="trendinggroupdiscussion3.webp"
+              alt="Trending Group Discussion 3"
+            />
+            <div class="trending-content">
+              <h4>What did you learn from this book?</h4>
+              <p>8 replies</p>
+              <a href="#" class="joinbutton">Join</a>
+            </div>
+          </div>
+          <div class="trending-card">
+            <img
+              src="trendinggroupdiscussion4.jpeg"
+              alt="Trending Group Discussion 4"
+            />
+            <div class="trending-content">
+              <h4>Was Frankenstein book satisfying to read?</h4>
+              <p>5 replies</p>
+              <a href="#" class="joinbutton">Join</a>
+            </div>
+          </div>
+          <div class="trending-card">
+            <img
+              src="trendinggroupdiscussion5.jpeg"
+              alt="Trending Group Discussion 5"
+            />
+            <div class="trending-content">
+              <h4>
+                What are some interesting quotes that have stood out to you from
+                a book?
+              </h4>
+              <p>4 replies</p>
+              <a href="#" class="joinbutton">Join</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <section class="top-recommendations">
+      <h3>Top 3 Recommendations for You</h3>
+      <div class="recommendations-grid">
+        <div class="recommendation-item">
+          <span class="number">1</span>
+          <img src="bookrecommendations1.jpg" alt="Book Recommendation 1" />
+        </div>
+        <div class="recommendation-item">
+          <span class="number">2</span>
+          <img src="bookrecommendations2.jpg" alt="Book Recommendation 2" />
+        </div>
+        <div class="recommendation-item">
+          <span class="number">3</span>
+          <img src="bookrecommendations3.jpg" alt="Book Recommendation 3" />
+        </div>
+      </div>
+    </section>
+    <script>
+      const images = [
+        "first1.png",
+        "second2.jpg",
+        "third3.jpg",
+        "fourth4.webp",
+        "fifth5.jpg",
+        "sixth6.jpg",
+        "seventh7.jpeg",
+        "eigth8.jpg",
+        "ninth9.jpg",
+        "tenth10.jpg",
+      ];
+
+      function changeImage(index) {
+        document.getElementById("carousel-image").src = images[index - 1];
+      }
+
+      // JavaScript function to toggle the search input visibility
+      function toggleSearch() {
+        const searchInput = document.getElementById("search-input");
+        if (
+          searchInput.style.display === "none" ||
+          searchInput.style.display === ""
+        ) {
+          searchInput.style.display = "block";
+          searchInput.style.width = "200px"; // Expand search bar
+          searchInput.focus(); // Focus on input when displayed
+        } else {
+          searchInput.style.display = "none";
+        }
+      }
+    </script>
+
+    <footer>
+      <p>&copy; 2024 PageTurners. All Rights Reserved.</p>
+    </footer>
+  </body>
+</html>
