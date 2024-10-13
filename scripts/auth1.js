@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-analytics.js";
-  import { getFirestore, collection, addDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js';
+  import { getFirestore, collection, addDoc, setDoc, doc} from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js';
   import { getAuth, 
     createUserWithEmailAndPassword,
 signOut,
@@ -34,37 +34,39 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
 const signupForm = document.querySelector("#signup-form");
 
-if (signupForm != null)
-{
-signupForm.addEventListener('submit', function(e) {
-e.preventDefault();
+if (signupForm != null) {
+    signupForm.addEventListener('submit', function(e) {
+        e.preventDefault();
 
-// get user info
-const email = signupForm["email"].value;
-const password = signupForm["password"].value;
+        // Get user info
+        const email = signupForm["email"].value;
+        const password = signupForm["password"].value;
 
-console.log(email, password);
- 
-// sign up user
+        console.log(email, password);
 
-createUserWithEmailAndPassword(auth, email,password).then(cred=>{
-    let user = cred.user;
-    addDoc(collection(db,"Users"), 
-    {
-        email: user.email,
-        uid: user.uid,
-        clubs: []
-    }).then(docref=>{
-        console.log("Doc written with ID: ", docref.id);
-    }).catch(error => {
-        console.error("Error writing document: ", error);
-        alert("Error creating account: " + error.message);
-      });
-    alert("Account Creation Success");
-    window.location.href = "./dashboard.html";
-});
-});
+        // Sign up user
+        createUserWithEmailAndPassword(auth, email, password)
+            .then(cred => {
+                let user = cred.user;
+                return setDoc(doc(db, "Users", user.uid), {
+                    email: user.email,
+                    uid: user.uid
+                });
+            })
+            .then(() => {
+                alert("Account Creation Success");
+                window.location.href = "./dashboard.html";
+            })
+            .catch(error => {
+                console.error("Error: ", error);
+                alert("Error creating account: " + error.message);
+            });
+    });
 }
+        
+
+
+
 
 const loginForm = document.querySelector("#login-form");
 
@@ -104,3 +106,14 @@ logout.addEventListener('click', (e)=>{
 
 
 
+ // addDoc(collection(db,"Users"), 
+    // {
+    //     email: user.email,
+    //     uid: user.uid,
+    //     clubs: []
+    // }).then(docref=>{
+    //     console.log("Doc written with ID: ", docref.id);
+    // }).catch(error => {
+    //     console.error("Error writing document: ", error);
+    //     alert("Error creating account: " + error.message);
+    //   })
