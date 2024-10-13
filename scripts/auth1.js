@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-analytics.js";
+  import { getFirestore, collection, addDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js';
   import { getAuth, 
     createUserWithEmailAndPassword,
 signOut,
@@ -27,8 +28,7 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
   const auth = getAuth();
-
-  
+  const db = getFirestore(app);
 // signup form
 
 
@@ -48,7 +48,18 @@ console.log(email, password);
 // sign up user
 
 createUserWithEmailAndPassword(auth, email,password).then(cred=>{
-    console.log(cred);
+    let user = cred.user;
+    addDoc(collection(db,"Users"), 
+    {
+        email: user.email,
+        uid: user.uid,
+        clubs: []
+    }).then(docref=>{
+        console.log("Doc written with ID: ", docref.id);
+    }).catch(error => {
+        console.error("Error writing document: ", error);
+        alert("Error creating account: " + error.message);
+      });
     alert("Account Creation Success");
     window.location.href = "./dashboard.html";
 });
@@ -66,7 +77,7 @@ if (loginForm != null)
         const password = loginForm["password"].value;
 
         signInWithEmailAndPassword(auth,email,password).then( cred=> {
-            console.log(cred);
+            console.log(cred);          
             window.signedinemail = email;
             window.location.href = "./dashboard.html";
         }
@@ -88,11 +99,7 @@ logout.addEventListener('click', (e)=>{
 });
 }
 
-onAuthStateChanged(auth, (user)=>{
-    if (user){
-    document.querySelector("#user-email").textContent = user.email;
-    }
-})
+
 
 
 
