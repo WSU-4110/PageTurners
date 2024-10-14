@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
-import { getFirestore, collection, getDoc, doc, query} from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js';
+import { getFirestore, collection, getDoc, getDocs, doc, query, where } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js';
 
 // Initialize Firebase
 var firebaseConfig = {
@@ -18,16 +18,31 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
 
-firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(function(user){
     if (user) {
         const docRef = doc(db, "Users", user.uid);
         const docSnap = getDoc(docRef);
+        const q = query(collection(db, "BookClubs"), where("ClubUsers", "array-contains", user.uid));
+        const qSnap = getDocs(q).then((snapshot)=>
+            {
+                let output = ""
 
-        const q = query(collection(db, "BookClubs"), where())//unfinsihed
+                for (const doc of snapshot.docs)
+                {
+                output+="\n<a>";
+                output+= doc.data()["BookClubName"];
+                output+= "</a>\n"
+                };
 
-    } else {
+                document.getElementById("clubs").textContent = output;
+
+                console.log(user.uid);
+            })
+            }
+        else {
         document.getElementById("clubs").textContent = "not signed in";
-    }
-  });
+        }});
+    
+
 
 
