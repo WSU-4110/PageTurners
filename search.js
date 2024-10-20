@@ -60,13 +60,13 @@ if (document.getElementById('search-input')) {
                 suggestionsList.innerHTML = ''; // Clear suggestions
             };
 
-            // Add suggestion to the list
+            // Add suggestion list
             suggestionsList.appendChild(suggestion);
         });
     }
 }
 
-// Check if we're on results.html to fetch and display the full search results
+// Check if on results.html to fetch and display the full search results
 if (window.location.pathname.includes('results.html')) {
     const urlParams = new URLSearchParams(window.location.search);
     const searchQuery = urlParams.get('q'); // Get the 'q' parameter from the URL
