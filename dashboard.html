@@ -48,14 +48,16 @@
             </script>
             <li>
               <!-- Collapsible Search bar with magnifying glass -->
-              <form class="search-form" action="/search" method="GET">
+             <div class="search-form" id="search-form" >
                 <input
                   type="text"
                   name="query"
                   placeholder="Search for books, clubs, or authors"
                   class="search-input"
                   id="search-input"
+                  
                 />
+                <ul id="suggestions-list" class= "suggestions-list"> </ul>
                 <button
                   type="button"
                   class="search-button"
@@ -73,6 +75,8 @@
         </nav>
       </div>
     </header>
+    
+
 
     <!-- Edge-to-edge Image Carousel Section -->
     <section class="image-carousel">
@@ -363,5 +367,7 @@
         
       </script>
     <script type="module" src="scripts/auth1.js"> </script>
+    <script src="search.js"></script>
   </body>
+
 </html>
