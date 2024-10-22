@@ -18,6 +18,16 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
 
+function appendElement (elemNode,textNode,) {
+    var container = document.getElementById("body");
+    var element = document.createElement(elemNode);
+    element.setAttribute("href","clubhomepage.html?name=" + textNode)
+    var text = document.createTextNode(textNode);
+    element.appendChild(text);
+    container.appendChild(element);
+}
+
+
 firebase.auth().onAuthStateChanged(function(user){
     if (user) {
         const docRef = doc(db, "Users", user.uid);
@@ -26,15 +36,16 @@ firebase.auth().onAuthStateChanged(function(user){
         const qSnap = getDocs(q).then((snapshot)=>
             {
                 let output = ""
-
+                
                 for (const doc of snapshot.docs)
                 {
-                output+="\n<a>";
-                output+= doc.data()["BookClubName"];
-                output+= "</a>\n"
+
+                appendElement("a",doc.data()["BookClubName"]);
+                // output+="\n<a href=\"clubhomepage?" + doc.data()["BookClubName"] +"\" >";
+                // output+= doc.data()["BookClubName"];
+                // output+= "</a>\n"
                 };
 
-                document.getElementById("clubs").textContent = output;
 
                 console.log(user.uid);
             })

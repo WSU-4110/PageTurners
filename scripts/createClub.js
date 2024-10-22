@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 import { getFirestore, collection, getDoc,setDoc, getDocs, addDoc, doc, query, where } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js';
 
 // Initialize Firebase
@@ -20,25 +20,32 @@ const db = getFirestore(app);
 
 const clubCreateForm = document.querySelector("#createClubForm");
 
-clubCreateForm.addEventListener('submit', async function(e){
-    e.preventDefault();
-    const clubName = clubCreateForm["clubName"].value;
+auth.onAuthStateChanged(function(user){
 
-    let bookClubsRef = collection(db, "BookClubs");
-    const q = query(bookClubsRef, where("BookClubName", "==", clubName));
-    const qsnap = await getDocs(q)
+    clubCreateForm.addEventListener('submit', async function(e){
+        e.preventDefault();
+        const clubName = clubCreateForm["clubName"].value;
 
-
-
-    if (qsnap.empty){
-        addDoc(collection(db,"BookClubs"), {
-            BookClubName: clubName
-        })
-    }
-    else{
-        alert("Club Name Allready Exists")
-    }
-    
+        let bookClubsRef = collection(db, "BookClubs");
+        const q = query(bookClubsRef, where("BookClubName", "==", clubName));
+        const qsnap = await getDocs(q)
 
 
-})
+
+        if (qsnap.empty){
+            await addDoc(collection(db,"BookClubs"), {
+                BookClubName: clubName,
+                ClubUsers: [user.uid]
+            }, clubName)
+
+            window.location.href = "./dashboard.html";
+
+        }
+        else{
+            alert("Club Name Allready Exists")
+        }
+        
+
+
+    })
+});
