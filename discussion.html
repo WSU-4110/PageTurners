@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discussion Thread</title>
+  <link rel="stylesheet" href="loginreg.css">
+</head>
+<body>
+  <main>
+    <section class="discussion-thread">
+      <h2 id="discussion-title"></h2>
+      <div id="discussion-container"></div>
+
+      <!-- Form to submit a new reply -->
+      <form id="reply-form">
+        <input type="text" id="username" placeholder="Your Name" required>
+        <textarea id="reply-message" rows="4" placeholder="Write your reply here..." required></textarea>
+        <button type="submit">Post Reply</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+
+  <script>
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAt-SInlPaL2FzwtXrRltIEiV5l8k5HMjg",
+      authDomain: "pageturners-a831a.firebaseapp.com",
+      projectId: "pageturners-a831a",
+      storageBucket: "pageturners-a831a.appspot.com",
+      messagingSenderId: "304224952392",
+      appId: "1:304224952392:web:f33dbc84b481e39a44787d",
+      measurementId: "G-C6DKQSJ1R8"
+    };
+    const app = firebase.initializeApp(firebaseConfig); 
+    const db = firebase.firestore();
+
+    // Extract discussion ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const discussionId = urlParams.get('id');
+
+    // Fetch and display the discussion based on ID
+    const discussionTitle = document.getElementById('discussion-title');
+    const discussionContainer = document.getElementById('discussion-container');
+
+    db.collection('discussions').doc(discussionId).get().then(doc => {
+      if (doc.exists) {
+        const data = doc.data();
+        discussionTitle.textContent = data.title;
+
+        // Load replies
+        db.collection('discussions').doc(discussionId).collection('replies')
+          .orderBy('timestamp')
+          .onSnapshot(snapshot => {
+            discussionContainer.innerHTML = '';
+            snapshot.forEach(replyDoc => {
+              const replyData = replyDoc.data();
+              const messageElement = document.createElement('div');
+              messageElement.classList.add('message');
+              messageElement.innerHTML = `<p><strong>${replyData.username}:</strong> ${replyData.message}</p>`;
+              discussionContainer.appendChild(messageElement);
+            });
+          });
+      } else {
+        discussionTitle.textContent = "Discussion not found.";
+      }
+    });
+
+    // Handle new reply submission
+    const form = document.getElementById('reply-form');
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const message = document.getElementById('reply-message').value;
+
+      // Add the reply to Firestore
+      db.collection('discussions').doc(discussionId).collection('replies').add({
+        username: username,
+        message: message,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(() => {
+        form.reset(); 
+      });
+    });
+  </script>
+</body>
+</html>
