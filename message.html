@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Successfully Invited</title>
+
+    <link rel="stylesheet" href="dashboard.css" />
+    <style>
+      .join-container h1 {
+        color: #ff6f61;
+      }
+
+      .main-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh; /* Adjust height as needed */
+        text-align: center;
+      }
+
+      .join-container {
+        background: #f9f9f9;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <div class="logo-container">
+          <img src="logo1.png" alt="PageTurners Logo" class="logo" />
+          <span class="site-title"
+            ><a href="dashboard.html">PageTurners</a></span
+          >
+        </div>
+        <nav class="nav-container">
+          <ul class="nav-list">
+            <li><a href="dashboard.html">Home</a></li>
+            <li class="dropdown">
+              <a href="#">My Clubs</a>
+              <ul class="dropdownmenu" id="userdropdownmenu">
+                <li><a href="overview.html">My Club Creation</a></li>
+                <li><a href="club.html">Create a Club</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="join.html"><button class="loginbutton">Join</button></a>
+            </li>
+            <li class="user-dropdown">
+              <img
+                src="https://img.icons8.com/ios-glyphs/30/000000/user.png"
+                alt="User Icon"
+                class="user-icon"
+                onclick="toggleDropdown()"
+              />
+              <ul class="dropdown-menu" id="user-dropdown-menu">
+                <li><a href="#">Discussions</a></li>
+                <li><a href="#">Account</a></li>
+                <li><a href="logout.html">Logout</a></li>
+              </ul>
+            </li>
+            <li>
+              <!-- Collapsible Search bar with magnifying glass -->
+              <form class="search-form" action="/search" method="GET">
+                <input
+                  type="text"
+                  name="query"
+                  placeholder="Search for books, clubs, or authors"
+                  class="search-input"
+                  id="search-input"
+                />
+                <button
+                  type="button"
+                  class="search-button"
+                  onclick="toggleSearch()"
+                >
+                  <img
+                    src="https://img.icons8.com/ios-glyphs/30/000000/search.png"
+                    alt="Search"
+                    class="search-icon"
+                  />
+                </button>
+              </form>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="main-content">
+      <main>
+        <section class="join-container">
+          <h1>Invitation Sent Successfully!</h1>
+        </section>
+      </main>
+    </div>
+    <footer>
+      <p>&copy; 2024 PageTurners. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript for dropdown functionality -->
+    <script>
+      // Function to close all open dropdowns
+      function closeAllDropdowns() {
+        document
+          .querySelectorAll(".dropdown.open, .user-dropdown.open")
+          .forEach((dropdown) => {
+            dropdown.classList.remove("open");
+          });
+      }
+
+      // Toggle the "My Clubs" dropdown
+      document
+        .querySelector(".dropdown > a")
+        .addEventListener("click", function (event) {
+          event.preventDefault();
+          closeAllDropdowns(); // Close any other open dropdown
+          const dropdown = document.querySelector(".dropdown");
+          dropdown.classList.toggle("open"); // Toggle the clicked dropdown
+        });
+
+      // Toggle the "User Icon" dropdown
+      document
+        .querySelector(".user-icon")
+        .addEventListener("click", function () {
+          closeAllDropdowns(); // Close any other open dropdown
+          const userDropdown = document.querySelector(".user-dropdown");
+          userDropdown.classList.toggle("open"); // Toggle the clicked dropdown
+        });
+
+      // Close dropdown if clicking outside of it
+      document.addEventListener("click", function (event) {
+        const isClickInsideDropdown = event.target.closest(
+          ".dropdown, .user-dropdown"
+        );
+        if (!isClickInsideDropdown) {
+          closeAllDropdowns(); // Close all dropdowns if clicked outside
+        }
+      });
+
+      // Function to toggle the search bar
+      function toggleSearch() {
+        const searchInput = document.getElementById("search-input");
+        if (
+          searchInput.style.display === "none" ||
+          searchInput.style.display === ""
+        ) {
+          searchInput.style.display = "block";
+          searchInput.style.width = "200px"; // Expand search bar
+          searchInput.focus(); // Focus on input when displayed
+        } else {
+          searchInput.style.display = "none";
+        }
+      }
+    </script>
+  </body>
+</html>
