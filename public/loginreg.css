@@ -120,4 +120,70 @@
       font-size: 14px;
     }
   }
+
+body {
+        font-family: Arial, sans-serif;
+        background-color: #fffaf0; /* Light orange background */
+        margin: 20px;
+    }
+    
+    .discussion-board {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff2e6; /* Light orange board */
+        border: 1px solid #ffa07a; /* Light orange border */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .discussion-board h2 {
+        text-align: center;
+        color: #ff4500; 
+    }
+    
+    .messages {
+        border-top: 1px solid #ffa07a; 
+        margin-top: 20px;
+        padding-top: 10px;
+    }
+    
+    .message {
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ffdab9; 
+    }
+    
+    .message strong {
+        color: #ff4500; 
+    }
+    
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    input[type="text"], textarea {
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ffdab9; 
+        border-radius: 5px;
+        font-size: 16px;
+        background-color: #fffaf0; 
+    }
+    
+    button {
+        padding: 10px;
+        background-color: #ff4500; 
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    
+    button:hover {
+        background-color: #e03e00; 
+    }
+    
   
