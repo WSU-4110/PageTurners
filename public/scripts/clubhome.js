@@ -32,20 +32,20 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
   const queryParams = new URLSearchParams(window.location.search);
 
-  const name = queryParams.get("name");
 
 
-  async function getClubDocFromQParams(queryParams)
+
+  async function getClubdocRefFromQParams(queryParams)
   {
-    const q = query(collection(db, "BookClubs"), where("BookClubName", "==", queryParams.get("name")));
-    const qsnap = await getDocs(q);
-
-    
-    const docData = qsnap.docs[0].data();
-    console.log(docData)
-    console.log(docData["BookClubName"]);
-    return docData;
+    let docRef = doc(db,"BookClubs", queryParams.get("id"));
+    const docSnap = await getDoc(docRef);
+    console.log(docSnap.data());
+    return docSnap;
   }
+
+
+
+
 
   async function getEmailFromUID(uid)
   {
@@ -55,12 +55,12 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
     return qsnap.docs[0].data()["email"];
   }
 
-  let docData = await getClubDocFromQParams(queryParams);
+  let docRef = await getClubdocRefFromQParams(queryParams);
 
-  document.getElementById("clubName").textContent = docData["BookClubName"]
-  document.getElementById("clubDescription").textContent = docData["clubDescription"]
+  document.getElementById("clubName").textContent = docRef.data()["BookClubName"]
+  document.getElementById("clubDescription").textContent = docRef.data()["clubDescription"]
 
-  for (const uid of docData["ClubUsers"])
+  for (const uid of docRef.data()["ClubUsers"])
   {
     const newLI = document.createElement("li");
     newLI.textContent = await getEmailFromUID(uid);
@@ -68,5 +68,7 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
     const parentUL = document.getElementById("members");
     parentUL.appendChild(newLI);
   }
+
+  document.getElementById("manage").href = "overview.html?id=" + docRef.id;
 
 

@@ -18,10 +18,10 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
 
-function appendElement (elemNode,textNode,) {
+function appendElement (elemNode,textNode,href) {
     var container = document.getElementById("body");
     var element = document.createElement(elemNode);
-    element.setAttribute("href","clubhomepage.html?name=" + textNode)
+    element.setAttribute("href","clubhomepage.html?id=" + href)
     var text = document.createTextNode(textNode);
     element.appendChild(text);
     container.appendChild(element);
@@ -40,7 +40,7 @@ firebase.auth().onAuthStateChanged(function(user){
                 for (const doc of snapshot.docs)
                 {
 
-                appendElement("a",doc.data()["BookClubName"]);
+                appendElement("a",doc.data()["BookClubName"], doc.id);
                 // output+="\n<a href=\"clubhomepage?" + doc.data()["BookClubName"] +"\" >";
                 // output+= doc.data()["BookClubName"];
                 // output+= "</a>\n"
