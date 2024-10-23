@@ -19,10 +19,10 @@ const auth = getAuth();
 const db = getFirestore(app);
 
 function appendElement (elemNode,textNode,href) {
-    var container = document.getElementById("body");
+    var container = document.getElementById("listOfClubs");
     var element = document.createElement(elemNode);
     element.setAttribute("href","clubhomepage.html?id=" + href)
-    var text = document.createTextNode(textNode);
+    var text = document.createTextNode("\t" +textNode + "\n");
     element.appendChild(text);
     container.appendChild(element);
 }
@@ -41,6 +41,7 @@ firebase.auth().onAuthStateChanged(function(user){
                 {
 
                 appendElement("a",doc.data()["BookClubName"], doc.id);
+                appendElement("p", "\n", "none")
                 // output+="\n<a href=\"clubhomepage?" + doc.data()["BookClubName"] +"\" >";
                 // output+= doc.data()["BookClubName"];
                 // output+= "</a>\n"

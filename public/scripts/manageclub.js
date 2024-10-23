@@ -49,12 +49,16 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
   
   clubEditForm.addEventListener('submit', async function(e){
     e.preventDefault();
-    const clubName = clubEditForm["club-name"].value;
+    let clubName = clubEditForm["club-name"].value;
     let desc = clubEditForm["club-description"].value;
 
     if (desc == "")
     {
         desc = docRef.data()["clubDescription"];
+    }
+    if (clubName == "")
+    {
+        clubName = docRef.data()["BookClubName"];
     }
 
     
@@ -65,7 +69,7 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
 
 
-    if (qsnap.empty || clubName == docRef.docs[0].data()["BookClubName"]){
+    if (qsnap.empty || clubName == docRef.data()["BookClubName"]){
         await updateDoc(doc(db,"BookClubs", docRef.id), {
             BookClubName: clubName,
             clubDescription: desc
