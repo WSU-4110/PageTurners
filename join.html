@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join a Book Club</title>
+    <link rel="stylesheet" href="join.css">
+    <link rel="stylesheet" href="dashboard.css">
+
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="logo1.png" alt="PageTurners Logo" class="logo">
+                <span class="site-title"><a href="dashboard.html">PageTurners</a></span>
+            </div>
+            <nav class="nav-container">
+                <ul class="nav-list">
+                    <li><a href="dashboard.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#">My Clubs</a>
+                        <ul class="dropdownmenu" id="userdropdownmenu">
+                            <li><a href="overview.html">My Club Creation</a></li>
+                            <li><a href="club.html">Create a Club</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="join.html"><button class="loginbutton">Join</button></a>
+                    </li>
+                    <li class="user-dropdown">
+                        <img src="https://img.icons8.com/ios-glyphs/30/000000/user.png" alt="User Icon" class="user-icon" onclick="toggleDropdown()">
+                        <ul class="dropdown-menu" id="user-dropdown-menu">
+                            <li><a href="#">Discussions</a></li>
+                            <li><a href="#">Account</a></li>
+                            <li><a href="logout.html">Logout</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <!-- Collapsible Search bar with magnifying glass -->
+                        <form class="search-form" action="/search" method="GET">
+                            <input type="text" name="query" placeholder="Search for books, clubs, or authors" class="search-input" id="search-input">
+                            <button type="button" class="search-button" onclick="toggleSearch()">
+                                <img src="https://img.icons8.com/ios-glyphs/30/000000/search.png" alt="Search" class="search-icon">
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div id="clubs-container"></div>
+    </main>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const clubsContainer = document.getElementById("clubs-container");
+            const clubs = JSON.parse(localStorage.getItem("clubs")) || [];
+
+       
+            clubsContainer.innerHTML = "";
+
+            clubs.forEach((club, index) => {
+        
+                const clubListItem = document.createElement("section");
+                clubListItem.classList.add("club-list-item");
+
+               
+                const clubProfile = document.createElement("div");
+                clubProfile.classList.add("club-profile");
+                const profileImg = document.createElement("img");
+                profileImg.src = "club-profile.jpg";
+                profileImg.alt = "Profile Picture";
+                profileImg.classList.add("profile-picture");
+                clubProfile.appendChild(profileImg);
+
+            
+                const clubDetails = document.createElement("div");
+                clubDetails.classList.add("club-details");
+                const clubName = document.createElement("h2");
+                clubName.classList.add("club-name");
+                clubName.textContent = club.name;
+                const memberCount = document.createElement("p");
+                memberCount.classList.add("member-count");
+                memberCount.textContent = `${club.memberCount} member${club.memberCount > 1 ? 's' : ''}`;
+                clubDetails.appendChild(clubName);
+                clubDetails.appendChild(memberCount);
+
+             
+                const joinIcon = document.createElement("img");
+                joinIcon.src = "https://img.icons8.com/ios-filled/30/000000/plus-math.png";
+                joinIcon.alt = "Join Club";
+                joinIcon.classList.add("join-icon");
+                joinIcon.title = "Join the Club";
+                joinIcon.onclick = function() {
+                    joinClub(index);
+                };
+
+    
+                clubListItem.appendChild(clubProfile);
+                clubListItem.appendChild(clubDetails);
+                clubListItem.appendChild(joinIcon);
+                clubsContainer.appendChild(clubListItem);
+            });
+        });
+
+
+        function joinClub(index) {
+  
+            let clubs = JSON.parse(localStorage.getItem("clubs")) || [];
+            
+    
+            clubs[index].memberCount += 1;
+     
+            localStorage.setItem("clubs", JSON.stringify(clubs));
+            
+      
+            location.reload();
+        }
+
+ 
+        function closeAllDropdowns() {
+            document.querySelectorAll(".dropdown.open, .user-dropdown.open")
+                .forEach((dropdown) => {
+                    dropdown.classList.remove("open");
+                });
+        }
+
+
+        document.querySelector(".dropdown > a").addEventListener("click", function (event) {
+            event.preventDefault();
+            closeAllDropdowns();
+            const dropdown = document.querySelector(".dropdown");
+            dropdown.classList.toggle("open");
+        });
+
+
+        document.querySelector(".user-icon").addEventListener("click", function () {
+            closeAllDropdowns(); 
+            const userDropdown = document.querySelector(".user-dropdown");
+            userDropdown.classList.toggle("open");
+        });
+
+        document.addEventListener("click", function (event) {
+            const isClickInsideDropdown = event.target.closest(".dropdown, .user-dropdown");
+            if (!isClickInsideDropdown) {
+                closeAllDropdowns();
+            }
+        });
+        function toggleSearch() {
+            const searchInput = document.getElementById("search-input");
+            if (searchInput.style.display === "none" || searchInput.style.display === "") {
+                searchInput.style.display = "block";
+                searchInput.style.width = "200px"; 
+                searchInput.focus();
+            } else {
+                searchInput.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adding members</title>
+    <link rel="stylesheet" href="club.css" />
+    <link rel="stylesheet" href="dashboard.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <div class="logo-container">
+          <img src="logo1.png" alt="PageTurners Logo" class="logo" />
+          <span class="site-title"
+            ><a href="dashboard.html">PageTurners</a></span
+          >
+        </div>
+        <nav class="nav-container">
+          <ul class="nav-list">
+            <li><a href="dashboard.html">Home</a></li>
+            <li class="dropdown">
+              <a href="#">My Clubs</a>
+              <ul class="dropdownmenu" id="userdropdownmenu">
+                <li><a href="overview.html">My Club Creation</a></li>
+                <li><a href="club.html">Create a Club</a></li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="join.html"><button class="loginbutton">Join</button></a>
+            </li>
+
+            <li class="user-dropdown">
+              <img
+                src="https://img.icons8.com/ios-glyphs/30/000000/user.png"
+                alt="User Icon"
+                class="user-icon"
+                onclick="toggleDropdown()"
+              />
+              <ul class="dropdown-menu" id="user-dropdown-menu">
+                <li><a href="#">Discussions</a></li>
+                <li><a href="#">Account</a></li>
+                <li><a href="logout.html">Logout</a></li>
+              </ul>
+            </li>
+            <script>
+              // Function to close all open dropdowns
+              function closeAllDropdowns() {
+                document
+                  .querySelectorAll(".dropdown.open, .user-dropdown.open")
+                  .forEach((dropdown) => {
+                    dropdown.classList.remove("open");
+                  });
+              }
+
+              // Toggle the "My Clubs" dropdown
+              document
+                .querySelector(".dropdown > a")
+                .addEventListener("click", function (event) {
+                  event.preventDefault();
+                  closeAllDropdowns(); // Close any other open dropdown
+                  const dropdown = document.querySelector(".dropdown");
+                  dropdown.classList.toggle("open"); // Toggle the clicked dropdown
+                });
+
+              // Toggle the "User Icon" dropdown
+              document
+                .querySelector(".user-icon")
+                .addEventListener("click", function () {
+                  closeAllDropdowns(); // Close any other open dropdown
+                  const userDropdown = document.querySelector(".user-dropdown");
+                  userDropdown.classList.toggle("open"); // Toggle the clicked dropdown
+                });
+
+              // Close dropdown if clicking outside of it
+              document.addEventListener("click", function (event) {
+                const isClickInsideDropdown = event.target.closest(
+                  ".dropdown, .user-dropdown"
+                );
+
+                if (!isClickInsideDropdown) {
+                  closeAllDropdowns(); // Close all dropdowns if clicked outside
+                }
+              });
+            </script>
+
+            <li>
+              <!-- Collapsible Search bar with magnifying glass -->
+              <form class="search-form" action="/search" method="GET">
+                <input
+                  type="text"
+                  name="query"
+                  placeholder="Search for books, clubs, or authors"
+                  class="search-input"
+                  id="search-input"
+                />
+                <button
+                  type="button"
+                  class="search-button"
+                  onclick="toggleSearch()"
+                >
+                  <img
+                    src="https://img.icons8.com/ios-glyphs/30/000000/search.png"
+                    alt="Search"
+                    class="search-icon"
+                  />
+                </button>
+              </form>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <div class="headercontainer">
+      <h1>Want to add members?</h1>
+    </div>
+    <div class="main-content">
+      <main>
+        <section class="club-creation-container">
+          <!-- Left side with form -->
+          <div class="club-form-section">
+            <img src="club-icon.jpg" alt="Club Icon" class="club-icon" />
+            <form action="#" method="POST" class="club-creation-form">
+              <label for="club-name" class="club-label"
+                >INVITE PEOPLE TO YOUR CLUB</label
+              >
+              <input
+                type="text"
+                id="club-name"
+                name="club-name"
+                placeholder="Enter their email address"
+                required
+              />
+
+              <a href="message.html" class="create-club-button">SEND INVITATION</a>
+            </form>
+          </div>
+
+          <!-- Right side preview section -->
+          <div class="preview-section">
+            <img
+              src="13.jpg"
+              alt="Club Preview on Mobile"
+              class="preview-img"
+            />
+          </div>
+        </section>
+      </main>
+    </div>
+    <script>
+      // Ensure the DOM is fully loaded before adding the event listener
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .querySelector(".invite-button")
+          .addEventListener("click", function () {
+            const emailInput = document.getElementById("email").value.trim();
+            if (!emailInput) {
+              alert("Please enter an email address.");
+              return;
+            }
+
+            // Store the email in localStorage
+            let memberEmails =
+              JSON.parse(localStorage.getItem("memberEmails")) || [];
+            memberEmails.push(emailInput);
+            localStorage.setItem("memberEmails", JSON.stringify(memberEmails));
+
+            // Redirect to join.html
+            window.location.href = "message.html";
+          });
+      });
+    </script>
+
+    <footer>
+      <p>&copy; 2024 PageTurners. All Rights Reserved.</p>
+    </footer>
+  </body>
+</html>
