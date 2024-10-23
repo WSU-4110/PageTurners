@@ -123,17 +123,16 @@
           <!-- Left side with form -->
           <div class="club-form-section">
             <img src="../../images/club-icon.jpg" alt="Club Icon" class="club-icon" />
-            <form action="#" method="POST" class="club-creation-form">
+            <form id="createClubForm" action="#" method="POST" class="club-creation-form">
               <label for="club-name" class="club-label">Club Name</label>
               <input
                 type="text"
-                id="club-name"
+                id="clubname"
                 name="club-name"
                 placeholder="Enter Club Name"
                 required
               />
-
-              <a href="invite.html" class="create-club-button">Create My Club</a>
+              <button type="submit">Create Club</button>
 
               <p class="message">
                 Your bookclub name can always be changed!
@@ -152,7 +151,7 @@
         </section>
       </main>
     </div>
-    <script>
+    <!-- <script>
   document.querySelector(".create-club-button").addEventListener("click", function (event) {
       const clubNameInput = document.getElementById("club-name").value.trim();
       if (!clubNameInput) {
@@ -173,7 +172,8 @@
 
       window.location.href = "invite.html";
   });
-</script>
+</script> -->
+<script type="module" src="../../scripts/createClub.js"></script>
 
 
     <footer>

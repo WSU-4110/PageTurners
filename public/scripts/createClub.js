@@ -24,7 +24,7 @@ auth.onAuthStateChanged(function(user){
 
     clubCreateForm.addEventListener('submit', async function(e){
         e.preventDefault();
-        const clubName = clubCreateForm["clubName"].value;
+        const clubName = clubCreateForm["clubname"].value;
 
         let bookClubsRef = collection(db, "BookClubs");
         const q = query(bookClubsRef, where("BookClubName", "==", clubName));
@@ -35,7 +35,8 @@ auth.onAuthStateChanged(function(user){
         if (qsnap.empty){
             await addDoc(collection(db,"BookClubs"), {
                 BookClubName: clubName,
-                ClubUsers: [user.uid]
+                ClubUsers: [user.uid],
+                clubDescription: "no description"
             }, clubName)
 
             window.location.href = "./dashboard.html";
