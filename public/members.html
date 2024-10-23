@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Club Members</title>
+    <link rel="stylesheet" href="created.css" />
+  </head>
+  <body>
+    <div class="container">
+      <aside class="sidebar">
+        <div class="profile-container">
+          <img
+            src="default-club.jpg"
+            alt="Club Profile Picture"
+            class="club-profile-pic"
+          />
+          <button
+            onclick="document.getElementById('profile-pic-upload').click()"
+            class="upload-btn"
+          >
+            Change Profile Picture
+          </button>
+        </div>
+        <nav class="sidebar-nav">
+          <ul>
+            <li><a href="overview.html">Overview</a></li>
+            <li><a href="members.html">Members</a></li>
+            <li><a href="meetings.html">Meetings</a></li>
+            <li><a href="logout.html">Logout</a></li>
+          </ul>
+        </nav>
+      </aside>
+      <main class="main-content">
+        <h2>Club Members</h2>
+        <p>
+          You can remove and add members to your book club here.
+        </p>
+      </main>
+    </div>
+    <script src="club.js"></script>
+  </body>
+</html>

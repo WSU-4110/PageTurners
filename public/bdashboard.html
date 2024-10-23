@@ -10,7 +10,7 @@
     <header>
       <div class="header-container">
         <div class="logo-container">
-          <img src="logo.png" alt="PageTurners Logo" class="logo" />
+          <img src="images/logo.png" alt="PageTurners Logo" class="logo" />
           <span class="site-title">PageTurners</span>
         </div>
         <nav class="nav-container">
@@ -18,34 +18,13 @@
             <li><a href="#">Home</a></li>
             <li><a href="#">My Clubs</a></li>
             <li>
-              <a ><button class="loginbutton">Join</button></a>
+              <a href="login.html"><button class="loginbutton">Login</button></a>
             </li>
-            <li id="user-email">
+            <li>
+              <a href="register.html"
+                ><button class="joinbutton">Register</button></a
+              >
             </li>
-
-            <li class="user-dropdown">
-              <img
-                src="https://img.icons8.com/ios-glyphs/30/000000/user.png"
-                alt="User Icon"
-                class="user-icon"
-                onclick="toggleDropdown()"
-              />
-              <ul class="dropdown-menu" id="user-dropdown-menu">
-                <li><a href="#">Discussions</a></li>
-                <li><a href="#">Account</a></li>
-                <li><a href="verify-email.html">Verify Email</a></li>
-                <li><a href="logout.html">Logout</a></li>
-              </ul>
-            </li>
-            <script>
-              // JavaScript to toggle dropdown visibility
-              document
-                .querySelector(".user-icon")
-                .addEventListener("click", function () {
-                  const dropdown = document.querySelector(".user-dropdown");
-                  dropdown.classList.toggle("open");
-                });
-            </script>
             <li>
               <!-- Collapsible Search bar with magnifying glass -->
               <form class="search-form" action="/search" method="GET">
@@ -77,7 +56,7 @@
     <!-- Edge-to-edge Image Carousel Section -->
     <section class="image-carousel">
       <div class="carousel">
-        <img id="carousel-image" src="first1.png" alt="First Picture" />
+        <img id="carousel-image" src="images/first1.png" alt="First Picture" />
       </div>
       <div class="carousel-controls">
         <span class="dot" onclick="changeImage(1)"></span>
@@ -102,39 +81,39 @@
 
         <div class="genres-grid">
           <div class="genre-card">
-            <img src="fiction.jpeg" alt="Fiction" />
+            <img src="images/fiction.jpeg" alt="Fiction" />
             <h4>Fiction</h4>
           </div>
           <div class="genre-card">
-            <img src="non-fiction.jpg" alt="Non-fiction" />
+            <img src="images/non-fiction.jpg" alt="Non-fiction" />
             <h4>Non-fiction</h4>
           </div>
           <div class="genre-card">
-            <img src="fantasy.jpg" alt="Fantasy" />
+            <img src="images/fantasy.jpg" alt="Fantasy" />
             <h4>Fantasy</h4>
           </div>
           <div class="genre-card">
-            <img src="action.jpeg" alt="Action" />
+            <img src="images/action.jpeg" alt="Action" />
             <h4>Action</h4>
           </div>
           <div class="genre-card">
-            <img src="adventure.jpeg" alt="Adventure" />
+            <img src="images/adventure.jpeg" alt="Adventure" />
             <h4>Adventure</h4>
           </div>
           <div class="genre-card">
-            <img src="drama.jpeg" alt="Drama" />
+            <img src="images/drama.jpeg" alt="Drama" />
             <h4>Drama</h4>
           </div>
           <div class="genre-card">
-            <img src="romance.jpeg" alt="Romance" />
+            <img src="images/romance.jpeg" alt="Romance" />
             <h4>Romance</h4>
           </div>
           <div class="genre-card">
-            <img src="historical.jpg" alt="Historical" />
+            <img src="images/historical.jpg" alt="Historical" />
             <h4>Historical</h4>
           </div>
           <div class="genre-card">
-            <img src="crime.jpeg" alt="Crime" />
+            <img src="images/crime.jpeg" alt="Crime" />
             <h4>Crime</h4>
           </div>
         </div>
@@ -147,36 +126,36 @@
         </div>
         <div class="books-grid">
           <div class="book-card">
-            <img src="featuredbook1.jpg" alt="Featured Book 1" />
+            <img src="images/featuredbook1.jpg" alt="Featured Book 1" />
           </div>
           <div class="book-card">
-            <img src="featuredbook2.jpg" alt="Featured Book 2" />
+            <img src="images/featuredbook2.jpg" alt="Featured Book 2" />
           </div>
           <div class="book-card">
-            <img src="featuredbook3.jpg" alt="Featured Book 3" />
+            <img src="images/featuredbook3.jpg" alt="Featured Book 3" />
           </div>
           <div class="book-card">
-            <img src="featuredbook4.jpg" alt="Featured Book 4" />
+            <img src="images/featuredbook4.jpg" alt="Featured Book 4" />
             <!--   <h4>Don't forget to write</h4> -->
             <!-- <p>Sara Goodman Confino</p> -->
           </div>
           <div class="book-card">
-            <img src="featuredbook5.jpg" alt="Featured Book 5" />
+            <img src="images/featuredbook5.jpg" alt="Featured Book 5" />
           </div>
           <div class="book-card">
-            <img src="featuredbook6.jpg" alt="Featured Book 6" />
+            <img src="images/featuredbook6.jpg" alt="Featured Book 6" />
           </div>
           <div class="book-card">
-            <img src="featuredbook7.jpg" alt="Featured Book 7" />
+            <img src="images/featuredbook7.jpg" alt="Featured Book 7" />
           </div>
           <div class="book-card">
-            <img src="featuredbook8.jpg" alt="Featured Book 8" />
+            <img src="images/featuredbook8.jpg" alt="Featured Book 8" />
           </div>
           <div class="book-card">
-            <img src="featuredbook9.jpg" alt="Featured Book 9" />
+            <img src="images/featuredbook9.jpg" alt="Featured Book 9" />
           </div>
           <div class="book-card">
-            <img src="featuredbook10.jpg" alt="Featured Book 10" />
+            <img src="images/featuredbook10.jpg" alt="Featured Book 10" />
           </div>
         </div>
       </section>
@@ -188,17 +167,17 @@
         </div>
         <div class="clubs-grid">
           <div class="club-card">
-            <img src="bookclub1.jpeg" alt="Book Club 1" />
+            <img src="images/bookclub1.jpeg" alt="Book Club 1" />
             <h4>Lily's Book Club</h4>
             <p>5 members</p>
           </div>
           <div class="club-card">
-            <img src="bookclub2.jpeg" alt="Book Club 2" />
+            <img src="images/bookclub2.jpeg" alt="Book Club 2" />
             <h4>The Authors Club</h4>
             <p>3 members</p>
           </div>
           <div class="club-card">
-            <img src="bookclub3.jpeg" alt="Book Club 3" />
+            <img src="images/bookclub3.jpeg" alt="Book Club 3" />
             <h4>We love books</h4>
             <p>10 members</p>
           </div>
@@ -209,55 +188,56 @@
       <section class="trending-groups">
         <div class="section-header">
           <h3>Trending Group Discussions</h3>
-          <a href="discussion.html?id=1" class="joinbutton">Join</a>
+          <a href="#" class="browse-allbutton">Browse All</a>
         </div>
         <div class="trending-scroll">
           <div class="trending-card">
             <img
-              src="trendinggroupdiscussion1.jpeg"
-              alt="Trending Group Discussion 1" />
+              src="images/trendinggroupdiscussion1.jpeg"
+              alt="Trending Group Discussion 1"
+            />
             <div class="trending-content">
               <h4>Why do we read books?</h4>
               <p>10 replies</p>
-              <a href="discussion.html?id=2" class="joinbutton">Join</a>
+              <a href="#" class="joinbutton">Join</a>
             </div>
           </div>
           <div class="trending-card">
             <img
-              src="trendinggroupdiscussion2.jpeg"
+              src="images/trendinggroupdiscussion2.jpeg"
               alt="Trending Group Discussion 2"
             />
             <div class="trending-content">
               <h4>We are all different</h4>
               <p>5 replies</p>
-              <a href="discussion.html?id=3" class="joinbutton">Join</a>
+              <a href="#" class="joinbutton">Join</a>
             </div>
           </div>
           <div class="trending-card">
             <img
-              src="trendinggroupdiscussion3.webp"
+              src="images/trendinggroupdiscussion3.webp"
               alt="Trending Group Discussion 3"
             />
             <div class="trending-content">
               <h4>What did you learn from this book?</h4>
               <p>8 replies</p>
-              <a href="discussion.html?id=4" class="joinbutton">Join</a> 
+              <a href="#" class="joinbutton">Join</a>
             </div>
           </div>
           <div class="trending-card">
             <img
-              src="trendinggroupdiscussion4.jpeg"
+              src="images/trendinggroupdiscussion4.jpeg"
               alt="Trending Group Discussion 4"
             />
             <div class="trending-content">
               <h4>Was Frankenstein book satisfying to read?</h4>
               <p>5 replies</p>
-              <a href="discussion.html?id=5" class="joinbutton">Join</a>
+              <a href="#" class="joinbutton">Join</a>
             </div>
           </div>
           <div class="trending-card">
             <img
-              src="trendinggroupdiscussion5.jpeg"
+              src="images/trendinggroupdiscussion5.jpeg"
               alt="Trending Group Discussion 5"
             />
             <div class="trending-content">
@@ -266,7 +246,7 @@
                 a book?
               </h4>
               <p>4 replies</p>
-              <a href="discussion.html?id=6" class="joinbutton">Join</a>
+              <a href="#" class="joinbutton">Join</a>
             </div>
           </div>
         </div>
@@ -278,30 +258,30 @@
       <div class="recommendations-grid">
         <div class="recommendation-item">
           <span class="number">1</span>
-          <img src="bookrecommendations1.jpg" alt="Book Recommendation 1" />
+          <img src="images/bookrecommendations1.jpg" alt="Book Recommendation 1" />
         </div>
         <div class="recommendation-item">
           <span class="number">2</span>
-          <img src="bookrecommendations2.jpg" alt="Book Recommendation 2" />
+          <img src="images/bookrecommendations2.jpg" alt="Book Recommendation 2" />
         </div>
         <div class="recommendation-item">
           <span class="number">3</span>
-          <img src="bookrecommendations3.jpg" alt="Book Recommendation 3" />
+          <img src="images/bookrecommendations3.jpg" alt="Book Recommendation 3" />
         </div>
       </div>
     </section>
     <script>
       const images = [
-        "first1.png",
-        "second2.jpg",
-        "third3.jpg",
-        "fourth4.webp",
-        "fifth5.jpg",
-        "sixth6.jpg",
-        "seventh7.jpeg",
-        "eigth8.jpg",
-        "ninth9.jpg",
-        "tenth10.jpg",
+        "images/first1.png",
+        "images/second2.jpg",
+        "images/third3.jpg",
+        "images/fourth4.webp",
+        "images/fifth5.jpg",
+        "images/sixth6.jpg",
+        "images/seventh7.jpeg",
+        "images/eigth8.jpg",
+        "images/ninth9.jpg",
+        "images/tenth10.jpg",
       ];
 
       function changeImage(index) {
@@ -327,40 +307,5 @@
     <footer>
       <p>&copy; 2024 PageTurners. All Rights Reserved.</p>
     </footer>
-    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-analytics.js";
-        import {getAuth } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
-        import firebase from "firebase/compat/app";
-        // Required for side-effects
-        import "firebase/firestore";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-          apiKey: "AIzaSyAt-SInlPaL2FzwtXrRltIEiV5l8k5HMjg",
-          authDomain: "pageturners-a831a.firebaseapp.com",
-          projectId: "pageturners-a831a",
-          storageBucket: "pageturners-a831a.appspot.com",
-          messagingSenderId: "304224952392",
-          appId: "1:304224952392:web:f33dbc84b481e39a44787d",
-          measurementId: "G-C6DKQSJ1R8"
-        };
-      
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        
-        
-      </script>
-    <script type="module" src="scripts/auth1.js"> </script>
   </body>
 </html>
