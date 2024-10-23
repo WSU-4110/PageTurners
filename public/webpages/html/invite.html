@@ -3,15 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Book Club Creation</title>
-    <link rel="stylesheet" href="club.css" />
-    <link rel="stylesheet" href="dashboard.css" />
+    <title>Adding members</title>
+    <link rel="stylesheet" href="../css/club.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
   </head>
   <body>
     <header>
       <div class="header-container">
         <div class="logo-container">
-          <img src="images/logo1.png" alt="PageTurners Logo" class="logo" />
+          <img src="../../images/logo1.png" alt="PageTurners Logo" class="logo" />
           <span class="site-title"
             ><a href="dashboard.html">PageTurners</a></span
           >
@@ -114,37 +114,34 @@
     </header>
 
     <div class="headercontainer">
-      <h1>Give Your Club a Name</h1>
+      <h1>Want to add members?</h1>
     </div>
-
     <div class="main-content">
       <main>
         <section class="club-creation-container">
           <!-- Left side with form -->
           <div class="club-form-section">
-            <img src="images/club-icon.jpg" alt="Club Icon" class="club-icon" />
+            <img src="../../images/club-icon.jpg" alt="Club Icon" class="club-icon" />
             <form action="#" method="POST" class="club-creation-form">
-              <label for="club-name" class="club-label">Club Name</label>
+              <label for="club-name" class="club-label"
+                >INVITE PEOPLE TO YOUR CLUB</label
+              >
               <input
                 type="text"
                 id="club-name"
                 name="club-name"
-                placeholder="Enter Club Name"
+                placeholder="Enter their email address"
                 required
               />
 
-              <a href="invite.html" class="create-club-button">Create My Club</a>
-
-              <p class="message">
-                Your bookclub name can always be changed!
-              </p>
+              <a href="message.html" class="create-club-button">SEND INVITATION</a>
             </form>
           </div>
 
           <!-- Right side preview section -->
           <div class="preview-section">
             <img
-              src="images/choose2.jpg.avif"
+              src="../../images/13.jpg"
               alt="Club Preview on Mobile"
               class="preview-img"
             />
@@ -153,28 +150,28 @@
       </main>
     </div>
     <script>
-  document.querySelector(".create-club-button").addEventListener("click", function (event) {
-      const clubNameInput = document.getElementById("club-name").value.trim();
-      if (!clubNameInput) {
-          event.preventDefault();
-          alert("Please enter a club name.");
-          return;
-      }
+      // Ensure the DOM is fully loaded before adding the event listener
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .querySelector(".invite-button")
+          .addEventListener("click", function () {
+            const emailInput = document.getElementById("email").value.trim();
+            if (!emailInput) {
+              alert("Please enter an email address.");
+              return;
+            }
 
-      let clubs = JSON.parse(localStorage.getItem("clubs")) || [];
+            // Store the email in localStorage
+            let memberEmails =
+              JSON.parse(localStorage.getItem("memberEmails")) || [];
+            memberEmails.push(emailInput);
+            localStorage.setItem("memberEmails", JSON.stringify(memberEmails));
 
-  
-      const newClub = { name: clubNameInput, memberCount: 1 };
-
-      clubs.push(newClub);
-
-      localStorage.setItem("clubs", JSON.stringify(clubs));
-
-
-      window.location.href = "invite.html";
-  });
-</script>
-
+            // Redirect to join.html
+            window.location.href = "message.html";
+          });
+      });
+    </script>
 
     <footer>
       <p>&copy; 2024 PageTurners. All Rights Reserved.</p>

@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <link rel="stylesheet" href="loginreg.css">
-</head>
-<body>
-  <div class="wrapper register">
-    <h1>Join Pageturners!</h1>
-    <p>Sign up and be a part of our book-loving community!</p>
-    <form id="signup-form">
-      <input type="email" id="email" placeholder="Enter your email" required>
-      <input type="password" id = "password" placeholder="Create a password" required>
-      <button type="submit" class="register">Register</button>
-    </form>
-    
-    
-    <div class="not-member">
-      Already a member? <a href="login.html">Login here</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Logout</title>
+    <link rel="stylesheet" href="../css/logout.css" />
+  </head>
+  <body>
+    <div class="logoutcon">
+      <div class="logoutmessage">
+        <h2>Are you sure you want to logout?</h2>
+        <p>
+          If you logout now, you will have to log in again to access your
+          account.
+        </p>
+
+        <div class="logoutbuttons">
+          <a href="bdashboard.html" id="logout" class="confirmbutton">Confirm Logout</a>
+          <a href="dashboard.html" class="cancelbutton">Cancel</a>
+        </div>
+      </div>
     </div>
-  </div>
     <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
     <script type="module">
@@ -55,6 +55,6 @@
         
         
       </script>
-      <script type="module" src="scripts/auth1.js"> </script>
-</body>
+    <script type="module" src="scripts/auth1.js"> </script>
+  </body>
 </html>
