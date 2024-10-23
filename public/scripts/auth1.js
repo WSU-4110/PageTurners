@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-analytics.js";
+  import { getFirestore, collection, addDoc, setDoc, doc} from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js';
   import { getAuth, 
     createUserWithEmailAndPassword,
 signOut,
@@ -27,33 +28,45 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
   const auth = getAuth();
-
-  
+  const db = getFirestore(app);
 // signup form
 
 
 const signupForm = document.querySelector("#signup-form");
 
-if (signupForm != null)
-{
-signupForm.addEventListener('submit', function(e) {
-e.preventDefault();
+if (signupForm != null) {
+    signupForm.addEventListener('submit', function(e) {
+        e.preventDefault();
 
-// get user info
-const email = signupForm["email"].value;
-const password = signupForm["password"].value;
+        // Get user info
+        const email = signupForm["email"].value;
+        const password = signupForm["password"].value;
 
-console.log(email, password);
- 
-// sign up user
+        console.log(email, password);
 
-createUserWithEmailAndPassword(auth, email,password).then(cred=>{
-    console.log(cred);
-    alert("Account Creation Success");
-    window.location.href = "./dashboard.html";
-});
-});
+        // Sign up user
+        createUserWithEmailAndPassword(auth, email, password)
+            .then(cred => {
+                let user = cred.user;
+                return setDoc(doc(db, "Users", user.uid), {
+                    email: user.email,
+                    uid: user.uid
+                });
+            })
+            .then(() => {
+                alert("Account Creation Success");
+                window.location.href = "./dashboard.html";
+            })
+            .catch(error => {
+                console.error("Error: ", error);
+                alert("Error creating account: " + error.message);
+            });
+    });
 }
+        
+
+
+
 
 const loginForm = document.querySelector("#login-form");
 
@@ -66,7 +79,7 @@ if (loginForm != null)
         const password = loginForm["password"].value;
 
         signInWithEmailAndPassword(auth,email,password).then( cred=> {
-            console.log(cred);
+            console.log(cred);          
             window.signedinemail = email;
             window.location.href = "./dashboard.html";
         }
@@ -88,12 +101,19 @@ logout.addEventListener('click', (e)=>{
 });
 }
 
-onAuthStateChanged(auth, (user)=>{
-    if (user){
-    document.querySelector("#user-email").textContent = user.email;
-    }
-})
 
 
 
 
+
+ // addDoc(collection(db,"Users"), 
+    // {
+    //     email: user.email,
+    //     uid: user.uid,
+    //     clubs: []
+    // }).then(docref=>{
+    //     console.log("Doc written with ID: ", docref.id);
+    // }).catch(error => {
+    //     console.error("Error writing document: ", error);
+    //     alert("Error creating account: " + error.message);
+    //   })
