@@ -1,3 +1,4 @@
+/* General Styles */
 * {
   margin: 0;
   padding: 0;
@@ -6,25 +7,17 @@
 }
 
 body {
-  background-color: #ffffff;
+  background-color: #f8f5f2;
   color: #333;
 }
 
 .header-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-between; /* Distributes space between elements */
+  align-items: center; /* Vertically center-aligns the items */
   padding: 1em 2em;
   background-color: #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-}
-
-.headercontainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1em 2em;
-  color: #ff6f61;
 }
 
 .logo-container {
@@ -44,15 +37,6 @@ body {
   color: #ff6f61;
 }
 
-.site-title a {
-  color: #ff6f61;
-  text-decoration: none; 
-}
-
-.site-title a:visited {
-  color: #ff6f61;
-}
-
 nav ul li a {
   color: #333;
   text-decoration: none;
@@ -66,15 +50,15 @@ nav ul li a {
 
 .nav-list {
   list-style: none;
-  display: flex; 
-  align-items: center;
-  gap: 2em;
+  display: flex; /* Aligns the navigation items horizontally */
+  align-items: center; /* Vertically centers the nav items */
+  gap: 2em; /* Adds space between each nav item */
   margin-left: auto;
 }
 
 .loginbutton,
 .joinbutton {
-  background-color: #ff6f61; 
+  background-color: #ff6f61; /* Bright coral for login and join buttons */
   color: #fff;
   border: none;
   padding: 0.75em 1.5em;
@@ -93,6 +77,7 @@ nav ul li a {
 main {
   padding: 3em;
 }
+/* Search bar with magnifying glass */
 .search-form {
   display: flex;
   align-items: center;
@@ -103,7 +88,7 @@ main {
   font-size: 16px;
   border-radius: 25px;
   border: 1px solid #ccc;
-  display: none; 
+  display: none; /* Initially hidden */
   transition: width 0.3s ease-in-out;
 }
 
@@ -119,6 +104,70 @@ main {
   width: 20px;
   height: 20px;
 }
+/* Search bar with magnifying glass */
+.search-form {
+  display: flex;
+  align-items: center;
+  position: relative; /* To position suggestions */
+}
+
+.search-input {
+  padding: 0.5em;
+  font-size: 16px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  transition: width 0.3s ease-in-out;
+}
+
+.search-button {
+  background-color: #ff6f61;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.search-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Suggestions List */
+.suggestions-list {
+  position: absolute; /* Position below input */
+  top: 100%; /* Align with the bottom of the input */
+  left: 0; /* Align to the left of the input */
+  right: 0; /* Extend to the right */
+  background: white; /* Background color for suggestions */
+  border: 1px solid #ccc; /* Border for suggestions */
+  border-radius: 5px; /* Rounded corners */
+  list-style: none; /* Remove bullet points */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+  max-height: 200px; /* Limit height */
+  overflow-y: auto; /* Scrollable if needed */
+  z-index: 10; /* Ensure it appears above other elements */
+}
+
+.suggestion-item {
+  display: flex; /* Flexbox for image and text */
+  align-items: center; /* Center vertically */
+  padding: 0.5em; /* Padding for items */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.suggestion-item:hover {
+  background: #f0f0f0; /* Highlight on hover */
+}
+
+.suggestion-item img {
+  width: 30px; /* Width for suggestion images */
+  height: 30px; /* Height for suggestion images */
+  margin-right: 0.5em; /* Space between image and text */
+}
+
+
+
 .welcome-section h2 {
   font-size: 42px;
   color: #4caf50;
@@ -164,8 +213,9 @@ main {
   background-color: #ff6f61;
 }
 
+/* Horizontal scrollable genres section */
 .genres-section {
-  margin-bottom: 5em; 
+  margin-bottom: 5em; /* Add gap between genres and featured books */
   text-align: left;
 }
 
@@ -210,7 +260,7 @@ main {
   transform: scale(1.05);
 }
 
-
+/* Left-aligned sections for featured books and book clubs */
 .featured-books,
 .book-clubs {
   text-align: left;
@@ -259,12 +309,12 @@ h3 {
 
 .book-card,
 .club-card {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 }
 
 .book-card:hover,
 .club-card:hover {
-  transform: translateY(-10px); 
+  transform: translateY(-10px); /* Floating effect */
 }
 
 .book-card:hover,
@@ -273,15 +323,15 @@ h3 {
 }
 
 .book-card img {
-  width: 150px; 
-  height: 250px; 
-  object-fit: cover;
+  width: 150px; /* Adjust width */
+  height: 250px; /* Consistent height */
+  object-fit: cover; /* Ensures the img scales properly */
   border-radius: 8px;
 }
 .club-card img {
   width: 120px;
   height: 120px;
-  border-radius: 50%;
+  border-radius: 50%; /* Circular img */
   object-fit: cover;
 }
 .club-card h4,
@@ -295,6 +345,7 @@ h3 {
   color: #ff6f61;
 }
 
+/* Recommendations Section */
 .recommendations-grid {
   display: flex;
   gap: 2em;
@@ -366,14 +417,14 @@ h3 {
 .trending-grid {
   display: flex;
   gap: 2em;
-  justify-content: center;
+  justify-content: center; /* Center the items horizontally */
 }
 .trending-content {
   display: flex;
   flex-direction: column;
   margin-bottom: 1em;
 
-  word-wrap: break-word; 
+  word-wrap: break-word; /* Ensures text doesn't overflow the container */
 }
 
 .trending-card {
@@ -382,37 +433,38 @@ h3 {
   padding: 1em;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  min-width: 300px; 
-  flex-shrink: 0; 
+  min-width: 300px; /* Each card has a minimum width */
+  flex-shrink: 0; /* Prevent cards from shrinking */
   transition: transform 0.3s ease;
 }
 
 .trending-card .joinbutton {
-  margin-top: 0.5em;
-  background-color: #ff6f61; 
+  margin-top: 0.5em; /* Adds space between the button and text */
+  background-color: #ff6f61; /* Your preferred color */
   color: white;
-  border-radius: 5px; 
-  font-size: 14px; 
+  /*padding: 0; No padding to make the button tightly fit the text */
+  border-radius: 5px; /* Small border radius for minimal rounded edges */
+  font-size: 14px; /* Font size for the text */
   font-weight: bold;
   text-decoration: none;
-  display: inline-block; 
-  height: auto;
-  line-height: normal; 
-  min-width: 50px; 
-  padding: 0.2em 0.5em;
-  text-align: center; 
+  display: inline-block; /* Ensures the button does not stretch */
+  height: auto; /* Ensures the height is just enough to fit the text */
+  line-height: normal; /* Ensures the line height is normal and doesn't make the button taller */
+  min-width: 50px; /* Set a small minimum width */
+  padding: 0.2em 0.5em; /* Tighter padding for a smaller button */
+  text-align: center; /* Center-align the text */
 
-  max-width: 120px; 
+  max-width: 120px; /* Maximum width to prevent stretching */
 }
 
 .joinbutton:hover {
-  background-color: #ff3d33;
+  background-color: #ff3d33; /* Darker color on hover */
 }
 
 .trending-card img {
   width: 80px;
   height: 80px;
-  border-radius: 50%; 
+  border-radius: 50%; /* Circular img */
   object-fit: cover;
   margin-bottom: 1em;
 }
@@ -427,15 +479,31 @@ h3 {
   padding-bottom: 1em;
 }
 
+/*.joinbutton {
+  margin-top: auto;
+  background-color: #ff6f61;
+  color: white;
+  padding: 0.3em 1em;
+  border-radius: 25px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.joinbutton:hover {
+  background-color: #ff3d33;
+}*/
 
 footer {
   text-align: center;
   padding: 2em 0;
-  background-color: #faf9f7;
+  background-color: #f5f5f5;
   color: #666;
   font-size: 14px;
 }
 
+/* Style for the user dropdown */
 .user-dropdown {
   position: relative;
   display: inline-block;
@@ -468,38 +536,75 @@ footer {
   display: block;
 }
 
+.dropdown-menu li a:hover {
+  background-color: #ff6f61; /* Highlight color on hover */
+  color: white;
+}
+
+/* Show dropdown on click */
 .user-dropdown.open .dropdown-menu {
   display: block;
 }
-
-.dropdown {
-  position: relative;
-  display: inline-block;
+/*results.html*/
+/* General styling for the results container */
+.results-container {
+  margin: 2em auto;
+  max-width: 1200px; /* Container size */
+  text-align: center; /* Center-align text */
 }
 
-.dropdownmenu {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  min-width: 150px;
-  border-radius: 8px;
-  padding: 1em 0;
-  z-index: 1;
-}
-
-.dropdownmenu li {
-  padding: 0.75em 1em;
-  list-style: none;
-}
-.dropdownmenu li a {
-  text-decoration: none;
+h1 {
+  font-size: 2em;
   color: #333;
-  display: block;
+  margin-bottom: 1.5em;
 }
 
-.dropdown.open .dropdownmenu {
-  display: block;
+/* Styling for the search result cards */
+.result-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 1em;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  margin: 1em;
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+
+.result-item:hover {
+  transform: scale(1.05); /* Slight scaling effect on hover */
+}
+
+/* Book thumbnail inside the result card */
+.result-item img {
+  width: 128px;
+  height: 192px;
+  border-radius: 10px;
+  margin-bottom: 1em;
+}
+
+/* Book title */
+.result-item h3 {
+  font-size: 1.25em;
+  color: #333;
+  margin-bottom: 0.5em;
+}
+
+/* Author and description */
+.result-item p {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 0.5em;
+}
+
+
+/* Layout for the results list */
+#results-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center-align the results */
+  gap: 1em; /* Add space between items */
 }
