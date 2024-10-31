@@ -1,28 +1,36 @@
-// Function to handle the profile picture change
-function changeProfilePicture(event) {
-  const reader = new FileReader();
-  const file = event.target.files[0];
+class CreatingProfilePicture {
+  constructor() {
+    if (CreatingProfilePicture.instance) {
+      return CreatingProfilePicture.instance;
+    }
 
-  reader.onload = function () {
-    const profilePic = document.getElementById("club-profile-pic");
-    profilePic.src = reader.result;
+    CreatingProfilePicture.instance = this;
+  }
 
-    // Save the image data to localStorage
-    localStorage.setItem("profilePicture", reader.result);
-  };
+  loadProfilePicture() {
+    const savedProfilePic = localStorage.getItem("profilePicture");
+    if (savedProfilePic) {
+      document.getElementById("club-profile-pic").src = savedProfilePic;
+    }
+  }
 
-  if (file) {
-    reader.readAsDataURL(file);
+  changeProfilePicture(event) {
+    const reader = new FileReader();
+    const file = event.target.files[0];
+
+    reader.onload = () => {
+      const profilePic = document.getElementById("club-profile-pic");
+      profilePic.src = reader.result;
+
+      localStorage.setItem("profilePicture", reader.result);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   }
 }
 
-// Function to load the profile picture from localStorage on page load
-function loadProfilePicture() {
-  const savedProfilePic = localStorage.getItem("profilePicture");
-  if (savedProfilePic) {
-    document.getElementById("club-profile-pic").src = savedProfilePic;
-  }
-}
-
-// Load the profile picture when the page is loaded
-window.onload = loadProfilePicture;
+// Singleton instance
+const CreatingProfilePicture = new CreatingProfilePicture();
+window.onload = () => CreatingProfilePicture.loadProfilePicture();
