@@ -13,7 +13,7 @@ var firebaseConfig = {
     measurementId: "G-C6DKQSJ1R8"
 };
 
-class UserSingelton
+class UserSingleton
 {
     static userObj = null;
 
@@ -41,24 +41,22 @@ class UserSingelton
 
     static async getUser()
     {
-        if( UserSingelton.userObj == null)
+        if( UserSingleton.userObj == null)
         {
             console.log("userOPbj is null")
-            await UserSingelton.SingletonConstructor();
+            await UserSingleton.SingletonConstructor();
         }
-        return UserSingelton.userObj;
+        return UserSingleton.userObj;
     }
 
     static async getEmail()
     {
-        return UserSingelton.getUser().email
+        return UserSingleton.getUser().email
     }
 
     static getUid()
     {
-        return UserSingelton.getUser().uid
+        return UserSingleton.getUser().uid
     }
-
-
 
 }

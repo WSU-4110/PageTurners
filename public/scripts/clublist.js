@@ -56,58 +56,6 @@ firebase.auth().onAuthStateChanged(function(user){
         }});
     
 
-        class UserSingelton
-        {
-            static userObj = null;
-        
-            constructor(email = "empty", uid="empty")
-            {
-                this.email = email
-                this.uid = uid
-            }
-
-            static async SingletonConstructor()
-            {   
-                await firebase.auth().onAuthStateChanged((user) => {
-                    let Singleton = new UserSingelton(user.email, user.uid)
-                    UserSingelton.userObj = Singleton 
-                    console.log("success")
-                  });
-
-            }
-
-
-            updateUser()
-            {
-                UserSingelton.userObj = new UserSingelton();
-                return UserSingelton.userObj;
-            }
-
-            static async getUser()
-            {
-                if( UserSingelton.userObj == null)
-                {
-                    console.log("userOPbj is null")
-                    await UserSingelton.SingletonConstructor();
-                }
-                return UserSingelton.userObj;
-            }
-
-            static async getEmail()
-            {
-                return UserSingelton.getUser()
-            }
-
-            static getUid()
-            {
-                return UserSingelton.getUser().uid
-            }
-
-
-        
-        }
-        
-        
 
         
 
