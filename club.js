@@ -1,28 +1,48 @@
-// Function to handle the profile picture change
-function changeProfilePicture(event) {
-  const reader = new FileReader();
-  const file = event.target.files[0];
+class ProfilePictureChange {
+    loadProfilePicture() {
+        const savedProfilePic = localStorage.getItem("profilePicture");
+        if (savedProfilePic) {
+            const profilePic = document.getElementById("club-profile-pic");
+            profilePic.src = savedProfilePic;
+        }
+    }
 
-  reader.onload = function () {
-    const profilePic = document.getElementById("club-profile-pic");
-    profilePic.src = reader.result;
+    
+    changeProfilePicture(event) {
+        const reader = new FileReader();
+        const file = event.target.files[0];
 
-    // Save the image data to localStorage
-    localStorage.setItem("profilePicture", reader.result);
-  };
+        reader.onload = function () {
+            const profilePic = document.getElementById("club-profile-pic");
+            profilePic.src = reader.result;
+          
+            // Image data is saved to the localStorage
+            localStorage.setItem("profilePicture", reader.result);
+        };
 
-  if (file) {
-    reader.readAsDataURL(file);
-  }
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
 }
 
-// Function to load the profile picture from localStorage on page load
-function loadProfilePicture() {
-  const savedProfilePic = localStorage.getItem("profilePicture");
-  if (savedProfilePic) {
-    document.getElementById("club-profile-pic").src = savedProfilePic;
-  }
+class ChangeProfileAdapter {
+    constructor(profilePictureChange) {
+        this.profilePictureChange = profilePictureChange; 
+    }
+
+    load() {
+        this.profilePictureChange.loadProfilePicture();
+    }
+
+    update(event) {
+        this.profilePictureChange.changeProfilePicture(event);
+    }
 }
 
-// Load the profile picture when the page is loaded
-window.onload = loadProfilePicture;
+const profilePictureChange = new ProfilePictureChange();
+const changeProfileAdapter = new ChangeProfileAdapter(profilePictureChange);
+
+window.onload = function() {
+    changeProfileAdapter.load(); // Load profile picture when the page loads
+};
