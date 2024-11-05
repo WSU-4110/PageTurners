@@ -124,9 +124,9 @@
             <img src="../../images/club-icon.jpg" alt="Club Icon" class="club-icon" />
             <form action="#" method="POST" class="club-creation-form">
               <label for="club-name" class="club-label"
-                >INVITE PEOPLE TO YOUR CLUB</label
+                >INVITE PEOPLE TO YOUR CLUB BY SHARING THIS INVTIE CODE OR INVITE LINK</label
               >
-              <input
+              <!-- <input
                 type="text"
                 id="club-name"
                 name="club-name"
@@ -135,7 +135,9 @@
               />
 
               <a href="message.html" class="create-club-button">SEND INVITATION</a>
-            </form>
+            </form> -->
+            <a id="inviteCode"></a>
+            <a id="inviteLink"></a>
           </div>
 
           <!-- Right side preview section -->
@@ -149,6 +151,7 @@
         </section>
       </main>
     </div>
+    <script type="module" src="../../scripts/in"></script>
     <script>
       // Ensure the DOM is fully loaded before adding the event listener
       document.addEventListener("DOMContentLoaded", function () {

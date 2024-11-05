@@ -1,0 +1,6 @@
+-LEt you control memebrs frm memebr screen
+    -kick promote accept
+
+-join from link
+
+-

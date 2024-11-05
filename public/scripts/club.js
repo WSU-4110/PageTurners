@@ -26,3 +26,5 @@ function loadProfilePicture() {
 
 // Load the profile picture when the page is loaded
 window.onload = loadProfilePicture;
+
+

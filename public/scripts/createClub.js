@@ -25,7 +25,7 @@ auth.onAuthStateChanged(function(user){
     clubCreateForm.addEventListener('submit', async function(e){
         e.preventDefault();
         const clubName = clubCreateForm["clubname"].value;
-
+        const joinCode = clubCreateForm["joincode"].value;
         let bookClubsRef = collection(db, "BookClubs");
         const q = query(bookClubsRef, where("BookClubName", "==", clubName));
         const qsnap = await getDocs(q)
@@ -36,6 +36,9 @@ auth.onAuthStateChanged(function(user){
             await addDoc(collection(db,"BookClubs"), {
                 BookClubName: clubName,
                 ClubUsers: [user.uid],
+                ClubUsersUnaccepted: [],
+                ClubAdmins: [user.uid],
+                JoinCode: joinCode,
                 clubDescription: "no description"
             }, clubName)
 

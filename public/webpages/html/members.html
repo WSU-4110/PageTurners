@@ -24,20 +24,30 @@
         </div>
         <nav class="sidebar-nav">
           <ul>
-            <li><a href="overview.html">Overview</a></li>
-            <li><a href="members.html">Members</a></li>
-            <li><a href="meetings.html">Meetings</a></li>
+            <li><a onclick="window.location='overview.html' + window.location.search;">Overview</a></li>
+            <li><a onclick="window.location='members.html' + window.location.search;">Members</a></li>
+            <li><a onclick="window.location='meetings.html' + window.location.search;">Meetings</a></li>
             <li><a href="logout.html">Logout</a></li>
           </ul>
         </nav>
       </aside>
       <main class="main-content">
         <h2>Club Members</h2>
+        <button onclick="window.location=('invite.html'+window.location.search);" class="upload-btn">Invite New Members</button>
         <p>
           You can remove and add members to your book club here.
         </p>
+        <ul id="unacepted">
+          <h2>Pending Members</h2>
+
+        </ul>
+        <ul id="accepted">
+          <h2>Members</h2>
+
+        </ul>
       </main>
     </div>
     <script src="club.js"></script>
+    <script type="module" src="../../scripts/memberlist.js"></script>
   </body>
 </html>
