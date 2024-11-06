@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
 import { getAuth, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
-import { getFirestore, collection, getDoc,setDoc, getDocs, addDoc, doc, query, where } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js';
+import { getFirestore, collection, getDoc, updateDoc, arrayUnion, arrayRemove, setDoc, getDocs, addDoc, doc, query, where } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js';
 
 // Initialize Firebase
 var firebaseConfig = {
@@ -32,7 +32,19 @@ function appendElement (parentID,elemNode,textNode,href) {
     element.appendChild(text);
     element2.appendChild(element)
     container.appendChild(element2);
+    return container
 }
+
+function appendButtonWithIDAndUID(container, id, text, UID)
+{
+    let element = document.createElement("button");
+    element.setAttribute("id",id);
+    element.textContent = text;
+    element.setAttribute("class", "upload-btn")
+    element.setAttribute("uid",UID)
+    container.appendChild(element)
+}
+
 async function getClubdocRefFromQParams(queryParams)
 {
   let docRef = doc(db,"BookClubs",queryParams.get("id"));
@@ -50,7 +62,12 @@ for (const user of docRef.data()["ClubUsers"])
     let userDocRef = doc(db,"Users", user);
     let userDocSnap = await getDoc(userDocRef);
     let email = userDocSnap.data()["email"];
-    appendElement("accepted","a",email, "user/html?id=" + userDocSnap.data()["uid"] )
+    let container = appendElement("accepted","a",email, "user/html?id=" + userDocSnap.data()["uid"] )
+    let HorizontalUL = document.createElement("ul");
+    container.appendChild(HorizontalUL);
+    appendButtonWithIDAndUID(HorizontalUL,"kick", "Kick",userDocSnap.data()["uid"]);
+    appendButtonWithIDAndUID(HorizontalUL,"promote", "Promote",userDocSnap.data()["uid"]);
+    appendButtonWithIDAndUID(HorizontalUL,"demote", "Demote",userDocSnap.data()["uid"]);
 }
 
 for (const user of docRef.data()["ClubUsersUnaccepted"])
@@ -59,7 +76,54 @@ for (const user of docRef.data()["ClubUsersUnaccepted"])
     let userDocSnap = await getDoc(userDocRef);
     let email = userDocSnap.data()["email"];
     console.log(email)
-    appendElement("unacepted","a",email, "user/html?id=" + userDocSnap.data()["uid"] )
+    let container = appendElement("unacepted","a",email, "user/html?id=" + userDocSnap.data()["uid"] )
+    appendButtonWithIDAndUID(container, "accept", "Accept", userDocSnap.data()["uid"])
+}
+
+
+const accept = document.getElementById("accept");
+if (accept != null)
+{
+    accept.addEventListener("click", async function(e)
+    {
+        e.preventDefault();
+
+        await updateDoc(docRef.ref, {
+            ClubUsers: arrayUnion(accept.getAttribute("uid"))
+        })
+
+        await updateDoc(docRef.ref, {
+            ClubUsersUnaccepted: arrayRemove(accept.getAttribute("uid"))
+        })
+
+        alert("Succsessfully Accepted user");
+        location.reload()
+
+    })
+}
+
+const kick = document.getElementById("kick");
+if (kick != null)
+{
+    kick.addEventListener("click", async function(e)
+    {
+        e.preventDefault();
+
+        if (docRef.data()["ClubAdmins"].includes(kick.getAttribute("uid")))
+        {
+            alert("Cannot Kick Admin");
+        }else
+        {
+            console.log("MMMMM");
+            await updateDoc(docRef.ref, {
+                ClubUsers: arrayRemove(kick.getAttribute("uid"))
+            })
+
+            alert("Succsessfully Kicked User");
+            location.reload()
+        }
+
+    })
 }
 
 

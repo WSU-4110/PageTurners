@@ -3,4 +3,12 @@
 
 -join from link
 
--
+-lock control to admin accounts
+
+-allow promotion to admion and demotion
+
+-allow changin of join code
+
+-check if even listenmer for member list buttons works with multiple members
+
+-save club owner upon club creation
