@@ -18,6 +18,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
 
+
 async function isAdmin(userUID)
 {
     const docRef = await getClubdocRefFromQParams(new URLSearchParams(window.location.search));
@@ -28,7 +29,17 @@ async function isAdmin(userUID)
     return 0;
 }
 
+async function isOwner(userUID)
+{
+    const docRef = await getClubdocRefFromQParams(new URLSearchParams(window.location.search));
+    if (docRef.data()["ClubOwner"] == (userUID))
+    {
+        return 1;
+    }
+    return 0;
+}
 
+console.log(auth.currentUser);
 
 function appendElement (parentID,elemNode,textNode,href) {
     var container = document.getElementById(parentID);
@@ -59,6 +70,15 @@ async function getClubdocRefFromQParams(queryParams)
   const docSnap = await getDoc(docRef);
   return docSnap;
 }
+let isCurrUserOwner = 0;
+
+auth.onAuthStateChanged(async function(user){
+    if (user) {
+        console.log(user)
+      isCurrUserOwner = await isOwner(user.uid)
+    }
+})
+
 
 const queryParams = new URLSearchParams(window.location.search);
 
@@ -75,11 +95,11 @@ for (const user of docRef.data()["ClubUsers"])
     if (await isAdmin(userDocSnap.data()["uid"]) == 1)
     {
         appendButtonWithIDAndUID(HorizontalUL,"admin-tag", "ADMIN",userDocSnap.data()["uid"]);
-        appendButtonWithIDAndUID(HorizontalUL,"demote", "Demote",userDocSnap.data()["uid"]);
+            if (isCurrUserOwner) appendButtonWithIDAndUID(HorizontalUL,"demote", "Demote",userDocSnap.data()["uid"]);
     }
     else{
         appendButtonWithIDAndUID(HorizontalUL,"kick", "Kick",userDocSnap.data()["uid"]);
-        appendButtonWithIDAndUID(HorizontalUL,"promote", "Promote",userDocSnap.data()["uid"]);
+        if  (isCurrUserOwner) appendButtonWithIDAndUID(HorizontalUL,"promote", "Promote",userDocSnap.data()["uid"]);
     }
 }
 

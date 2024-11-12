@@ -31,9 +31,22 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
   const db = getFirestore(app);
 
   const queryParams = new URLSearchParams(window.location.search);
+  let userUID = "";
+  auth.onAuthStateChanged(function(user){
+    if (user) {
+        userUID = user.uid;      
+    }
+  })
 
-
-
+  async function isAdmin(userUID)
+  {
+      const docRef = await getClubdocRefFromQParams(new URLSearchParams(window.location.search));
+      if (docRef.data()["ClubAdmins"].includes(userUID))
+      {
+          return 1;
+      }
+      return 0;
+  }
 
   async function getClubdocRefFromQParams(queryParams)
   {
@@ -42,8 +55,6 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
     console.log(docSnap.data());
     return docSnap;
   }
-
-
 
 
 
@@ -68,7 +79,14 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
     const parentUL = document.getElementById("members");
     parentUL.appendChild(newLI);
   }
-
-  document.getElementById("manage").href = "overview.html?id=" + docRef.id;
-
+  console.log(userUID)
+  if (isAdmin(userUID) == 1)
+  {
+    document.getElementById("manage").href = "overview.html?id=" + docRef.id;
+  }
+  else
+  {
+    let elem = document.getElementById("manage")
+    elem.remove()
+  }
 

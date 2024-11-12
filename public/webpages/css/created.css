@@ -125,9 +125,15 @@ h2 {
   margin-top: 10px;
   margin-right: 10px;
   background-color: #43aa43;
+  
   color: white;
   padding: 8px 12px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+[operation="admin-tag"]:hover
+{
+  background-color: #43aa43;
 }

@@ -37,6 +37,7 @@ auth.onAuthStateChanged(function(user){
                 BookClubName: clubName,
                 ClubUsers: [user.uid],
                 ClubUsersUnaccepted: [],
+                ClubOwner: user.uid,
                 ClubAdmins: [user.uid],
                 JoinCode: joinCode,
                 clubDescription: "no description"
