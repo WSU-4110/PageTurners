@@ -18,7 +18,15 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
 
-
+async function isAdmin(userUID)
+{
+    const docRef = await getClubdocRefFromQParams(new URLSearchParams(window.location.search));
+    if (docRef.data()["ClubAdmins"].includes(userUID))
+    {
+        return 1;
+    }
+    return 0;
+}
 
 
 
@@ -38,7 +46,7 @@ function appendElement (parentID,elemNode,textNode,href) {
 function appendButtonWithIDAndUID(container, id, text, UID)
 {
     let element = document.createElement("button");
-    element.setAttribute("id",id);
+    element.setAttribute("operation",id);
     element.textContent = text;
     element.setAttribute("class", "upload-btn")
     element.setAttribute("uid",UID)
@@ -49,7 +57,6 @@ async function getClubdocRefFromQParams(queryParams)
 {
   let docRef = doc(db,"BookClubs",queryParams.get("id"));
   const docSnap = await getDoc(docRef);
-  console.log(docSnap.data());
   return docSnap;
 }
 
@@ -65,9 +72,15 @@ for (const user of docRef.data()["ClubUsers"])
     let container = appendElement("accepted","a",email, "user/html?id=" + userDocSnap.data()["uid"] )
     let HorizontalUL = document.createElement("ul");
     container.appendChild(HorizontalUL);
-    appendButtonWithIDAndUID(HorizontalUL,"kick", "Kick",userDocSnap.data()["uid"]);
-    appendButtonWithIDAndUID(HorizontalUL,"promote", "Promote",userDocSnap.data()["uid"]);
-    appendButtonWithIDAndUID(HorizontalUL,"demote", "Demote",userDocSnap.data()["uid"]);
+    if (await isAdmin(userDocSnap.data()["uid"]) == 1)
+    {
+        appendButtonWithIDAndUID(HorizontalUL,"admin-tag", "ADMIN",userDocSnap.data()["uid"]);
+        appendButtonWithIDAndUID(HorizontalUL,"demote", "Demote",userDocSnap.data()["uid"]);
+    }
+    else{
+        appendButtonWithIDAndUID(HorizontalUL,"kick", "Kick",userDocSnap.data()["uid"]);
+        appendButtonWithIDAndUID(HorizontalUL,"promote", "Promote",userDocSnap.data()["uid"]);
+    }
 }
 
 for (const user of docRef.data()["ClubUsersUnaccepted"])
@@ -75,55 +88,100 @@ for (const user of docRef.data()["ClubUsersUnaccepted"])
     let userDocRef = doc(db,"Users", user);
     let userDocSnap = await getDoc(userDocRef);
     let email = userDocSnap.data()["email"];
-    console.log(email)
     let container = appendElement("unacepted","a",email, "user/html?id=" + userDocSnap.data()["uid"] )
     appendButtonWithIDAndUID(container, "accept", "Accept", userDocSnap.data()["uid"])
 }
 
-
-const accept = document.getElementById("accept");
-if (accept != null)
+const abuttons = document.querySelectorAll('[operation="accept"]');
+if (abuttons != null)
 {
-    accept.addEventListener("click", async function(e)
-    {
-        e.preventDefault();
-
-        await updateDoc(docRef.ref, {
-            ClubUsers: arrayUnion(accept.getAttribute("uid"))
-        })
-
-        await updateDoc(docRef.ref, {
-            ClubUsersUnaccepted: arrayRemove(accept.getAttribute("uid"))
-        })
-
-        alert("Succsessfully Accepted user");
-        location.reload()
-
-    })
-}
-
-const kick = document.getElementById("kick");
-if (kick != null)
-{
-    kick.addEventListener("click", async function(e)
-    {
-        e.preventDefault();
-
-        if (docRef.data()["ClubAdmins"].includes(kick.getAttribute("uid")))
+    abuttons.forEach(button=>{
+        button.addEventListener("click", async function(e)
         {
-            alert("Cannot Kick Admin");
-        }else
-        {
-            console.log("MMMMM");
+            e.preventDefault();
+
             await updateDoc(docRef.ref, {
-                ClubUsers: arrayRemove(kick.getAttribute("uid"))
+                ClubUsers: arrayUnion(button.getAttribute("uid"))
             })
 
-            alert("Succsessfully Kicked User");
-            location.reload()
-        }
+            await updateDoc(docRef.ref, {
+                ClubUsersUnaccepted: arrayRemove(button.getAttribute("uid"))
+            })
 
+            alert("Succsessfully Accepted user");
+            location.reload()
+
+        })
     })
 }
+const buttons = document.querySelectorAll('[operation="kick"]')
+if (buttons != null)
+{
+    buttons.forEach(button=>{
+        button.addEventListener("click", async function(e)
+        {
+            e.preventDefault();
+
+            if (docRef.data()["ClubAdmins"].includes(button.getAttribute("uid")))
+            {
+                alert("Cannot Kick Admin");
+            }else
+            {
+                console.log("MMMMM");
+                await updateDoc(docRef.ref, {
+                    ClubUsers: arrayRemove(button.getAttribute("uid"))
+                })
+
+                alert("Succsessfully Kicked User");
+                location.reload()
+            }
+        })
+    })
+}
+
+const adbuttons = document.querySelectorAll('[operation="promote"]')
+if (adbuttons != null)
+{
+    adbuttons.forEach(button=>{
+        button.addEventListener("click", async function(e)
+        {
+            e.preventDefault();
+
+
+            
+
+            await updateDoc(docRef.ref, {
+                ClubAdmins: arrayUnion(button.getAttribute("uid"))
+            })
+
+            alert("Succsessfully Promoted User");
+            location.reload()
+        
+        })
+    })
+}
+
+const dbuttons = document.querySelectorAll('[operation="demote"]')
+if (dbuttons != null)
+{
+    dbuttons.forEach(button=>{
+        button.addEventListener("click", async function(e)
+        {
+            e.preventDefault();
+
+
+            
+    
+            await updateDoc(docRef.ref, {
+                ClubAdmins: arrayRemove(button.getAttribute("uid"))
+            })
+
+            alert("Succsessfully Demoted User");
+            location.reload()
+        
+        })
+    })
+}
+
 
 

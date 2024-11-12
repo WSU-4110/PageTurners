@@ -5,7 +5,9 @@
 
 -lock control to admin accounts
 
--allow promotion to admion and demotion
+-prevent demote of owner
+
+-onwer perms ( cant be kicked)
 
 -allow changin of join code
 

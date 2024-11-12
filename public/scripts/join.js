@@ -58,7 +58,7 @@ auth.onAuthStateChanged(function(user){
                         await updateDoc(doc.ref, {
                             ClubUsersUnaccepted: arrayUnion(user.uid)});
                         console.log("success?")
-                    }
+                        window.location.href = "./MyClubs.html";                    }
                 }
                 else
                 {
