@@ -92,14 +92,22 @@ for (const user of docRef.data()["ClubUsers"])
     let container = appendElement("accepted","a",email, "user/html?id=" + userDocSnap.data()["uid"] )
     let HorizontalUL = document.createElement("ul");
     container.appendChild(HorizontalUL);
-    if (await isAdmin(userDocSnap.data()["uid"]) == 1)
+    if (await isOwner(userDocSnap.data()["uid"])==1)
     {
+        appendButtonWithIDAndUID(HorizontalUL,"admin-tag", "OWNER",userDocSnap.data()["uid"]);
         appendButtonWithIDAndUID(HorizontalUL,"admin-tag", "ADMIN",userDocSnap.data()["uid"]);
-            if (isCurrUserOwner) appendButtonWithIDAndUID(HorizontalUL,"demote", "Demote",userDocSnap.data()["uid"]);
     }
-    else{
-        appendButtonWithIDAndUID(HorizontalUL,"kick", "Kick",userDocSnap.data()["uid"]);
-        if  (isCurrUserOwner) appendButtonWithIDAndUID(HorizontalUL,"promote", "Promote",userDocSnap.data()["uid"]);
+    else
+    {
+        if (await isAdmin(userDocSnap.data()["uid"]) == 1)
+        {
+            appendButtonWithIDAndUID(HorizontalUL,"admin-tag", "ADMIN",userDocSnap.data()["uid"]);
+                if (isCurrUserOwner) appendButtonWithIDAndUID(HorizontalUL,"demote", "Demote",userDocSnap.data()["uid"]);
+        }
+        else{
+            appendButtonWithIDAndUID(HorizontalUL,"kick", "Kick",userDocSnap.data()["uid"]);
+            if  (isCurrUserOwner) appendButtonWithIDAndUID(HorizontalUL,"promote", "Promote",userDocSnap.data()["uid"]);
+        }
     }
 }
 

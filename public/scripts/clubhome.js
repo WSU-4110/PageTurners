@@ -79,8 +79,10 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
     const parentUL = document.getElementById("members");
     parentUL.appendChild(newLI);
   }
-  console.log(userUID)
-  if (isAdmin(userUID) == 1)
+
+  console.log(isAdmin(userUID));
+
+  if (await isAdmin(userUID) == 1)
   {
     document.getElementById("manage").href = "overview.html?id=" + docRef.id;
   }
