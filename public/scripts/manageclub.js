@@ -51,37 +51,50 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
     e.preventDefault();
     let clubName = clubEditForm["club-name"].value;
     let desc = clubEditForm["club-description"].value;
-
+    let joinCode = clubEditForm["club-joincode"].value;
     if (desc == "")
     {
-        desc = docRef.data()["clubDescription"];
+      desc = docRef.data()["clubDescription"];
     }
     if (clubName == "")
     {
-        clubName = docRef.data()["BookClubName"];
+      clubName = docRef.data()["BookClubName"];
     }
-
+    if (joinCode == "")
+    {
+      joincode = docRef.data()["JoinCode"];
+    }
     
 
     let bookClubsRef = collection(db, "BookClubs");
     const q = query(bookClubsRef, where("BookClubName", "==", clubName));
     const qsnap = await getDocs(q)
 
+    const q2 = query(bookClubsRef, where("JoinCode", "==", clubEditForm["club-joincode"].value));
+    const qsnap2 = await getDocs(q2);
 
+    let update = true;
 
-    if (qsnap.empty || clubName == docRef.data()["BookClubName"]){
-        await updateDoc(doc(db,"BookClubs", docRef.id), {
-            BookClubName: clubName,
-            clubDescription: desc
-        }, clubName)
-
-        window.location.href = "./clubhomepage.html?id=" + docRef.id;
-
+    if (!(qsnap.empty || clubName == docRef.data()["BookClubName"]))
+    {
+      update = false;
+      alert("Club Name Allready Exists")
     }
-    else{
-        alert("Club Name Allready Exists")
+    if (!(qsnap2.empty || joinCode == docRef.data()["JoinCode"]))
+    {
+      update = false;
+      alert("Club Name Allready Exists")
     }
-    
 
-
+    if (update)
+    {
+      await updateDoc(doc(db,"BookClubs", docRef.id), {
+        BookClubName: clubName,
+        clubDescription: desc,
+        JoinCode: joinCode
+      }, clubName)
+      
+      window.location.href = "./clubhomepage.html?id=" + docRef.id;
+    }
 })
+

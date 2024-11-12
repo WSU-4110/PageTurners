@@ -1,15 +1,4 @@
--LEt you control memebrs frm memebr screen
-    -kick promote accept
 
 -join from link
 
-
--prevent demote of owner
-
--onwer perms ( cant be kicked)
-
 -allow changin of join code
-
--check if even listenmer for member list buttons works with multiple members
-
--save club owner upon club creation
