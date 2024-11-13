@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browse All Books</title>
+  <link rel="stylesheet" href="../css/browse.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+</head>
+<body>
+  <header>
+    <h1>Browse All Books</h1>
+  </header>
+  <main>
+    <section id="all-books-container" class="books-grid">
+      <!-- Books will be loaded here -->
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2024 PageTurners. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    async function fetchAllBooks() {
+      const API_KEY = 'AIzaSyDHChLI4vatYILeQOWr24nHr4kSap9dwAM';
+      const API_URL = `https://www.googleapis.com/books/v1/volumes?q=books&maxResults=40&key=${API_KEY}`;
+
+      try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        const container = document.getElementById('all-books-container');
+        container.innerHTML = ''; // Clear any previous content
+
+        if (data.items) {
+          data.items.forEach((book) => {
+            const bookCard = document.createElement('div');
+            bookCard.classList.add('book-card');
+
+            const link = document.createElement('a');
+            link.href = `https://books.google.com/books?id=${book.id}`;
+            link.target = "_blank"; // Open in a new tab
+
+            const image = document.createElement('img');
+            image.src = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : '../../images/placeholder.jpg';
+            image.alt = book.volumeInfo.title;
+
+            link.appendChild(image);
+            bookCard.appendChild(link);
+            container.appendChild(bookCard);
+          });
+        } else {
+          container.innerHTML = '<p>No books found.</p>';
+        }
+      } catch (error) {
+        console.error('Error fetching books:', error);
+      }
+    }
+
+    // Fetch books when the page loads
+    window.onload = fetchAllBooks;
+  </script>
+</body>
+</html>
