@@ -184,6 +184,7 @@ document
          <section class="featured-books">
   <div class="section-header">
     <h3>Featured Books</h3>
+  </div>
     
 
   <div class="books-grid" id="featured-books-container">
@@ -321,41 +322,37 @@ document
           searchInput.style.display = "none";
         }
       }
-
-       async function fetchTopRecommendations() {
-  const API_KEY = 'AIzaSyDHChLI4vatYILeQOWr24nHr4kSap9dwAM';  // Replace with your Google API key
+async function fetchTopRecommendations() {
+  const API_KEY = 'AIzaSyDHChLI4vatYILeQOWr24nHr4kSap9dwAM';  // Replace with your actual API key
   const API_URL = `https://www.googleapis.com/books/v1/volumes?q=fiction&maxResults=3&key=${API_KEY}`;
 
   try {
-    
     const response = await fetch(API_URL);
     const data = await response.json();
-
 
     const recommendationsContainer = document.getElementById('recommendations-container');
     recommendationsContainer.innerHTML = ''; // Clear any previous content
 
-   
     if (data.items) {
-      
       data.items.slice(0, 3).forEach((book, index) => {
         const bookItem = document.createElement('div');
         bookItem.classList.add('recommendation-item');
 
-        
         const number = document.createElement('span');
         number.classList.add('number');
         number.textContent = index + 1;
+
+        const link = document.createElement('a');
+        link.href = `https://books.google.com/books?id=${book.id}`;
+        link.target = "_blank"; // Open in a new tab
 
         const image = document.createElement('img');
         image.src = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : '../../images/placeholder.jpg';
         image.alt = book.volumeInfo.title;
 
-       
+        link.appendChild(image);
         bookItem.appendChild(number);
-        bookItem.appendChild(image);
-
-       
+        bookItem.appendChild(link);
         recommendationsContainer.appendChild(bookItem);
       });
     } else {
@@ -366,39 +363,32 @@ document
   }
 }
 
-
-fetchTopRecommendations();
-
-
 async function fetchFeaturedBooks() {
   const API_KEY = 'AIzaSyDHChLI4vatYILeQOWr24nHr4kSap9dwAM';  // Replace with your actual API key
   const API_URL = `https://www.googleapis.com/books/v1/volumes?q=fiction&maxResults=10&key=${API_KEY}`;
 
   try {
-   
     const response = await fetch(API_URL);
     const data = await response.json();
 
-   
     const featuredBooksContainer = document.getElementById('featured-books-container');
     featuredBooksContainer.innerHTML = ''; // Clear any previous content
 
-   
     if (data.items) {
-      // Loop through the items and add them to the container
-      data.items.forEach((book, index) => {
+      data.items.forEach((book) => {
         const bookCard = document.createElement('div');
         bookCard.classList.add('book-card');
 
-        
+        const link = document.createElement('a');
+        link.href = `https://books.google.com/books?id=${book.id}`;
+        link.target = "_blank"; // Open in a new tab
+
         const image = document.createElement('img');
         image.src = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : '../../images/placeholder.jpg';
         image.alt = book.volumeInfo.title;
 
-       
-        bookCard.appendChild(image);
-
-      
+        link.appendChild(image);
+        bookCard.appendChild(link);
         featuredBooksContainer.appendChild(bookCard);
       });
     } else {
@@ -409,8 +399,9 @@ async function fetchFeaturedBooks() {
   }
 }
 
-
+fetchTopRecommendations();
 fetchFeaturedBooks();
+
     </script>
 
     <footer>
