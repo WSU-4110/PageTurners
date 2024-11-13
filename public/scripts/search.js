@@ -72,28 +72,33 @@ const BookSearchModule = (function() {
     async function fetchSearchResults(query) {
         try {
             const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&key=${apiKey}`);
+            if (!responce.ok) throw new Error('failed to fetch results');
             const data = await response.json();
+            console.log(data)
             displayResults(data.items);
         } catch (error) {
             console.error('Error fetching books:', error);
+            displayResults([]);
         }
     }
 
     // Display full search results
     function displayResults(books) {
         const resultsList = document.getElementById('results-list');
-        resultsList.innerHTML = books?.map(book => `
-            const bookId = book,id;
+        resultsList.innerHTML = books?.map(book => {
+            const bookId = book.id;  // Correcting the mistake here
             const bookTitle = book.volumeInfo.title || 'No title';
 
-            return'
-            <div class="result-item">
-                <img src="${book.volumeInfo.imageLinks?.thumbnail || 'https://via.placeholder.com/128x192'}" alt="Book Cover">
-                <h3>${book.volumeInfo.title || 'No title'}</h3>
-                <p>by ${book.volumeInfo.authors?.join(', ') || 'Unknown author'}</p>
-                <p>${(book.volumeInfo.description || 'No description available').slice(0, 100)}...</p>
-            </div>
-        `).join('') || '<p>No results found</p>';
+            return `
+                <div class="result-item">
+                    <img src="${book.volumeInfo.imageLinks?.thumbnail || 'https://via.placeholder.com/128x192'}" alt="Book Cover">
+                    <h3>${book.volumeInfo.title || 'No title'}</h3>
+                    <p>by ${book.volumeInfo.authors?.join(', ') || 'Unknown author'}</p>
+                    <p>${(book.volumeInfo.description || 'No description available').slice(0, 100)}...</p>
+                    <button onclick="markAsReading('${bookId}', '${bookTitle}')">Mark as Reading</button>
+                </div>
+            `;
+        }).join('') || '<p>No results found</p>';
     }
 
     // Clear suggestions
@@ -143,4 +148,6 @@ async function updateProgress(bookId, progress) {
 }
 
 // Initialize the module
+document.addEventListener('DOMContentLoaded', () => {
 BookSearchModule.init();
+});

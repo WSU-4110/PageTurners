@@ -608,3 +608,20 @@ h1 {
   justify-content: center; /* Center-align the results */
   gap: 1em; /* Add space between items */
 }
+
+#current-reading {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.book-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.book-info input[type="range"] {
+  width: 100px;
+}
