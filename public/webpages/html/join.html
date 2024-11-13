@@ -6,7 +6,142 @@
     <title>Join a Book Club</title>
     <link rel="stylesheet" href="../css/join.css">
     <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+        /* Global styles to ensure layout consistency */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
 
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .logo-container img {
+            max-height: 40px;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-list li {
+            margin-right: 20px;
+        }
+
+        .nav-list li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .search-form {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 8px;
+            margin-right: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .search-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .search-button img {
+            width: 20px;
+        }
+
+        .user-dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .dropdown-menu li {
+            padding: 10px;
+        }
+
+        .dropdown-menu li a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .user-dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        /* Form Container */
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin: 50px auto; /* Center the form */
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -17,17 +152,7 @@
             </div>
             <nav class="nav-container">
                 <ul class="nav-list">
-                    <li><a href="dashboard.html">Home</a></li>
-                    <li class="dropdown">
-                        <a href="#">My Clubs</a>
-                        <ul class="dropdownmenu" id="userdropdownmenu">
-                            <li><a href="overview.html">My Club Creation</a></li>
-                            <li><a href="club.html">Create a Club</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="join.html"><button class="loginbutton">Join</button></a>
-                    </li>
+                    <li><a href="dashboard.html" class="loginbutton">Home</a></li>
                     <li class="user-dropdown">
                         <img src="https://img.icons8.com/ios-glyphs/30/000000/user.png" alt="User Icon" class="user-icon" onclick="toggleDropdown()">
                         <ul class="dropdown-menu" id="user-dropdown-menu">
@@ -37,7 +162,6 @@
                         </ul>
                     </li>
                     <li>
-                        <!-- Collapsible Search bar with magnifying glass -->
                         <form class="search-form" action="/search" method="GET">
                             <input type="text" name="query" placeholder="Search for books, clubs, or authors" class="search-input" id="search-input">
                             <button type="button" class="search-button" onclick="toggleSearch()">
@@ -48,14 +172,22 @@
                 </ul>
             </nav>
         </div>
-        <div id="joinsection"></div>
     </header>
+
     <main>
-        <div id="clubs-container">
-
-
+        <!-- Centered Form for Join Code -->
+        <div class="form-container">
+            <h2>Join a Book Club</h2>
+            <p>Enter the join code administered by club admins.</p>
+            <form id="joinCodeForm" action="#" method="POST">
+                <input type="text" name="joinCode" placeholder="Enter Join Code" required>
+                <button type="submit">Submit</button>
+            </form>
         </div>
     </main>
+
+    <div id="joinsection"></div>
+</body>
     <script type="module" src="../../scripts/join.js"></script>
     <!-- <script>
 
@@ -165,6 +297,5 @@
         }
     </script> -->
     
-</body>
 </html>
 

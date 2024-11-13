@@ -13,7 +13,7 @@ var firebaseConfig = {
     measurementId: "G-C6DKQSJ1R8"
 };
 
-firebase.initializeApp(firebaseConfig);
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
@@ -27,27 +27,68 @@ function appendElement (elemNode,textNode,href) {
     container.appendChild(element);
 }
 
+function createBookClubElem(doc)
+{
+    let a = document.createElement("a")
+    let div = document.createElement("div");
+    let h3 = document.createElement("h3");
+    let p = document.createElement("p")
 
-firebase.auth().onAuthStateChanged(function(user){
+    a.href = "./clubhomepage.html?id=" + doc.id;
+    h3.textContent = doc.data()["BookClubName"];
+    p.textContent = doc.data()["clubDescription"];
+    div.setAttribute("class","book-club-item");
+    div.appendChild(h3);
+    div.appendChild(p);
+    a.appendChild(div);
+
+    return a;
+    
+}
+function createBookClubElemNoLink(doc)
+{
+    
+    let div = document.createElement("div");
+    let h3 = document.createElement("h3");
+    let p = document.createElement("p")
+
+    
+    h3.textContent = doc.data()["BookClubName"];
+    p.textContent = doc.data()["clubDescription"];
+    div.setAttribute("class","book-club-item");
+    div.appendChild(h3);
+    div.appendChild(p);
+    
+
+    return div;
+    
+}
+
+auth.onAuthStateChanged(function(user){
     if (user) {
         const docRef = doc(db, "Users", user.uid);
         const docSnap = getDoc(docRef);
         const q = query(collection(db, "BookClubs"), where("ClubUsers", "array-contains", user.uid));
         const qSnap = getDocs(q).then((snapshot)=>
             {
-                let output = ""
-                
+                const clublist = document.getElementById("list2");
+
                 for (const doc of snapshot.docs)
                 {
 
-                appendElement("a",doc.data()["BookClubName"], doc.id);
-                appendElement("p", "\n", "none")
-                // output+="\n<a href=\"clubhomepage?" + doc.data()["BookClubName"] +"\" >";
-                // output+= doc.data()["BookClubName"];
-                // output+= "</a>\n"
+                    clublist.appendChild(createBookClubElem(doc));
+                    
                 };
+                const q2 = query(collection(db, "BookClubs"), where("ClubUsersUnaccepted", "array-contains", user.uid));
+                const qsnap = getDocs(q2).then((snapshot)=>
+                {
+                    const clublist2 = document.getElementById("list1");
 
-
+                    for (const doc of snapshot.docs)
+                    {
+                        clublist2.appendChild(createBookClubElemNoLink(doc))
+                    }
+                })
                 console.log(user.uid);
             })
             }

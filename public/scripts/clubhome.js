@@ -68,15 +68,14 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
   let docRef = await getClubdocRefFromQParams(queryParams);
 
-  document.getElementById("clubName").textContent = docRef.data()["BookClubName"]
+  document.getElementById("clubName").textContent = "Welcome to the \"" + docRef.data()["BookClubName"] + "\" Book Club"
   document.getElementById("clubDescription").textContent = docRef.data()["clubDescription"]
-
+  const parentUL = document.getElementById("members");
   for (const uid of docRef.data()["ClubUsers"])
   {
     const newLI = document.createElement("li");
     newLI.textContent = await getEmailFromUID(uid);
 
-    const parentUL = document.getElementById("members");
     parentUL.appendChild(newLI);
   }
 

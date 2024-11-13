@@ -26,27 +26,27 @@ auth.onAuthStateChanged(function(user){
     if (user) {
         if (joinCode == null)
         {
-            console.log("wahts up")
-            const form = document.createElement("form")
-            form.setAttribute("id","joinCodeForm");
-            let input = document.createElement("input")
-            input.setAttribute("id","code")
-            input.setAttribute("placeholder","Join Code")
-            input.setAttribute("type","text")
+            // console.log("wahts up")
+            // const form = document.createElement("form")
+            // form.setAttribute("id","joinCodeForm");
+            // let input = document.createElement("input")
+            // input.setAttribute("id","code")
+            // input.setAttribute("placeholder","Join Code")
+            // input.setAttribute("type","text")
 
-            let button  = document.createElement("button")
-            button.setAttribute("type","submit")
-            button.textContent = "Join"
-            form.appendChild(input)
-            form.appendChild(button)
-            document.getElementById("joinsection").appendChild(form)
+            // let button  = document.createElement("button")
+            // button.setAttribute("type","submit")
+            // button.textContent = "Join"
+            // form.appendChild(input)
+            // form.appendChild(button)
+            // document.getElementById("joinsection").appendChild(form)
 
             const joinForm = document.getElementById("joinCodeForm");
 
             joinForm.addEventListener('submit', async function(e){
                 e.preventDefault();
 
-                let enteredJoinCode = joinForm["code"].value;
+                let enteredJoinCode = joinForm["joinCode"].value;
 
                 const q = query(collection(db,"BookClubs"), where("JoinCode","==",enteredJoinCode));
                 const qsnap = await getDocs(q);
@@ -65,6 +65,10 @@ auth.onAuthStateChanged(function(user){
                     alert("No club with that code exists")
                 }
             })
+        }
+        else{
+            const joincodeform = document.getElementById("joinCodeForm");
+            joincodeform.remove();            
         }
     }
 })
