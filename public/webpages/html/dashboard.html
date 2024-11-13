@@ -10,7 +10,7 @@
     <header>
       <div class="header-container">
         <div class="logo-container">
-          <img src="../../images/logo.png" alt="PageTurners Logo" class="logo" />
+          <img src="../../images/logo1.png" alt="PageTurners Logo" class="logo" />
           <span class="site-title">PageTurners</span>
         </div>
         <nav class="nav-container">
@@ -129,93 +129,66 @@ document
       </div>
     </section>
 
-    <main>
+   <main>
       <section class="genres-section">
         <div class="section-header">
           <h3>Our Book Genres</h3>
-          <a href="#" class="browse-allbutton">Browse All</a>
         </div>
 
-        <div class="genres-grid">
-          <div class="genre-card">
-            <img src="../../images/fiction.jpeg" alt="Fiction" />
-            <h4>Fiction</h4>
-          </div>
-          <div class="genre-card">
-            <img src="../../images/non-fiction.jpg" alt="Non-fiction" />
-            <h4>Non-fiction</h4>
-          </div>
-          <div class="genre-card">
-            <img src="../../images/fantasy.jpg" alt="Fantasy" />
-            <h4>Fantasy</h4>
-          </div>
-          <div class="genre-card">
+       <div class="genres-grid">
+  <div class="genre-card" onclick="window.location.href='/public/webpages/html/results.html?q=fiction'">
+    <img src="../../images/fiction.jpeg" alt="Fiction" />
+    <h4>Fiction</h4>
+
+
+</div>
+  <div class="genre-card" onclick="window.location.href='/public/webpages/html/results.html?q=non-fiction'">
+    <img src="../../images/non-fiction.jpg" alt="Non-fiction" />
+    <h4>Non-fiction</h4>
+  
+</div>
+  <div class="genre-card" onclick="window.location.href='/public/webpages/html/results.html?q=fantasy'">
+    <img src="../../images/fantasy.jpg" alt="Fantasy" />
+    <h4>Fantasy</h4>
+  </div>
+ 
+
+          <div class="genre-card" onclick="window.location.href='/public/webpages/html/results.html?q=action'">
             <img src="../../images/action.jpeg" alt="Action" />
             <h4>Action</h4>
           </div>
-          <div class="genre-card">
+          <div class="genre-card" onclick="window.location.href='/public/webpages/html/results.html?q=adventure'">
             <img src="../../images/adventure.jpeg" alt="Adventure" />
             <h4>Adventure</h4>
           </div>
-          <div class="genre-card">
+          <div class="genre-card" onclick="window.location.href='/public/webpages/html/results.html?q=drama'">
             <img src="../../images/drama.jpeg" alt="Drama" />
             <h4>Drama</h4>
           </div>
-          <div class="genre-card">
+          <div class="genre-card" onclick="window.location.href='/public/webpages/html/results.html?q=romance'">
             <img src="../../images/romance.jpeg" alt="Romance" />
             <h4>Romance</h4>
           </div>
-          <div class="genre-card">
+          <div class="genre-card" onclick="window.location.href='/public/webpages/html/results.html?q=historical'">
             <img src="../../images/historical.jpg" alt="Historical" />
             <h4>Historical</h4>
           </div>
-          <div class="genre-card">
+          <div class="genre-card" onclick="window.location.href='/public/webpages/html/results.html?q=crime'">
             <img src="../../images/crime.jpeg" alt="Crime" />
             <h4>Crime</h4>
           </div>
         </div>
       </section>
 
-      <section class="featured-books">
-        <div class="section-header">
-          <h3>Featured Books</h3>
-          <a href="#" class="browse-allbutton">Browse All</a>
-        </div>
-        <div class="books-grid">
-          <div class="book-card">
-            <img src="../../images/featuredbook1.jpg" alt="Featured Book 1" />
-          </div>
-          <div class="book-card">
-            <img src="../../images/featuredbook2.jpg" alt="Featured Book 2" />
-          </div>
-          <div class="book-card">
-            <img src="../../images/featuredbook3.jpg" alt="Featured Book 3" />
-          </div>
-          <div class="book-card">
-            <img src="../../images/featuredbook4.jpg" alt="Featured Book 4" />
-            <!--   <h4>Don't forget to write</h4> -->
-            <!-- <p>Sara Goodman Confino</p> -->
-          </div>
-          <div class="book-card">
-            <img src="../../images/featuredbook5.jpg" alt="Featured Book 5" />
-          </div>
-          <div class="book-card">
-            <img src="../../images/featuredbook6.jpg" alt="Featured Book 6" />
-          </div>
-          <div class="book-card">
-            <img src="../../images/featuredbook7.jpg" alt="Featured Book 7" />
-          </div>
-          <div class="book-card">
-            <img src="../../images/featuredbook8.jpg" alt="Featured Book 8" />
-          </div>
-          <div class="book-card">
-            <img src="../../images/featuredbook9.jpg" alt="Featured Book 9" />
-          </div>
-          <div class="book-card">
-            <img src="../../images/featuredbook10.jpg" alt="Featured Book 10" />
-          </div>
-        </div>
-      </section>
+      
+         <section class="featured-books">
+  <div class="section-header">
+    <h3>Featured Books</h3>
+    
+
+  <div class="books-grid" id="featured-books-container">
+  </div>
+</section>
 
       <section class="book-clubs">
         <div class="section-header">
@@ -310,23 +283,12 @@ document
       </section>
     </main>
 
-    <section class="top-recommendations">
-      <h3>Top 3 Recommendations for You</h3>
-      <div class="recommendations-grid">
-        <div class="recommendation-item">
-          <span class="number">1</span>
-          <img src="../../images/bookrecommendations1.jpg" alt="Book Recommendation 1" />
-        </div>
-        <div class="recommendation-item">
-          <span class="number">2</span>
-          <img src="../../images/bookrecommendations2.jpg" alt="Book Recommendation 2" />
-        </div>
-        <div class="recommendation-item">
-          <span class="number">3</span>
-          <img src="../../images/bookrecommendations3.jpg" alt="Book Recommendation 3" />
-        </div>
-      </div>
-    </section>
+     <section class="top-recommendations">
+  <h3>Top 3 Recommendations for You</h3>
+  <div class="recommendations-grid" id="recommendations-container">
+   
+  </div>
+</section>
     <script>
       const images = [
         "../../images/first1.png",
@@ -359,6 +321,96 @@ document
           searchInput.style.display = "none";
         }
       }
+
+       async function fetchTopRecommendations() {
+  const API_KEY = 'AIzaSyDHChLI4vatYILeQOWr24nHr4kSap9dwAM';  // Replace with your Google API key
+  const API_URL = `https://www.googleapis.com/books/v1/volumes?q=fiction&maxResults=3&key=${API_KEY}`;
+
+  try {
+    
+    const response = await fetch(API_URL);
+    const data = await response.json();
+
+
+    const recommendationsContainer = document.getElementById('recommendations-container');
+    recommendationsContainer.innerHTML = ''; // Clear any previous content
+
+   
+    if (data.items) {
+      
+      data.items.slice(0, 3).forEach((book, index) => {
+        const bookItem = document.createElement('div');
+        bookItem.classList.add('recommendation-item');
+
+        
+        const number = document.createElement('span');
+        number.classList.add('number');
+        number.textContent = index + 1;
+
+        const image = document.createElement('img');
+        image.src = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : '../../images/placeholder.jpg';
+        image.alt = book.volumeInfo.title;
+
+       
+        bookItem.appendChild(number);
+        bookItem.appendChild(image);
+
+       
+        recommendationsContainer.appendChild(bookItem);
+      });
+    } else {
+      console.log("No items found in the response.");
+    }
+  } catch (error) {
+    console.error('Error fetching book data:', error);
+  }
+}
+
+
+fetchTopRecommendations();
+
+
+async function fetchFeaturedBooks() {
+  const API_KEY = 'AIzaSyDHChLI4vatYILeQOWr24nHr4kSap9dwAM';  // Replace with your actual API key
+  const API_URL = `https://www.googleapis.com/books/v1/volumes?q=fiction&maxResults=10&key=${API_KEY}`;
+
+  try {
+   
+    const response = await fetch(API_URL);
+    const data = await response.json();
+
+   
+    const featuredBooksContainer = document.getElementById('featured-books-container');
+    featuredBooksContainer.innerHTML = ''; // Clear any previous content
+
+   
+    if (data.items) {
+      // Loop through the items and add them to the container
+      data.items.forEach((book, index) => {
+        const bookCard = document.createElement('div');
+        bookCard.classList.add('book-card');
+
+        
+        const image = document.createElement('img');
+        image.src = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : '../../images/placeholder.jpg';
+        image.alt = book.volumeInfo.title;
+
+       
+        bookCard.appendChild(image);
+
+      
+        featuredBooksContainer.appendChild(bookCard);
+      });
+    } else {
+      console.log("No items found in the response.");
+    }
+  } catch (error) {
+    console.error('Error fetching books:', error);
+  }
+}
+
+
+fetchFeaturedBooks();
     </script>
 
     <footer>
