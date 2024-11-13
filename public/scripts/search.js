@@ -1,159 +1,146 @@
-const apiKey = 'AIzaSyA-QEgCdTmslsgP14eqrkYOB3CxNRcT-eE';
+const BookSearchModule = (function() {
+    const apiKey = 'AIzaSyA-QEgCdTmslsgP14eqrkYOB3CxNRcT-eE';
 
-// Check if the search input exists
-if (document.getElementById('search-input')) {
-    const searchInput = document.getElementById('search-input');
-    const suggestionsList = document.getElementById('suggestions-list');
+    // Initialize search functionality
+    function init() {
+        const searchInput = document.getElementById('search-input');
+        const suggestionsList = document.getElementById('suggestions-list');
 
-    // Trigger searchBooks when user types
-    searchInput.addEventListener('input', searchBooks);
+        if (searchInput) {
+            searchInput.addEventListener('input', searchBooks);
+            searchInput.addEventListener('keydown', handleEnterPress);
+        }
 
-    // Handle 'Enter' press to navigate to the results page
-    searchInput.addEventListener('keydown', (e) => {
+        if (window.location.pathname.includes('results.html')) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchQuery = urlParams.get('q');
+            if (searchQuery) {
+                document.getElementById('search-query').textContent = searchQuery;
+                fetchSearchResults(searchQuery);
+            }
+        }
+    }
+
+    // Handle 'Enter' key to navigate to results
+    function handleEnterPress(e) {
+        const searchInput = e.target;
         if (e.key === 'Enter') {
-            e.preventDefault(); // Prevent default action
+            e.preventDefault();
             const query = searchInput.value.trim();
             if (query.length > 0) {
-                // Redirect to results.html with the search query in the URL
                 window.location.href = `results.html?q=${encodeURIComponent(query)}`;
             }
         }
-    });
+    }
 
-    // Fetch book suggestions from Google Books API as user types
+    // Fetch book suggestions
     async function searchBooks() {
-        const query = searchInput.value.trim();
-
-        // Only search if input is at least 3 characters long
-        if (query.length < 3) {
-            suggestionsList.innerHTML = ''; // Clear suggestions
-            return;
-        }
+        const query = document.getElementById('search-input').value.trim();
+        if (query.length < 3) return clearSuggestions();
 
         try {
             const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&key=${apiKey}`);
             const data = await response.json();
-            displaySuggestions(data.items); // Display suggestions
+            displaySuggestions(data.items);
         } catch (error) {
             console.error('Error fetching books:', error);
         }
     }
 
-    // Display search suggestions
+    // Display suggestions
     function displaySuggestions(books) {
-        suggestionsList.innerHTML = ''; // Clear previous suggestions
-
+        const suggestionsList = document.getElementById('suggestions-list');
+        suggestionsList.innerHTML = '';
         if (!books) return;
 
         books.slice(0, 5).forEach(book => {
             const suggestion = document.createElement('li');
-            const title = book.volumeInfo.title || 'No title';
-            const thumbnail = book.volumeInfo.imageLinks?.thumbnail || 'https://via.placeholder.com/40x60'; // Default image
-
-            // Create suggestion item
             suggestion.className = 'suggestion-item';
-            suggestion.innerHTML = `<img src="${thumbnail}" alt="Book Cover"><div><strong>${title}</strong></div>`;
-
-            // Add click event to fill input when suggestion is clicked
+            suggestion.innerHTML = `
+                <img src="${book.volumeInfo.imageLinks?.thumbnail || 'https://via.placeholder.com/40x60'}" alt="Book Cover">
+                <div><strong>${book.volumeInfo.title || 'No title'}</strong></div>
+            `;
             suggestion.onclick = () => {
-                searchInput.value = title; // Fill input with title
-                suggestionsList.innerHTML = ''; // Clear suggestions
+                document.getElementById('search-input').value = book.volumeInfo.title || 'No title';
+                suggestionsList.innerHTML = '';
             };
-
-            // Add suggestion list
             suggestionsList.appendChild(suggestion);
         });
     }
-}
 
-// Check if on results.html to fetch and display the full search results
-if (window.location.pathname.includes('results.html')) {
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchQuery = urlParams.get('q'); // Get the 'q' parameter from the URL
-
-    if (searchQuery) {
-        // Display search query at the top of the page
-        document.getElementById('search-query').textContent = `${searchQuery}`;
-
-        // Fetch and display the search results
-        fetchSearchResults(searchQuery);
-    } else {
-        // Handle case where no query was provided
-        document.getElementById('search-query').textContent = 'No search query provided.';
-    }
-}
-
-// Fetch books from Google Books API based on the query
-async function fetchSearchResults(query) {
-    try {
-        const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&key=${apiKey}`);
-        const data = await response.json();
-        displayResults(data.items); // Display the results on the page
-    } catch (error) {
-        console.error('Error fetching books:', error);
-    }
-}
-
-// Display full book results on the page
-function displayResults(books) {
-    const resultsList = document.getElementById('results-list');
-    resultsList.innerHTML = ''; // Clear previous results
-
-    if (!books || books.length === 0) {
-        resultsList.innerHTML = '<p>No results found</p>';
-        return;
+    // Fetch and display full search results
+    async function fetchSearchResults(query) {
+        try {
+            const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&key=${apiKey}`);
+            const data = await response.json();
+            displayResults(data.items);
+        } catch (error) {
+            console.error('Error fetching books:', error);
+        }
     }
 
-    books.forEach(book => {
-        const bookItem = document.createElement('div');
-        bookItem.classList.add('result-item');
-        
-        const title = book.volumeInfo.title || 'No title';
-        const author = book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : 'Unknown author';
-        const thumbnail = book.volumeInfo.imageLinks?.thumbnail || 'https://via.placeholder.com/128x192';
-        const description = book.volumeInfo.description || 'No description available';
-        const averageRating = book.volumeInfo.averageRating || 'N/A'; // Get the rating
-        const ratingsCount = book.volumeInfo.ratingsCount || 0; // Get the number of ratings
+    // Display full search results
+    function displayResults(books) {
+        const resultsList = document.getElementById('results-list');
+        resultsList.innerHTML = books?.map(book => `
+            const bookId = book,id;
+            const bookTitle = book.volumeInfo.title || 'No title';
 
-        // Generate the stars for the rating
-        const ratingStars = generateStarRating(averageRating);
+            return'
+            <div class="result-item">
+                <img src="${book.volumeInfo.imageLinks?.thumbnail || 'https://via.placeholder.com/128x192'}" alt="Book Cover">
+                <h3>${book.volumeInfo.title || 'No title'}</h3>
+                <p>by ${book.volumeInfo.authors?.join(', ') || 'Unknown author'}</p>
+                <p>${(book.volumeInfo.description || 'No description available').slice(0, 100)}...</p>
+            </div>
+        `).join('') || '<p>No results found</p>';
+    }
 
-        // Create result item
-        bookItem.innerHTML = `
-            <img src="${thumbnail}" alt="Book Cover">
-            <h3>${title}</h3>
-            <p>by ${author}</p>
-            <p>${description.slice(0, 100)}...</p>
-             <p>Rating: ${ratingStars} (from ${ratingsCount} rating(s))</p>
+    // Clear suggestions
+    function clearSuggestions() {
+        document.getElementById('suggestions-list').innerHTML = '';
+    }
+
+    return { init };
+})();
+async function markAsReading(bookId, bookTitle) {
+    const userResponse = confirm("Mark as 'Currently Reading'?");
+    const readingStatus = userResponse ? 'Currently Reading' : 'Want to Read';
+
+    // Save the book data to Firebase
+    const bookData = {
+        bookId,
+        title: bookTitle,
+        status: readingStatus,
+        progress: 0 // Start at 0% if "Currently Reading"
+    };
+    
+    await firebase.firestore().collection('users').doc('USER_ID').collection('readingList').doc(bookId).set(bookData);
+    alert(`Book marked as '${readingStatus}'`);
+}
+async function loadCurrentReading() {
+    const readingSection = document.getElementById('current-reading');
+    const snapshot = await firebase.firestore().collection('users').doc('USER_ID').collection('readingList').where('status', '==', 'Currently Reading').get();
+    
+    if (!snapshot.empty) {
+        const book = snapshot.docs[0].data();
+        readingSection.innerHTML = `
+            <h3>Currently Reading</h3>
+            <div class="book-info">
+                <h4>${book.title}</h4>
+                <p>Progress: ${book.progress}%</p>
+                <input type="range" min="0" max="100" value="${book.progress}" onchange="updateProgress('${book.bookId}', this.value)" />
+            </div>
         `;
-
-        resultsList.appendChild(bookItem);
-    });
-    // Function to generate star ratings
-function generateStarRating(rating) {
-    if (rating === 'N/A') return 'No ratings'; // No rating available
-
-    const maxStars = 5;
-    let stars = '';
-
-    // Round the rating to the nearest half-star
-    const roundedRating = Math.round(rating * 2) / 2;
-
-    // Add full stars
-    for (let i = 0; i < Math.floor(roundedRating); i++) {
-        stars += '⭐'; // Full star emoji
+    } else {
+        readingSection.innerHTML = '<p>No books currently being read.</p>';
     }
-
-    // Add half star if needed
-    if (roundedRating % 1 !== 0) {
-        stars += '✨'; // Half star emoji
-    }
-
-    // Add empty stars
-    for (let i = Math.ceil(roundedRating); i < maxStars; i++) {
-        stars += '☆'; // Empty star emoji
-    }
-
-    return stars;
 }
+async function updateProgress(bookId, progress) {
+    await firebase.firestore().collection('users').doc('USER_ID').collection('readingList').doc(bookId).update({ progress: parseInt(progress) });
+    alert(`Progress updated to ${progress}%`);
+    loadCurrentReading(); // Refresh the displayed progress
 }
+
+// Initialize the module
+BookSearchModule.init();

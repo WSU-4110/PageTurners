@@ -1,0 +1,60 @@
+/* Basic CSS to center and style the calendar */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+#calendar {
+    width: 80%;
+    max-width: 1000px;
+    margin-top: 20px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h2 {
+    text-align: center;
+}
+
+#bookInfo {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#bookCover {
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.progress-bar {
+    width: 100%;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.progress {
+    height: 20px;
+    background-color: #4caf50;
+    width: 0%; /* Progress starts at 0% */
+    border-radius: 5px;
+}
