@@ -3,20 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Club Meeting Calendar</title>
-    <!-- Link to external CSS -->
-    <link href="../../webpages/css/calendar.css" rel="stylesheet">
-    <!-- FullCalendar CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css" rel="calendar.css">
+    <title>Book Club Meeting Calendar</title>
+    <link rel="stylesheet" href="../css/calendar.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 <body>
-    <h2>Upcoming Club Meetings</h2>
-    <div id="calendar"></div> <!-- Calendar container -->
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="../../images/logo1.png" alt="PageTurners Logo" class="logo" />
+                <span class="site-title">PageTurners</span>
+            </div>
+            <nav class="nav-container">
+                <ul class="nav-list">
+                    <li><a href="dashboard.html">Home</a></li>
+                    <li>
+                        <a href="MyClubs.html"><button class="loginbutton">My Clubs</button></a>
+                        <a href="club.html"><button class="loginbutton">Create A Club</button></a>
+                        <a href="join.html"><button class="loginbutton">Join</button></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    <!-- Link to external JS -->
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <button id="prevMonth">❮</button>
+            <h2 id="monthYear">Month Year</h2>
+            <button id="nextMonth">❯</button>
+        </div>
+        <div class="calendar">
+            <div class="day-names">
+                <div>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+            </div>
+            <div id="calendarDays" class="days-grid"></div>
+        </div>
+    </div>
+
+    <div id="meetingPopup" class="popup">
+        <div class="popup-content">
+            <span id="closePopup">&times;</span>
+            <h3>Book Club Meeting</h3>
+            <p id="meetingDetails">Details about the meeting will appear here.</p>
+        </div>
+    </div>
+
     <script src="../../scripts/calendar.js"></script>
-    <!-- FullCalendar JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.js"></script>
 </body>
 </html>
-
