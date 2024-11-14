@@ -18,17 +18,7 @@
         </div>
         <nav class="nav-container">
           <ul class="nav-list">
-            <li><a href="dashboard.html">Home</a></li>
-            <li class="dropdown">
-              <a href="#">My Clubs</a>
-              <ul class="dropdownmenu" id="userdropdownmenu">
-                <li><a href="overview.html">My Club Creation</a></li>
-                <li><a href="club.html">Create a Club</a></li>
-              </ul>
-            </li>
-
-            <li>
-              <a href="join.html"><button class="loginbutton">Join</button></a>
+            <li><a class="loginbutton" href="dashboard.html">Home</a></li>
             </li>
 
             <li class="user-dropdown">
@@ -44,7 +34,7 @@
                 <li><a href="logout.html">Logout</a></li>
               </ul>
             </li>
-            <script>
+            <!-- <script>
               // Function to close all open dropdowns
               function closeAllDropdowns() {
                 document
@@ -83,7 +73,7 @@
                   closeAllDropdowns(); // Close all dropdowns if clicked outside
                 }
               });
-            </script>
+            </script> -->
 
             <li>
               <!-- Collapsible Search bar with magnifying glass -->
@@ -132,7 +122,9 @@
                 placeholder="Enter Club Name"
                 required
               />
-              <button type="submit">Create Club</button>
+              <label for="joincode" class="club-label">Join Code ( This can be changed later )</label>
+              <input type="text" id="joincode" name="joincode" placeholder="Enter Join Code" required />
+              <button class="loginbutton" type="submit">Create Club</button>
 
               <p class="message">
                 Your bookclub name can always be changed!

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discussion Thread</title>
+  <link rel="stylesheet" href="../css/loginreg.css">
+</head>
+<body>
+  <main>
+    <section class="discussion-thread">
+      <h2 id="discussion-title"></h2>
+      <div id="discussion-container"></div>
+
+      <!-- Form to submit a new reply -->
+      <form id="reply-form">
+        <input type="text" id="title" placeholder="Title" required>
+        <textarea id="text" rows="4" placeholder="Write your Post here..." required></textarea>
+        <button type="submit">Post</button>
+      </form>
+    </section>
+  </main>
+  <script type="module" src="../../scripts/post.js"></script>
+</body>
+</html>

@@ -39,35 +39,36 @@
         <h2>Edit Club Name and Description</h2>
         <form class="club-settings-form" id="clubmanage">
           <div class="form-group">
-            <label for="club-name">Club Name</label>
+            <label for="club-name">Title of Current Book</label>
             <input
               type="text"
-              id="club-name"
-              placeholder="Enter club name"
+              id="currBook"
+              placeholder=""
               value=""
             />
           </div>
           <div class="form-group">
-            <label for="club-description">Club Description</label>
+            <label for="club-description">This Weeks Reading</label>
             <textarea
-              id="club-description"
-              placeholder="Enter club description"
+              id="currentReading"
+              placeholder=""
             ></textarea>
           </div>
           <div class="form-group">
-            <label for="club-joincode">Club Join Code</label>
+            <label for="club-name">Discussion Topic</label>
             <input
               type="text"
-              id="club-joincode"
-              placeholder="Enter club joincode"
+              id="DiscTopic"
+              placeholder=""
               value=""
             />
           </div>
+          <div class="form-group">
+            <!-- <label>Clear Current Discussion?</label><input type="checkbox" id="del"/> </div> -->
           <button type="submit" class="save-btn">Save Changes</button>
         </form>
       </main>
     </div>
-    <script type="module" src="../../scripts/manageclub.js"></script>
     <script>
       // Function to change profile picture preview
       function changeProfilePicture() {
@@ -81,5 +82,6 @@
         }
       }
     </script>
+    <script type="module" src="../../scripts/clubSettings.js"></script>
   </body>
 </html>

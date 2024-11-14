@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,5 +12,294 @@
     <ul id="members">members</ul>
 
     <a id="manage" href="overview.html?">Manage Club</a>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Club Homepage</title>
+    <link rel="stylesheet" href="../css/club.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: #333;
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .manage-club-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.1em;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .manage-club-btn:hover {
+            background-color: #45a049;
+        }
+
+        .section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #4CAF50;
+        }
+
+        .section p {
+            font-size: 1.1em;
+            color: #666;
+        }
+
+        /* Club Title and Description Section */
+        .club-info {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .club-info h2 {
+            margin-bottom: 10px;
+            color: #4CAF50;
+        }
+
+        .club-info p {
+            margin-bottom: 20px;
+        }
+
+        /* Layout for User List and Current Book side by side */
+        .main-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .user-list, .book-info {
+            width: 48%; /* Ensures a balanced layout */
+        }
+
+        .user-list ul, .book-info div {
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* User List Styling */
+        .user-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .user-list li {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Current Book Styling */
+        .book-info h3 {
+            margin-bottom: 10px;
+        }
+
+        .book-info img {
+            width: 100px;
+            height: auto;
+            border-radius: 5px;
+            margin-right: 20px;
+        }
+
+        /* Discussion Section */
+        .discussion-board {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .discussion-board h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .discussion-board ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .discussion-board li {
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .discussion-board li p {
+            margin: 0;
+            font-size: 1em;
+            color: #444;
+        }
+
+        .discussion-board li small {
+            color: #777;
+            font-size: 0.9em;
+        }
+
+        .discussion-board button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .discussion-board button:hover {
+            background-color: #45a049;
+        }
+
+        .bold{
+            font-weight: bold;
+        }
+        .underline{
+            text-decoration: underline;
+        }
+
+        #header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        #header h1 {
+            text-align: left;
+            font-size: 2.5em;
+            color: #333;
+        }
+
+        #header p {
+            text-align: center;
+            font-size: 1.2em;
+            color: #555;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="../../images/logo1.png" alt="PageTurners Logo" class="logo">
+                <span class="site-title"><a href="dashboard.html">PageTurners</a></span>
+            </div>
+            <nav class="nav-container">
+                <ul class="nav-list">
+                    <li><a href="dashboard.html" class="loginbutton">Home</a></li>
+                    <li class="user-dropdown">
+                        <img src="https://img.icons8.com/ios-glyphs/30/000000/user.png" alt="User Icon" class="user-icon" onclick="toggleDropdown()">
+                        <ul class="dropdown-menu" id="user-dropdown-menu">
+                            <li><a href="#">Discussions</a></li>
+                            <li><a href="#">Account</a></li>
+                            <li><a href="logout.html">Logout</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <form class="search-form" action="/search" method="GET">
+                            <input type="text" name="query" placeholder="Search for books, clubs, or authors" class="search-input" id="search-input">
+                            <button type="button" class="search-button" onclick="toggleSearch()">
+                                <img src="https://img.icons8.com/ios-glyphs/30/000000/search.png" alt="Search" class="search-icon">
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+        <div id="header">
+            <h1 id="clubName">Welcome to the "PageTurners" Book Club</h1>
+            <p>Your home for book discussions</p>
+            <!-- Manage Club Button -->
+            <a href="manage-club.html" id="manage" class="manage-club-btn">Manage Club</a>
+        </div>
+
+    <!-- Club Title and Description Section -->
+    <section class="section club-info">
+        <h2>About Our Club</h2>
+        <p id="clubDescription">PageTurners is a friendly and inclusive book club where readers from all over the world come together to share their love of books. Whether you’re a fan of fantasy, fiction, non-fiction, or mysteries, we have something for everyone. Our mission is to create a space where readers can discover new books, engage in meaningful discussions, and build a community around their shared love of reading.</p>
+    </section>
+
+    <!-- User List and Current Book Section (Horizontal Layout) -->
+    <section class="main-content">
+        <!-- User List -->
+        <div class="user-list">
+            <h2>Current Members</h2>
+            <ul id="members">
+            </ul>
+        </div>
+
+        <!-- Current Book -->
+        <div class="book-info">
+            <h2>Current Book</h2>
+            <div>
+                <img src="https://via.placeholder.com/100x150.png?text=Book+Cover" alt="Current Book Cover">
+            </div>
+            <div>
+                <h3 id="booktitle">NO CURRENT BOOK</h3>
+                <h2>Reading for the Week</h2>
+                <p id = "bookdesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque suscipit auctor finibus. Integer ultricies sollicitudin faucibus. Curabitur semper vel justo varius tristique. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque lacinia lobortis elit, ut dignissim tellus. Proin in metus nisi.</p>
+        </div>
+    </section>
+
+    <!-- Discussion Board Section -->
+    <section class="section discussion-board">
+        <h3>Discussion Board</h3>
+        <h2 id="disctopic">Current Topic: None</h2>
+        <ul id="disc">
+        </ul>
+        <a id="post"><button>Add Your Own Post</button>
+    </section>
+    <script type="module" src="../../scripts/clubhome.js"></script>
 </body>
 </html>

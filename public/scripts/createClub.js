@@ -25,7 +25,7 @@ auth.onAuthStateChanged(function(user){
     clubCreateForm.addEventListener('submit', async function(e){
         e.preventDefault();
         const clubName = clubCreateForm["clubname"].value;
-
+        const joinCode = clubCreateForm["joincode"].value;
         let bookClubsRef = collection(db, "BookClubs");
         const q = query(bookClubsRef, where("BookClubName", "==", clubName));
         const qsnap = await getDocs(q)
@@ -33,12 +33,26 @@ auth.onAuthStateChanged(function(user){
 
 
         if (qsnap.empty){
-            await addDoc(collection(db,"BookClubs"), {
+            const docRef = await addDoc(collection(db,"BookClubs"), {
                 BookClubName: clubName,
                 ClubUsers: [user.uid],
-                clubDescription: "no description"
-            }, clubName)
+                ClubUsersUnaccepted: [],
+                ClubOwner: user.uid,
+                ClubAdmins: [user.uid],
+                JoinCode: joinCode,
+                clubDescription: "no description",
+                clubBook: "No Current Book",
+                clubWeekReading: "No Reading for this Week",
+                discussionTopic: "No Current Discussion Topic"
+            }, clubName);
 
+            const subColl = collection(docRef, "DiscussionPosts");
+            
+            addDoc(subColl, {Title: "Congratulations on Club Creation",
+                Body: "We hope you enjoy your new book club! Happy Reading :)",
+                Author: "PageTurners Team",
+                postDate: new Date()})
+           
             window.location.href = "./dashboard.html";
 
         }
@@ -50,3 +64,4 @@ auth.onAuthStateChanged(function(user){
 
     })
 });
+
