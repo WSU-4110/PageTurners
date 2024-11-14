@@ -39,29 +39,20 @@
         <h2>Edit Club Name and Description</h2>
         <form class="club-settings-form" id="clubmanage">
           <div class="form-group">
-            <label for="club-name">Club Name</label>
+            <label for="club-name">Title of Current Book</label>
             <input
               type="text"
-              id="club-name"
-              placeholder="Enter club name"
+              id="currBook"
+              placeholder=""
               value=""
             />
           </div>
           <div class="form-group">
-            <label for="club-description">Club Description</label>
+            <label for="club-description">This Weeks Reading</label>
             <textarea
-              id="club-description"
-              placeholder="Enter club description"
+              id="current Reading"
+              placeholder=""
             ></textarea>
-          </div>
-          <div class="form-group">
-            <label for="club-joincode">Club Join Code</label>
-            <input
-              type="text"
-              id="club-joincode"
-              placeholder="Enter club joincode"
-              value=""
-            />
           </div>
           <button type="submit" class="save-btn">Save Changes</button>
         </form>
@@ -81,5 +72,6 @@
         }
       }
     </script>
+    <script type="module" src="../../scripts/clubSettings.js"></script>
   </body>
 </html>

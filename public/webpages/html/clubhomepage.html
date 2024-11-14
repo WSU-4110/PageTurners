@@ -20,7 +20,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Club Homepage</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="../css/club.css" />
     <link rel="stylesheet" href="../css/dashboard.css" />
     <style>
@@ -202,6 +201,13 @@
             background-color: #45a049;
         }
 
+        .bold{
+            font-weight: bold;
+        }
+        .underline{
+            text-decoration: underline;
+        }
+
         #header {
             text-align: center;
             margin-bottom: 30px;
@@ -280,27 +286,17 @@
                 <img src="https://via.placeholder.com/100x150.png?text=Book+Cover" alt="Current Book Cover">
             </div>
             <div>
-                <h3>NO CURRENT BOOK</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque suscipit auctor finibus. Integer ultricies sollicitudin faucibus. Curabitur semper vel justo varius tristique. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque lacinia lobortis elit, ut dignissim tellus. Proin in metus nisi.</p>
+                <h3 id="booktitle">NO CURRENT BOOK</h3>
+                <h2>Reading for the Week</h2>
+                <p id = "bookdesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque suscipit auctor finibus. Integer ultricies sollicitudin faucibus. Curabitur semper vel justo varius tristique. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque lacinia lobortis elit, ut dignissim tellus. Proin in metus nisi.</p>
         </div>
     </section>
 
     <!-- Discussion Board Section -->
     <section class="section discussion-board">
         <h3>Discussion Board</h3>
-        <ul>
-            <li>
-                <p><strong>John Doe:</strong> I’m really enjoying "The Midnight Library." It’s fascinating how Nora gets to see all the different versions of her life. What do you think about the concept of alternate realities?</p>
-                <small>Posted on: October 15, 2024</small>
-            </li>
-            <li>
-                <p><strong>Jane Smith:</strong> I love the themes of regret and redemption in this book. It really makes me reflect on the choices I've made in my own life.</p>
-                <small>Posted on: October 16, 2024</small>
-            </li>
-            <li>
-                <p><strong>Emily Johnson:</strong> The writing is so relatable! I can really empathize with Nora's struggles and her journey toward self-discovery.</p>
-                <small>Posted on: October 17, 2024</small>
-            </li>
+        <h2 id="disctopic">Current Topic: None</h2>
+        <ul id="disc">
         </ul>
         <button>Add Your Own Comment</button>
     </section>

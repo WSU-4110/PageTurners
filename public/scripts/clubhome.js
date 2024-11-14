@@ -38,6 +38,30 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
     }
   })
 
+  function createDisPost(docRef)
+  {
+    const li = document.createElement("li")
+    const p1 = document.createElement("p")
+    const p2 = document.createElement("p");
+    const p3 = document.createElement("p");
+    const small = document.createElement("small");
+
+    p1.textContent = docRef.data()["Title"];
+    p1.setAttribute("class","bold underline");
+    p2.textContent = "By: " + docRef.data()["Author"];
+    p2.setAttribute("class","bold")
+    p3.textContent = docRef.data()["Body"];
+    small.textContent = docRef.data()["postDate"].toDate();
+
+    li.appendChild(p1);
+    li.appendChild(p2);
+    li.appendChild(p3);
+    li.appendChild(small);
+
+    return li;
+
+  }
+
   async function isAdmin(userUID)
   {
       const docRef = await getClubdocRefFromQParams(new URLSearchParams(window.location.search));
@@ -70,7 +94,12 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
   document.getElementById("clubName").textContent = "Welcome to the \"" + docRef.data()["BookClubName"] + "\" Book Club"
   document.getElementById("clubDescription").textContent = docRef.data()["clubDescription"]
+  document.getElementById("booktitle").textContent = docRef.data()["clubBook"];
+  document.getElementById("bookdesc").textContent = docRef.data()["clubWeekReading"];
+  document.getElementById("disctopic").textContent = "Current Discussion Topic: " + docRef.data()["discussionTopic"]
   const parentUL = document.getElementById("members");
+
+
   for (const uid of docRef.data()["ClubUsers"])
   {
     const newLI = document.createElement("li");
@@ -78,6 +107,20 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
     parentUL.appendChild(newLI);
   }
+  let docRef2 = doc(db,"BookClubs", queryParams.get("id"));
+
+  const discRef = await getDocs(collection(docRef2, "DiscussionPosts"));
+  let elem;
+
+  discRef.forEach((doc)=>{
+
+    elem = createDisPost(doc);
+    document.getElementById("disc").appendChild(elem);
+  })
+
+  
+
+
 
   console.log(isAdmin(userUID));
 
