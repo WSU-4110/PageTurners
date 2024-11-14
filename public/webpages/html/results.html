@@ -7,10 +7,92 @@
     <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 <body>
-    <div class="results-container">
-        <h1>Search Results for "<span id="search-query"></span>"</h1>
-        <div id="results-list"></div>
-    </div>
-    <script src="../../scripts/search.js"></script>
-</body>
-</html>
+
+<!-- Navigation Bar -->
+<nav class="nav-container">
+    <ul class="nav-list">
+        <li><a href="dashboard.html">Home</a></li>
+        <li>
+            <a href="MyClubs.html" class="nav-button">My Clubs</a>
+            <a href="club.html" class="nav-button">Create A Club</a>
+            <a href="join.html" class="nav-button">Join</a>
+            <a href="myBooks.html" class="nav-button">My Books</a>
+        </li>
+        <li class="user-dropdown">
+            <img src="https://img.icons8.com/ios-glyphs/30/000000/user.png" alt="User Icon" class="user-icon" onclick="toggleDropdown()" />
+            <ul class="dropdown-menu" id="user-dropdown-menu">
+                <li><a href="#">Discussions</a></li>
+                <li><a href="#">Account</a></li>
+                <li><a href="verify-email.html">Verify Email</a></li>
+                <li><a href="logout.html">Logout</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+
+<div class="results-container">
+    <h1>Search Results for "<span id="search-query"></span>"</h1>
+    <div id="results-list"></div>
+</div>
+
+<!-- Scripts -->
+<script src="../../scripts/search.js"></script>
+<script type="module">
+    import { markAsReading } from '../../scripts/bookStatus.js';
+    import { db, auth } from './firebaseConfig.js';
+    import { setDoc, doc } from 'firebase/firestore';
+
+    // Function to render search results
+    async function renderSearchResults(books) {
+        const resultsList = document.getElementById('results-list');
+        resultsList.innerHTML = '';
+
+        for (const book of books) {
+            const savedStatus = await markAsReading(book.id, book.title);
+            resultsList.innerHTML += `
+                <div class="book-item">
+                    <img src="${book.volumeInfo?.imageLinks?.thumbnail || 'https://via.placeholder.com/128x192'}" alt="Book Cover">
+                    <h3>${book.volumeInfo.title || 'No title'}</h3>
+                    <p>by ${book.volumeInfo.authors?.join(', ') || 'Unknown author'}</p>
+                    <p>${(book.volumeInfo.description || 'No description available').slice(0, 100)}...</p>
+                    
+                    <label for="status-${book.id}">Update Status:</label>
+                    <select id="status-${book.id}">
+                        <option value="">Select Status</option>
+                        <option value="Want to Read" ${savedStatus === "Want to Read" ? "selected" : ""}>Want to Read</option>
+                        <option value="Currently Reading" ${savedStatus === "Currently Reading" ? "selected" : ""}>Currently Reading</option>
+                        <option value="Finished" ${savedStatus === "Finished" ? "selected" : ""}>Finished</option>
+                    </select>
+                    <button onclick="saveStatus('${book.id}', '${book.volumeInfo.title}')">Save Status</button>
+                </div>
+            `;
+        }
+    }
+
+    // Function to save status to Firebase
+    async function saveStatus(bookId, bookTitle) {
+        const status = document.getElementById(`status-${bookId}`).value;
+        const user = auth.currentUser;
+
+        if (!user) {
+            alert("Please sign in first.");
+            return;
+        }
+
+        if (!status) {
+            alert("Please select a status before saving.");
+            return;
+        }
+
+        const bookData = { bookId, title: bookTitle, status, progress: 0 };
+
+        try {
+            await setDoc(doc(db, 'users', user.uid, 'myBooks', bookId), bookData);
+            alert(`Book marked as '${status}'`);
+        } catch (error) {
+            console.error('Error saving book status:', error);
+            alert("Failed to save book status. Please try again.");
+        }
+    }
+</script>
