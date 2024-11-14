@@ -91,15 +91,7 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
     return qsnap.docs[0].data()["email"];
   }
 
-  if (await isAdmin(userUID) == 1)
-    {
-      document.getElementById("manage").href = "overview.html?id=" + docRef.id;
-    }
-    else
-    {
-      let elem = document.getElementById("manage")
-      elem.remove()
-    }
+
 
     const post = document.getElementById("post");
     post.href = "discussionpost.html?id=" + queryParams.get("id");
@@ -137,4 +129,12 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
   })
 
 
- 
+  if (await isAdmin(userUID) == 1)
+    {
+      document.getElementById("manage").href = "overview.html?id=" + docRef.id;
+    }
+    else
+    {
+      let elem = document.getElementById("manage")
+      elem.remove()
+    }

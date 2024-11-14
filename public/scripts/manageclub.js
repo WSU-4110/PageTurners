@@ -62,7 +62,7 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
     }
     if (joinCode == "")
     {
-      joincode = docRef.data()["JoinCode"];
+      joinCode = docRef.data()["JoinCode"];
     }
     
 

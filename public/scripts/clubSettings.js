@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-analytics.js";
-  import { getFirestore, collection, getDoc, updateDoc, getDocs, doc, query, where } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js';
+  import { getFirestore, deleteDoc, addDoc, collection, getDoc, updateDoc, getDocs, doc, query, where } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js';
   import { getAuth, 
     createUserWithEmailAndPassword,
 signOut,
@@ -42,59 +42,56 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
   let docRef = await getClubdocRefFromQParams(queryParams);
   console.log(docRef.id);
-  document.getElementById("club-name").placeholder = docRef.data()["BookClubName"];
-  document.getElementById("club-description").placeholder = docRef.data()["clubDescription"];
-
+ 
   const clubEditForm = document.getElementById("clubmanage");
   
   clubEditForm.addEventListener('submit', async function(e){
     e.preventDefault();
-    let clubName = clubEditForm["club-name"].value;
-    let desc = clubEditForm["club-description"].value;
-    let joinCode = clubEditForm["club-joincode"].value;
-    if (desc == "")
+    let title = clubEditForm["currBook"].value;
+    let reading = clubEditForm["currentReading"].value;
+    let disc = clubEditForm["DiscTopic"].value;
+    if (title== "")
     {
-      desc = docRef.data()["clubDescription"];
+      title = docRef.data()["clubBook"];
     }
-    if (clubName == "")
+    if (reading == "")
     {
-      clubName = docRef.data()["BookClubName"];
+      reading = docRef.data()["clubWeekReading"];
     }
-    if (joinCode == "")
+    if (disc == "")
     {
-      joincode = docRef.data()["JoinCode"];
+      disc = docRef.data()["discussionTopic"];
     }
     
-
-    let bookClubsRef = collection(db, "BookClubs");
-    const q = query(bookClubsRef, where("BookClubName", "==", clubName));
-    const qsnap = await getDocs(q)
-
-    const q2 = query(bookClubsRef, where("JoinCode", "==", clubEditForm["club-joincode"].value));
-    const qsnap2 = await getDocs(q2);
-
-    let update = true;
-
-    if (!(qsnap.empty || clubName == docRef.data()["BookClubName"]))
+    await updateDoc(doc(db,"BookClubs", docRef.id), {
+    clubBook: title,
+    clubWeekReading: reading,
+    discussionTopic: disc
+    }, title).then(()=>
     {
-      update = false;
-      alert("Club Name Allready Exists")
-    }
-    if (!(qsnap2.empty || joinCode == docRef.data()["JoinCode"]))
-    {
-      update = false;
-      alert("Club Name Allready Exists")
-    }
+        window.location.href = "./clubhomepage.html?id=" + docRef.id;
+    })
 
-    if (update)
-    {
-      await updateDoc(doc(db,"BookClubs", docRef.id), {
-        BookClubName: clubName,
-        clubDescription: desc,
-        JoinCode: joinCode
-      }, clubName)
-      
-      window.location.href = "./clubhomepage.html?id=" + docRef.id;
-    }
+    // if (clubEditForm["del"].value == "on")
+    // {
+        
+    //     let discRef = collection(db,"BookClubs", docRef.id, "DiscussionPosts");
+    //     const dq = query(discRef);
+    //     const dqsnap = await getDocs(dq);
+        
+    //     for (const docu in dq)
+    //     {
+    //         await deleteDoc(doc(db,"BookClubs", docu.id, "DiscussionPosts",docu.id));
+    //     }
+
+    //     addDoc(disccol, {Title: "Club Discussion Was Cleared",
+    //         Body: "At the time of this post the club discussion board was cleared",
+    //         Author: "PageTurners Team",
+    //         postDate: new Date()}).then((e)=>{
+    //             window.location.href = "./clubhomepage.html?id=" + docRef.id;
+    //         })
+        
+
+    // }
 })
 
