@@ -1,4 +1,3 @@
-// Import Firebase modules
 import { auth, db } from './firebaseConfig';
 import { doc, getDoc, setDoc, getDocs, collection } from "firebase/firestore";
 
