@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-analytics.js";
-  import { getFirestore, collection, getDoc, getDocs, doc, query, where } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js';
+  import { getFirestore, collection, orderBy, getDoc, getDocs, doc, query, where } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js';
   import { getAuth, 
     createUserWithEmailAndPassword,
 signOut,
@@ -82,6 +82,7 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
 
 
+
   async function getEmailFromUID(uid)
   {
     const q = query(collection(db, "Users"), where("uid", "==", uid));
@@ -89,6 +90,20 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
     return qsnap.docs[0].data()["email"];
   }
+
+  if (await isAdmin(userUID) == 1)
+    {
+      document.getElementById("manage").href = "overview.html?id=" + docRef.id;
+    }
+    else
+    {
+      let elem = document.getElementById("manage")
+      elem.remove()
+    }
+
+    const post = document.getElementById("post");
+    post.href = "discussionpost.html?id=" + queryParams.get("id");
+  
 
   let docRef = await getClubdocRefFromQParams(queryParams);
 
@@ -108,29 +123,18 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
     parentUL.appendChild(newLI);
   }
   let docRef2 = doc(db,"BookClubs", queryParams.get("id"));
+  
+  const discRef = collection(docRef2, "DiscussionPosts");
+  const dq = query(discRef, orderBy("postDate"));
+  const dqsnap = await getDocs(dq);
 
-  const discRef = await getDocs(collection(docRef2, "DiscussionPosts"));
   let elem;
 
-  discRef.forEach((doc)=>{
+  dqsnap.forEach((doc)=>{
 
     elem = createDisPost(doc);
     document.getElementById("disc").appendChild(elem);
   })
 
-  
 
-
-
-  console.log(isAdmin(userUID));
-
-  if (await isAdmin(userUID) == 1)
-  {
-    document.getElementById("manage").href = "overview.html?id=" + docRef.id;
-  }
-  else
-  {
-    let elem = document.getElementById("manage")
-    elem.remove()
-  }
-
+ 
