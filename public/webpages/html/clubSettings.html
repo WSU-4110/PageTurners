@@ -1,87 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Club Settings</title>
-    <link rel="stylesheet" href="../css/created.css" />
-  </head>
-  <body>
-    <div class="container">
-      <aside class="sidebar">
-        <div class="profile-container">
-          
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Club Settings</title>
+  <link rel="stylesheet" href="../css/created.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="profile-container">
+        <label for="profile-pic-upload" class="upload-btn">Change Profile Picture</label>
+        <input
+          type="file"
+          id="profile-pic-upload"
+          accept="image/*"
+          onchange="changeProfilePicture()"
+          style="display: none"
+        />
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="overview.html">Overview</a></li>
+          <li><a href="members.html">Members</a></li>
+          <li><a href="meetings.html">Meetings</a></li>
+          <li><a href="clubSettings.html">Club Settings</a></li>
+          <li><a href="logout.html">Logout</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <h2>Edit Club Settings</h2>
+      <form class="club-settings-form" id="clubmanage" method="POST" action="saveSettings.php">
+        <div class="form-group">
+          <label for="currBook">Title of Current Book</label>
           <input
-            type="file"
-            id="profile-pic-upload"
-            accept="image/*"
-            onchange="changeProfilePicture()"
-            style="display: none"
+            type="text"
+            id="currBook"
+            name="currBook"
+            placeholder="Enter the current book title"
+            required
           />
-          <button
-            onclick="document.getElementById('profile-pic-upload').click()"
-            class="upload-btn"
-          >
-            Change Profile Picture
-          </button>
         </div>
-        <nav class="sidebar-nav">
-          <ul>
-            <li><a onclick="window.location='overview.html' + window.location.search;">Overview</a></li>
-            <li><a onclick="window.location='members.html' + window.location.search;">Members</a></li>
-            <li><a onclick="window.location='meetings.html' + window.location.search;">Meetings</a></li>
-            <li><a onclick="window.location='clubSettings.html' + window.location.search;">Club Settings</a></li>
-            <li><a href="logout.html">Logout</a></li>
-          </ul>
-        </nav>
-      </aside>
-      <main class="main-content">
-        <h2>Edit Club Name and Description</h2>
-        <form class="club-settings-form" id="clubmanage">
-          <div class="form-group">
-            <label for="club-name">Title of Current Book</label>
-            <input
-              type="text"
-              id="currBook"
-              placeholder=""
-              value=""
-            />
-          </div>
-          <div class="form-group">
-            <label for="club-description">This Weeks Reading</label>
-            <textarea
-              id="currentReading"
-              placeholder=""
-            ></textarea>
-          </div>
-          <div class="form-group">
-            <label for="club-name">Discussion Topic</label>
-            <input
-              type="text"
-              id="DiscTopic"
-              placeholder=""
-              value=""
-            />
-          </div>
-          <div class="form-group">
-            <!-- <label>Clear Current Discussion?</label><input type="checkbox" id="del"/> </div> -->
-          <button type="submit" class="save-btn">Save Changes</button>
-        </form>
-      </main>
-    </div>
-    <script>
-      // Function to change profile picture preview
-      function changeProfilePicture() {
-        const file = document.getElementById("profile-pic-upload").files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = function (e) {
-            document.getElementById("profile-pic").src = e.target.result;
-          };
-          reader.readAsDataURL(file);
-        }
+
+        <div class="form-group">
+          <label for="currentReading">This Week's Reading</label>
+          <textarea
+            id="currentReading"
+            name="currentReading"
+            placeholder="Describe this week's reading"
+            rows="4"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="DiscTopic">Discussion Topic</label>
+          <input
+            type="text"
+            id="DiscTopic"
+            name="DiscTopic"
+            placeholder="Enter the discussion topic"
+            required
+          />
+        </div>
+
+        <!-- Optional Clear Discussion -->
+        <div class="form-group">
+          <label for="clearDiscussion">Clear Current Discussion</label>
+          <input type="checkbox" id="clearDiscussion" name="clearDiscussion" />
+        </div>
+
+        <button type="submit" class="save-btn">Save Changes</button>
+      </form>
+    </main>
+  </div>
+
+  <script>
+    // Function to change profile picture preview
+    function changeProfilePicture() {
+      const file = document.getElementById("profile-pic-upload").files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById("profile-pic").src = e.target.result;
+        };
+        reader.readAsDataURL(file);
       }
-    </script>
-    <script type="module" src="../../scripts/clubSettings.js"></script>
-  </body>
+    }
+  </script>
+  <script type="module" src="../../scripts/clubSettings.js"></script>
+</body>
 </html>

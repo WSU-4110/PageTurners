@@ -7,27 +7,38 @@
     <link rel="stylesheet" href="../css/join.css">
     <link rel="stylesheet" href="../css/dashboard.css">
     <style>
-        /* Global styles to ensure layout consistency */
+        /* Global styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #f4f4f9;
+            color: #333;
         }
 
         header {
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #3E4E5E;
+            padding: 15px 20px;
+            color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
         }
 
         .header-container {
             display: flex;
             justify-content: space-between;
-            padding: 20px;
+            align-items: center;
         }
 
         .logo-container img {
             max-height: 40px;
+        }
+
+        .site-title a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.5em;
+            margin-left: 10px;
+            font-weight: bold;
         }
 
         .nav-container {
@@ -43,35 +54,35 @@
         }
 
         .nav-list li {
-            margin-right: 20px;
+            margin-right: 15px;
         }
 
         .nav-list li a {
             text-decoration: none;
-            color: #333;
-            font-size: 16px;
+            color: #ffffff;
+            font-size: 1em;
+            font-weight: bold;
         }
 
         .search-form {
             display: flex;
             align-items: center;
+            margin-right: 20px;
         }
 
         .search-input {
             padding: 8px;
-            margin-right: 10px;
             border-radius: 4px;
             border: 1px solid #ccc;
+            font-size: 14px;
+            outline: none;
         }
 
         .search-button {
             background-color: transparent;
             border: none;
             cursor: pointer;
-        }
-
-        .search-button img {
-            width: 20px;
+            margin-left: 5px;
         }
 
         .user-dropdown {
@@ -83,102 +94,88 @@
             position: absolute;
             top: 100%;
             right: 0;
-            background-color: white;
+            background-color: #fff;
             border: 1px solid #ddd;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
             list-style: none;
             margin: 0;
             padding: 0;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .dropdown-menu li {
-            padding: 10px;
+            padding: 10px 15px;
         }
 
         .dropdown-menu li a {
             text-decoration: none;
             color: #333;
+            font-size: 14px;
+            display: block;
         }
 
         .user-dropdown:hover .dropdown-menu {
             display: block;
         }
 
-        /* Form Container */
-        .form-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            margin: 50px auto; /* Center the form */
-        }
-
-        .form-container h2 {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .form-container input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .form-container button {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .form-container button:hover {
-            background-color: #45a049;
-        }
-
-        /* Book Clubs List */
+        /* Book Clubs Section */
         .book-clubs-container {
             max-width: 900px;
-            margin: 50px auto;
+            margin: 30px auto;
             padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-clubs-container h1 {
+            font-size: 1.8em;
+            color: #3E4E5E;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 2px solid #3E4E5E;
+            padding-bottom: 10px;
         }
 
         .book-club-item {
-            background-color: #fff;
+            background-color: #f9f9f9;
             padding: 20px;
-            margin-bottom: 20px;
+            margin: 15px 0;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .book-club-item:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
         }
 
         .book-club-item h3 {
-            margin-top: 0;
+            font-size: 1.5em;
             color: #333;
+            margin-top: 0;
         }
 
         .book-club-item p {
             font-size: 14px;
-            color: #555;
+            color: #666;
             margin: 10px 0;
         }
 
         .book-club-item button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
+            background-color: #3E4E5E;
+            color: #ffffff;
             padding: 10px 15px;
+            border: none;
             border-radius: 4px;
+            font-size: 1em;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         .book-club-item button:hover {
-            background-color: #45a049;
+            background-color: #2d3b4b;
         }
     </style>
 </head>
@@ -187,13 +184,13 @@
         <div class="header-container">
             <div class="logo-container">
                 <img src="../../images/logo1.png" alt="PageTurners Logo" class="logo">
-                <span class="site-title"><a href="dashboard.html">PageTurners</a></span>
+                <span class="site-title"><a href="dashboard.html">PageTurners Book Club</a></span>
             </div>
             <nav class="nav-container">
                 <ul class="nav-list">
                     <li><a href="dashboard.html" class="loginbutton">Home</a></li>
                     <li class="user-dropdown">
-                        <img src="https://img.icons8.com/ios-glyphs/30/000000/user.png" alt="User Icon" class="user-icon" onclick="toggleDropdown()">
+                        <img src="https://img.icons8.com/ios-glyphs/30/000000/user.png" alt="User Icon" class="user-icon">
                         <ul class="dropdown-menu" id="user-dropdown-menu">
                             <li><a href="#">Discussions</a></li>
                             <li><a href="#">Account</a></li>
@@ -203,7 +200,7 @@
                     <li>
                         <form class="search-form" action="/search" method="GET">
                             <input type="text" name="query" placeholder="Search for books, clubs, or authors" class="search-input" id="search-input">
-                            <button type="button" class="search-button" onclick="toggleSearch()">
+                            <button type="button" class="search-button">
                                 <img src="https://img.icons8.com/ios-glyphs/30/000000/search.png" alt="Search" class="search-icon">
                             </button>
                         </form>
@@ -216,14 +213,21 @@
     <main>
         <!-- Book Clubs List Section -->
         <div class="book-clubs-container" id="list1">
-        <h1>Clubs Pending Acceptance</h1>
-            
-
+            <h1>Clubs Pending Acceptance</h1>
+            <div class="book-club-item">
+                <h3>Sample Club 1</h3>
+                <p>Description of the club goes here.</p>
+                <button>Join</button>
+            </div>
         </div>
+        
         <div class="book-clubs-container" id="list2">
-        <h1>Your Clubs</h1>
-            
-
+            <h1>Your Clubs</h1>
+            <div class="book-club-item">
+                <h3>Sample Club 2</h3>
+                <p>Description of the club goes here.</p>
+                <button>Leave</button>
+            </div>
         </div>
     </main>
 
@@ -231,3 +235,4 @@
 </body>
 <script type="module" src="../../scripts/clublist.js"></script>
 </html>
+
