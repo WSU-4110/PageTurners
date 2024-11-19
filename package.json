@@ -1,5 +1,19 @@
 {
   "dependencies": {
-    "fetch": "^1.1.0"
+    "express": "^4.21.1",
+    "fetch": "^1.1.0",
+    "firebase": "^11.0.2"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.26.0",
+    "babel-jest": "^29.7.0",
+    "jasmine": "^5.4.0",
+    "jasmine-esm": "^0.3.1",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0"
   }
 }
