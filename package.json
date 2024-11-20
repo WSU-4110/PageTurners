@@ -1,5 +1,5 @@
 {
-  "dependencies": {
-    "fetch": "^1.1.0"
+  "devDependencies": {
+    "jsdom": "^25.0.1"
   }
 }
