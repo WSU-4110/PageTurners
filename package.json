@@ -1,5 +1,10 @@
 {
   "dependencies": {
     "fetch": "^1.1.0"
+  },
+  "devDependencies": {
+    "jasmine": "^5.4.0",
+    "jsdom": "^25.0.1"
   }
+  
 }
