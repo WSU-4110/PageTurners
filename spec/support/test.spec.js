@@ -347,7 +347,7 @@ it("should login with correct email and password", async () => {
 });
 
 
-/ Test setup
+// Test setup
 describe("Suite of 6 tests for Assignment 5", () => {
   beforeEach(() => {
     document.body.innerHTML = `
