@@ -34,8 +34,6 @@ from "firebase/auth";
   const auth = getAuth();
   const db = getFirestore(app);
 
-  // Import necessary Firebase functions and utilities
-import { changeImage, toggleSearch, fetchTopRecommendations, fetchFeaturedBooks, loadProfilePicture, changeBackgroundColor } from './project.js';
 
 
 
