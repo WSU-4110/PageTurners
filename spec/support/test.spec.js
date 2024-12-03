@@ -34,7 +34,8 @@ from "firebase/auth";
   const auth = getAuth();
   const db = getFirestore(app);
 
-  
+  // Import necessary Firebase functions and utilities
+import { changeImage, toggleSearch, fetchTopRecommendations, fetchFeaturedBooks, loadProfilePicture, changeBackgroundColor } from './project.js';
 
 
 
@@ -336,72 +337,29 @@ it("should login with correct email and password", async () => {
   });
 });
 
-// Eunice Shobowale hd5862
-// Suite for DOM Manipulation and Fetching Data
+
 
 describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
 
-  // Mock the window and document objects for Node.js testing
   beforeAll(() => {
-    // Define the `window` object for Node.js environment
-    global.window = {};
-    global.document = {
-      body: {
-        style: {}
-      },
-      getElementById: (id) => {
-        const mockElements = {
-          "carousel-image": { src: "" },
-          "search-input": { style: { display: "none", width: "" } },
-          "recommendations-container": { innerHTML: "" },
-          "featured-books-container": { innerHTML: "" },
-          "club-profile-pic": { src: "" },
-        };
-        return mockElements[id];
-      },
-    };
+    // Mocking DOM environment using jsdom (for Node.js environments)
+    const { JSDOM } = require('jsdom');
+    const dom = new JSDOM(`<!DOCTYPE html><html><head></head><body></body></html>`);
+    global.window = dom.window;
+    global.document = dom.window.document;
+    global.HTMLElement = dom.window.HTMLElement;
 
-    // Mocking DOM manipulation and fetching functions using Jasmine's spyOn
-    spyOn(window, 'changeImage').and.callFake((index) => {
-      const images = [
-        "../../images/first1.png",
-        "../../images/second2.jpg",
-        "../../images/third3.jpg",
-      ];
-      const carouselImage = document.getElementById("carousel-image");
-      carouselImage.src = images[index]; // Update image src based on index
-    });
-
-    spyOn(window, 'toggleSearch').and.callFake(() => {
-      const searchInput = document.getElementById("search-input");
-      if (searchInput.style.display === "none" || !searchInput.style.display) {
-        searchInput.style.display = "block";
-        searchInput.style.width = "200px";
-      } else {
-        searchInput.style.display = "none";
-      }
-    });
-
-    spyOn(window, 'fetchTopRecommendations').and.callFake(async () => {
-      const recommendationsContainer = document.getElementById("recommendations-container");
-      recommendationsContainer.innerHTML = "<img src='img1.jpg' />";
-    });
-
-    spyOn(window, 'fetchFeaturedBooks').and.callFake(async () => {
-      const featuredBooksContainer = document.getElementById("featured-books-container");
-      featuredBooksContainer.innerHTML = "<img src='img1.jpg' />";
-    });
-
-    spyOn(window, 'loadProfilePicture').and.callFake(() => {
-      const profilePic = document.getElementById("club-profile-pic");
-      profilePic.src = "data:image/png;base64,dummydata";
-    });
-
-    spyOn(window, 'changeBackgroundColor').and.callFake((color) => {
-      document.body.style.backgroundColor = color;
-    });
+    // Set up the DOM elements that the functions interact with
+    document.body.innerHTML = `
+      <img id="carousel-image" src=""/>
+      <input id="search-input" style="display: none;" />
+      <div id="recommendations-container"></div>
+      <div id="featured-books-container"></div>
+      <img id="club-profile-pic" src=""/>
+    `;
   });
 
+  // Tests for the functions
   describe("changeImage", () => {
     it("should update the carousel image src to the correct URL", () => {
       const images = [
@@ -409,7 +367,7 @@ describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
         "../../images/second2.jpg",
         "../../images/third3.jpg",
       ];
-      changeImage(1);
+      changeImage(1);  // Call the actual function
       const carouselImage = document.getElementById("carousel-image");
       expect(carouselImage.src).toContain(images[0]);
     });
@@ -417,7 +375,7 @@ describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
 
   describe("toggleSearch", () => {
     it("should display and focus the search input if initially hidden", () => {
-      toggleSearch();
+      toggleSearch();  // Call the actual function
       const searchInput = document.getElementById("search-input");
       expect(searchInput.style.display).toBe("block");
       expect(searchInput.style.width).toBe("200px");
@@ -426,14 +384,14 @@ describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
     it("should hide the search input if already displayed", () => {
       const searchInput = document.getElementById("search-input");
       searchInput.style.display = "block";
-      toggleSearch();
+      toggleSearch();  // Call the actual function
       expect(searchInput.style.display).toBe("none");
     });
   });
 
   describe("fetchTopRecommendations", () => {
     it("should fetch and render top recommendations", async () => {
-      await fetchTopRecommendations();
+      await fetchTopRecommendations();  // Call the actual function
       const recommendationsContainer = document.getElementById("recommendations-container");
       expect(recommendationsContainer.innerHTML).toContain("img1.jpg");
     });
@@ -441,7 +399,7 @@ describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
 
   describe("fetchFeaturedBooks", () => {
     it("should fetch and render featured books", async () => {
-      await fetchFeaturedBooks();
+      await fetchFeaturedBooks();  // Call the actual function
       const featuredBooksContainer = document.getElementById("featured-books-container");
       expect(featuredBooksContainer.innerHTML).toContain("img1.jpg");
     });
@@ -449,7 +407,7 @@ describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
 
   describe("loadProfilePicture", () => {
     it("should load the profile picture from localStorage", () => {
-      loadProfilePicture();
+      loadProfilePicture();  // Call the actual function
       const profilePic = document.getElementById("club-profile-pic");
       expect(profilePic.src).toBe("data:image/png;base64,dummydata");
     });
@@ -457,14 +415,12 @@ describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
 
   describe("changeBackgroundColor", () => {
     it("should change the background color of the body", () => {
-      changeBackgroundColor("blue");
+      changeBackgroundColor("blue");  // Call the actual function
       expect(document.body.style.backgroundColor).toBe("blue");
 
-      changeBackgroundColor("red");
+      changeBackgroundColor("red");  // Call the actual function
       expect(document.body.style.backgroundColor).toBe("red");
     });
   });
+
 });
-
-
-
