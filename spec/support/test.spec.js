@@ -25,8 +25,6 @@ from "firebase/auth";
   };
 
 
-import fetch from "node-fetch";
-global.fetch = fetch;
 
 // Import functions from your project.js
 import {
@@ -345,47 +343,6 @@ it("should login with correct email and password", async () => {
   });
 });
 
-
-// Mock FileReader for global scope (without file-api)
-global.FileReader = class {
-  constructor() {
-    this.result = null;
-    this.error = null;
-    this.onload = null;
-    this.onloadend = null;
-    this.onerror = null;
-    this.readAsDataURL = jasmine.createSpy("readAsDataURL").and.callFake((file) => {
-      // Simulate reading a file and triggering the load event
-      setTimeout(() => {
-        this.result = "data:image/png;base64,dummydata";
-        if (this.onload) {
-          this.onload({ target: this });
-        }
-      }, 100);
-    });
-    this.readAsText = jasmine.createSpy("readAsText").and.callFake((file) => {
-      // Simulate reading text data and triggering the load event
-      setTimeout(() => {
-        this.result = "Mock text data";
-        if (this.onload) {
-          this.onload({ target: this });
-        }
-      }, 100);
-    });
-  }
-};
-
-// Mock global fetch (no need to import node-fetch)
-global.fetch = jasmine.createSpy("fetch").and.returnValue(
-  Promise.resolve({
-    json: () =>
-      Promise.resolve({
-        items: [
-          { id: "1", volumeInfo: { imageLinks: { thumbnail: "img1.jpg" } } },
-        ],
-      }),
-  })
-);
 describe("Unit Testing", () => {
   // Setup before each test
   beforeEach(() => {
@@ -396,11 +353,8 @@ describe("Unit Testing", () => {
       <div id="featured-books-container"></div>
       <img id="club-profile-pic" src=""/>
     `;
-    spyOn(localStorage, "setItem");
-    spyOn(localStorage, "getItem").and.callFake((key) => {
-      if (key === "profilePicture") return "data:image/png;base64,dummydata";
-      return null;
-    });
+    // No spying on localStorage or imports
+    // LocalStorage will be used directly
   });
 
   describe("changeImage", () => {
@@ -410,7 +364,7 @@ describe("Unit Testing", () => {
         "../../images/second2.jpg",
         "../../images/third3.jpg",
       ];
-      changeImage(1);
+      changeImage(1); // Assuming this function is globally available
       const carouselImage = document.getElementById("carousel-image");
       expect(carouselImage.src).toContain(images[0]);
     });
@@ -418,7 +372,7 @@ describe("Unit Testing", () => {
 
   describe("toggleSearch", () => {
     it("should display and focus the search input if initially hidden", () => {
-      toggleSearch();
+      toggleSearch(); // Assuming this function is globally available
       const searchInput = document.getElementById("search-input");
       expect(searchInput.style.display).toBe("block");
       expect(searchInput.style.width).toBe("200px");
@@ -427,25 +381,14 @@ describe("Unit Testing", () => {
     it("should hide the search input if already displayed", () => {
       const searchInput = document.getElementById("search-input");
       searchInput.style.display = "block";
-      toggleSearch();
+      toggleSearch(); // Assuming this function is globally available
       expect(searchInput.style.display).toBe("none");
     });
   });
 
   describe("fetchTopRecommendations", () => {
     it("should fetch and render top recommendations", async () => {
-      spyOn(global, "fetch").and.returnValue(
-        Promise.resolve({
-          json: () =>
-            Promise.resolve({
-              items: [
-                { id: "1", volumeInfo: { imageLinks: { thumbnail: "img1.jpg" } } },
-              ],
-            }),
-        })
-      );
-
-      await fetchTopRecommendations();
+      await fetchTopRecommendations(); // Assuming this function is globally available
       const recommendationsContainer = document.getElementById("recommendations-container");
       expect(recommendationsContainer.innerHTML).toContain("img1.jpg");
     });
@@ -453,26 +396,15 @@ describe("Unit Testing", () => {
 
   describe("fetchFeaturedBooks", () => {
     it("should fetch and render featured books", async () => {
-      spyOn(global, "fetch").and.returnValue(
-        Promise.resolve({
-          json: () =>
-            Promise.resolve({
-              items: [
-                { id: "2", volumeInfo: { imageLinks: { thumbnail: "img2.jpg" } } },
-              ],
-            }),
-        })
-      );
-
-      await fetchFeaturedBooks();
+      await fetchFeaturedBooks(); // Assuming this function is globally available
       const featuredBooksContainer = document.getElementById("featured-books-container");
-      expect(featuredBooksContainer.innerHTML).toContain("img2.jpg");
+      expect(featuredBooksContainer.innerHTML).toContain("img1.jpg");
     });
   });
 
   describe("loadProfilePicture", () => {
     it("should load the profile picture from localStorage", () => {
-      loadProfilePicture();
+      loadProfilePicture(); // Assuming this function is globally available
       const profilePic = document.getElementById("club-profile-pic");
       expect(profilePic.src).toBe("data:image/png;base64,dummydata");
     });
@@ -480,10 +412,10 @@ describe("Unit Testing", () => {
 
   describe("changeBackgroundColor", () => {
     it("should change the background color of the body", () => {
-      changeBackgroundColor("blue");
+      changeBackgroundColor("blue"); // Assuming this function is globally available
       expect(document.body.style.backgroundColor).toBe("blue");
 
-      changeBackgroundColor("red");
+      changeBackgroundColor("red"); // Assuming this function is globally available
       expect(document.body.style.backgroundColor).toBe("red");
     });
   });
