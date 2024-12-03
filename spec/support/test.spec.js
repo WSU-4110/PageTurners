@@ -60,7 +60,7 @@ import {
   fetchTopRecommendations,
   loadProfilePicture,
   changeBackgroundColor,
-} from "/public/scripts/project.js";  
+} from "/public/scripts/project.js";
 class Clubhomepage{
 
     constructor()
