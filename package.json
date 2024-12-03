@@ -2,7 +2,7 @@
   "dependencies": {
     "express": "^4.21.1",
     "fetch": "^1.1.0",
-    "firebase": "^11.0.2"
+    "firebase": "^11.0.2",
     "file-api": "^1.0.0", 
   "node-fetch": "^2.6.7"
   },
