@@ -1,6 +1,6 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-analytics.js";
-  import { getFirestore, collection, orderBy, getDoc, getDocs, doc, query, where } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js';
+import { initializeApp } from "firebase/app";
+  import { getAnalytics } from "firebase/analytics";
+  import { getFirestore, collection, orderBy, getDoc, getDocs, doc, query, where } from "firebase/firestore";
   import { getAuth, 
     createUserWithEmailAndPassword,
 signOut,
@@ -8,7 +8,7 @@ signInWithEmailAndPassword,
 onAuthStateChanged
  } 
 
-from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+from "firebase/auth";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -26,33 +26,14 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
   const auth = getAuth();
   const db = getFirestore(app);
 
-  document.body.style.visibility = "visible";
-  const queryParams = new URLSearchParams(window.location.search);
-  let userUID = "";
-  let userEmail = "";
-  auth.onAuthStateChanged(function(user){
-    if (user) {
-        userUID = user.uid;
-        userEmail = user.email;    
-    }
-  });
-
-
-  async function isAdmin(userUID, docRef)
-  {
-      if (docRef.data()["ClubAdmins"].includes(userUID))
-      {
-          return 1;
-      }
-      return 0;
-  }
-
   
-  class Clubhomepage{
+
+
+
+class Clubhomepage{
 
     constructor()
     {
@@ -96,7 +77,7 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
     async GenClubDocRefAndSnap()
     {
-      let docRef = doc(db,"BookClubs", queryParams.get("id"));
+      let docRef = doc(db,"BookClubs", "8jVPhq50GdSfISN9BiQ7");
       this.ClubDocRef = docRef;
       const docSnap = await getDoc(docRef);
       this.ClubDocSnap = docSnap;
@@ -168,11 +149,6 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
       return this.Discussion;
     }
 
-    getClubDoc()
-    {
-      return this.ClubDocSnap;
-    }
-
     async getEmailFromUID(uid)
     {
      const q = query(collection(db, "Users"), where("uid", "==", uid));
@@ -208,36 +184,70 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
 const Homepage = new Clubhomepage();
 
+// await Homepage.GenClubDocRefAndSnap().then(async ()=>
+// {
+// //   Homepage.setClubClubDesc();
+// //   Homepage.setClubName();
+// //   Homepage.setCurrBook();
+// //   Homepage.setCurrReading();
+// //   Homepage.setDiscTopic();
+// //   Homepage.setMembers();
+// //   await Homepage.convertMembers();
+// //   Homepage.setDiscussion();
+// //   Homepage.updatePage();
+// });
 
 
-await Homepage.GenClubDocRefAndSnap().then(async ()=>
-{
-  
-  Homepage.setClubClubDesc();
-  Homepage.setClubName();
-  Homepage.setCurrBook();
-  Homepage.setCurrReading();
-  Homepage.setDiscTopic();
-  Homepage.setMembers();
-  await Homepage.convertMembers();
-  await Homepage.genDiscSnap().then(()=>
-  {
-    Homepage.setDiscussion();
-  })
-  Homepage.updatePage();
-});
+describe("Suite of 6 tests for Assignment 5", ()=>
+    {
+    
+        it("testing name function", async ()=>
+        {
+            await Homepage.GenClubDocRefAndSnap().then(async ()=>
+            {
+            expect(Homepage.setClubName()).toBe("Assignment 5 unit tests ( do not alter )");
+            });
+        });
+    
+        it("testing description fucntion",async ()=>
+        {  
+            await Homepage.GenClubDocRefAndSnap().then(async ()=>
+            {
+                expect(Homepage.setClubClubDesc()).toBe("no description");
+            });
+        })
 
-if (await isAdmin(userUID, Homepage.getClubDoc()) == 1)
-  {
-    document.getElementById("manage").href = "overview.html?id=" + Homepage.getClubDoc().id;
-  }
-  else
-  {
-    let elem = document.getElementById("manage")
-    elem.remove()
-  }
+        it("testing club Book function",async ()=>
+        {
+            await Homepage.GenClubDocRefAndSnap().then(async ()=>
+            {
+                expect(Homepage.setCurrBook()).toBe("test2");
+            });
+        })
 
+        it("testing club Reading function",async ()=>
+        {
+            await Homepage.GenClubDocRefAndSnap().then(async ()=>
+            {
+                expect(Homepage.setCurrReading()).toBe("test3");
+            });
+        })
 
+        it("testing club discussion topic function", async ()=>
+        {
+            await Homepage.GenClubDocRefAndSnap().then(async ()=>
+            {
+                expect(Homepage.setDiscTopic()).toBe("test4");
+            });
+        })
 
+        it("testing club  members function",async ()=>
+        {
+            await Homepage.GenClubDocRefAndSnap().then(async ()=>
+            {
+                expect(Homepage.setMembers()).toEqual(["UOuyu3tQOyYo2BK46CqeJjlL1Ff1"])
+            });
+        })
 
+    })
 
