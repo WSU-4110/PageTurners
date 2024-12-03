@@ -24,6 +24,11 @@ body {
   display: flex;
   align-items: center;
 }
+.club-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+}
 
 .logo {
   height: 60px;
