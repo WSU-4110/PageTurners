@@ -32,7 +32,7 @@ from "firebase/auth";
   
   
 
-import { changeImage, toggleSearch, fetchFeaturedBooks, fetchTopRecommendations, loadProfilePicture, changeBackgroundColor } from "/Users/temmy/Desktop/PageTurners/PageTurners/project.js";
+import { changeImage, toggleSearch, fetchFeaturedBooks, fetchTopRecommendations, loadProfilePicture, changeBackgroundColor } from "../../scripts/project.js";
 
 class Clubhomepage{
 
