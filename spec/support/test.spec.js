@@ -341,7 +341,26 @@ it("should login with correct email and password", async () => {
 
 describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
 
+  // Mock the window and document objects for Node.js testing
   beforeAll(() => {
+    // Define the `window` object for Node.js environment
+    global.window = {};
+    global.document = {
+      body: {
+        style: {}
+      },
+      getElementById: (id) => {
+        const mockElements = {
+          "carousel-image": { src: "" },
+          "search-input": { style: { display: "none", width: "" } },
+          "recommendations-container": { innerHTML: "" },
+          "featured-books-container": { innerHTML: "" },
+          "club-profile-pic": { src: "" },
+        };
+        return mockElements[id];
+      },
+    };
+
     // Mocking DOM manipulation and fetching functions using Jasmine's spyOn
     spyOn(window, 'changeImage').and.callFake((index) => {
       const images = [
@@ -446,5 +465,6 @@ describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
     });
   });
 });
+
 
 
