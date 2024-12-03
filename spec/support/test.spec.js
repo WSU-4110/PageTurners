@@ -333,8 +333,18 @@ it("should login with correct email and password", async () => {
       });
   });
 });
-// Mock functions globally available
+
+
+// Setup mock functions globally available for tests
 beforeAll(() => {
+  // Setup jsdom
+  const { JSDOM } = require("jsdom");
+  const dom = new JSDOM(`<!DOCTYPE html><html><body></body></html>`);
+  global.document = dom.window.document;
+  global.window = dom.window;
+  global.HTMLElement = dom.window.HTMLElement;
+  global.navigator = dom.window.navigator;
+
   // Set up global functions
   global.changeImage = function(index) {
     const images = [
@@ -349,7 +359,7 @@ beforeAll(() => {
     const searchInput = document.getElementById("search-input");
     if (searchInput.style.display === "none") {
       searchInput.style.display = "block";
-      searchInput.style.width = "200px";  // Adjust according to your logic
+      searchInput.style.width = "200px";
     } else {
       searchInput.style.display = "none";
     }
@@ -402,12 +412,12 @@ describe("Unit Testing", () => {
       toggleSearch(); // Function is globally available
       const searchInput = document.getElementById("search-input");
       expect(searchInput.style.display).toBe("block");
-      expect(searchInput.style.width).toBe("200px"); // Ensure width is set as expected
+      expect(searchInput.style.width).toBe("200px");
     });
 
     it("should hide the search input if already displayed", () => {
       const searchInput = document.getElementById("search-input");
-      searchInput.style.display = "block";  // Make it visible first
+      searchInput.style.display = "block";
       toggleSearch(); // Function is globally available
       expect(searchInput.style.display).toBe("none");
     });
