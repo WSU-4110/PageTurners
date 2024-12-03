@@ -337,21 +337,10 @@ it("should login with correct email and password", async () => {
 });
 
 
-//Eunice Shobowale hd5862
+// Eunice Shobowale hd5862
 // Suite for DOM Manipulation and Fetching Data
 
 describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
-
-  beforeAll(() => {
-    // Set up mock DOM elements before all tests
-    document.body.innerHTML = `
-      <img id="carousel-image" src=""/>
-      <input id="search-input" style="display: none;" />
-      <div id="recommendations-container"></div>
-      <div id="featured-books-container"></div>
-      <img id="club-profile-pic" src=""/>
-    `;
-  });
 
   describe("changeImage", () => {
     it("should update the carousel image src to the correct URL", () => {
