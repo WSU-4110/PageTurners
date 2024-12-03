@@ -26,15 +26,6 @@ from "firebase/auth";
 
 
 
-// Import functions from your project.js
-import {
-  changeImage,
-  toggleSearch,
-  fetchFeaturedBooks,
-  fetchTopRecommendations,
-  loadProfilePicture,
-  changeBackgroundColor,
-} from "/public/scripts/project.js";
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
@@ -42,7 +33,7 @@ import {
   const db = getFirestore(app);
 
   
-  
+
 
 
 
@@ -343,9 +334,10 @@ it("should login with correct email and password", async () => {
   });
 });
 
+// Mock test functions (global scope assumed)
 describe("Unit Testing", () => {
-  // Setup before each test
   beforeEach(() => {
+    // Setup the DOM before each test
     document.body.innerHTML = `
       <img id="carousel-image" src=""/>
       <input id="search-input" style="display: none;" />
@@ -353,8 +345,6 @@ describe("Unit Testing", () => {
       <div id="featured-books-container"></div>
       <img id="club-profile-pic" src=""/>
     `;
-    // No spying on localStorage or imports
-    // LocalStorage will be used directly
   });
 
   describe("changeImage", () => {
@@ -375,13 +365,13 @@ describe("Unit Testing", () => {
       toggleSearch(); // Assuming this function is globally available
       const searchInput = document.getElementById("search-input");
       expect(searchInput.style.display).toBe("block");
-      expect(searchInput.style.width).toBe("200px");
+      expect(searchInput.style.width).toBe("200px"); // Ensure width is set as expected
     });
 
     it("should hide the search input if already displayed", () => {
       const searchInput = document.getElementById("search-input");
-      searchInput.style.display = "block";
-      toggleSearch(); // Assuming this function is globally available
+      searchInput.style.display = "block";  // Make it visible first
+      toggleSearch(); // Run the function to toggle visibility
       expect(searchInput.style.display).toBe("none");
     });
   });
