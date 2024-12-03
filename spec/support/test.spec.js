@@ -32,8 +32,8 @@ from "firebase/auth";
   
   
 
-import { changeImage, toggleSearch, fetchFeaturedBooks, fetchTopRecommendations, loadProfilePicture, changeBackgroundColor } from "../../scripts/project.js";
-
+import { changeImage, toggleSearch, fetchFeaturedBooks, fetchTopRecommendations, loadProfilePicture, changeBackgroundColor } 
+  from public/scripts/project.js";
 class Clubhomepage{
 
     constructor()
