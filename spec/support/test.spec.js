@@ -1,14 +1,4 @@
-import { JSDOM } from 'jsdom'; // Use import instead of require
 
-// Set up jsdom to simulate the browser environment before any tests
-beforeAll(() => {
-  // Create a new instance of jsdom and set up global document and window
-  const dom = new JSDOM(`<!DOCTYPE html><html><body></body></html>`);
-  global.document = dom.window.document;
-  global.window = dom.window;
-  global.HTMLElement = dom.window.HTMLElement;
-  global.navigator = dom.window.navigator;
-});
 
 import { initializeApp } from "firebase/app";
   import { getAnalytics } from "firebase/analytics";
@@ -347,7 +337,6 @@ it("should login with correct email and password", async () => {
 });
 
 
-// Test setup
 describe("Suite of 6 tests for Assignment 5", () => {
   beforeEach(() => {
     document.body.innerHTML = `
@@ -366,7 +355,7 @@ describe("Suite of 6 tests for Assignment 5", () => {
         "../../images/second2.jpg",
         "../../images/third3.jpg",
       ];
-      changeImage(1);
+      changeImage(1); // Using globally defined function
       const carouselImage = document.getElementById("carousel-image");
       expect(carouselImage.src).toContain(images[0]);
     });
@@ -374,7 +363,7 @@ describe("Suite of 6 tests for Assignment 5", () => {
 
   describe("toggleSearch", () => {
     it("should display and focus the search input if initially hidden", () => {
-      toggleSearch(); // Function is globally available
+      toggleSearch(); // Using globally defined function
       const searchInput = document.getElementById("search-input");
       expect(searchInput.style.display).toBe("block");
       expect(searchInput.style.width).toBe("200px");
@@ -383,14 +372,14 @@ describe("Suite of 6 tests for Assignment 5", () => {
     it("should hide the search input if already displayed", () => {
       const searchInput = document.getElementById("search-input");
       searchInput.style.display = "block";
-      toggleSearch(); // Function is globally available
+      toggleSearch(); // Using globally defined function
       expect(searchInput.style.display).toBe("none");
     });
   });
 
   describe("fetchTopRecommendations", () => {
     it("should fetch and render top recommendations", async () => {
-      await fetchTopRecommendations(); // Function is globally available
+      await fetchTopRecommendations(); // Using globally defined function
       const recommendationsContainer = document.getElementById("recommendations-container");
       expect(recommendationsContainer.innerHTML).toContain("img1.jpg");
     });
@@ -398,7 +387,7 @@ describe("Suite of 6 tests for Assignment 5", () => {
 
   describe("fetchFeaturedBooks", () => {
     it("should fetch and render featured books", async () => {
-      await fetchFeaturedBooks(); // Function is globally available
+      await fetchFeaturedBooks(); // Using globally defined function
       const featuredBooksContainer = document.getElementById("featured-books-container");
       expect(featuredBooksContainer.innerHTML).toContain("img1.jpg");
     });
@@ -406,7 +395,7 @@ describe("Suite of 6 tests for Assignment 5", () => {
 
   describe("loadProfilePicture", () => {
     it("should load the profile picture from localStorage", () => {
-      loadProfilePicture(); // Function is globally available
+      loadProfilePicture(); // Using globally defined function
       const profilePic = document.getElementById("club-profile-pic");
       expect(profilePic.src).toBe("data:image/png;base64,dummydata");
     });
@@ -414,10 +403,10 @@ describe("Suite of 6 tests for Assignment 5", () => {
 
   describe("changeBackgroundColor", () => {
     it("should change the background color of the body", () => {
-      changeBackgroundColor("blue"); // Function is globally available
+      changeBackgroundColor("blue"); // Using globally defined function
       expect(document.body.style.backgroundColor).toBe("blue");
 
-      changeBackgroundColor("red"); // Function is globally available
+      changeBackgroundColor("red"); // Using globally defined function
       expect(document.body.style.backgroundColor).toBe("red");
     });
   });
