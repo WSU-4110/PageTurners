@@ -34,7 +34,7 @@ import {
   fetchTopRecommendations,
   loadProfilePicture,
   changeBackgroundColor,
-} from "public/scripts/project.js";
+} from "/public/scripts/project.js";
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
