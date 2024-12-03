@@ -1,4 +1,0 @@
-
--join from link
-
--allow changin of join code

@@ -30,6 +30,7 @@ from "firebase/auth";
   const db = getFirestore(app);
 
   
+  
 
 
 
@@ -199,6 +200,7 @@ const Homepage = new Clubhomepage();
 // });
 
 
+// Ben Sanderson
 describe("Suite of 6 tests for Assignment 5", ()=>
     {
     
@@ -251,4 +253,81 @@ describe("Suite of 6 tests for Assignment 5", ()=>
         })
 
     })
+    
+
+    // Sanjida Islam hk3351 
+    describe("Suite of 6 tests for Login and Registration", () => {
+      const testEmail = "testuser@example.com";
+      const testPassword = "password123";
+    beforeAll(async () => {
+      // Ensure the test user doesn't already exist and sign out if already logged in
+      try {
+          await signInWithEmailAndPassword(auth, testEmail, testPassword);
+          await signOut(auth);
+      } catch (error) {
+          if (error.code !== 'auth/user-not-found') {
+              console.error("Error signing out:", error);
+          }
+      }
+  });
+
+  it("should register a new user", async () => {
+      try {
+          const userCredential = await createUserWithEmailAndPassword(auth, testEmail, testPassword);
+          expect(userCredential.user.email).toBe(testEmail);
+      } catch (error) {
+          if (error.code === "auth/email-already-in-use") {
+              console.log("User already exists, skipping registration.");
+          } else {
+              throw error;  // Rethrow other errors
+          }
+      }
+  });
+
+  it("should fail registration with weak password", async () => {
+      const weakPassword = "123";
+      await createUserWithEmailAndPassword(auth, testEmail, weakPassword).catch((error) => {
+          expect(error.code).toBe("auth/weak-password");
+      });
+  });
+
+  it("should login an existing user", async () => {
+      await signInWithEmailAndPassword(auth, testEmail, testPassword).then((userCredential) => {
+          expect(userCredential.user.email).toBe(testEmail);
+      });
+  });
+  it("should sign out the user", async () => {
+    await signOut(auth)
+        .then(() => {
+            // Check if there is no user logged in
+            expect(auth.currentUser).toBeNull();
+        })
+        .catch((error) => {
+            // Fail the test if sign-out fails
+            fail("Sign-out failed.");
+        });
+});
+it("should login with correct email and password", async () => {
+  await signInWithEmailAndPassword(auth, testEmail, testPassword)
+      .then((userCredential) => {
+          // Check if the email in the user credential matches the test email
+          expect(userCredential.user.email).toBe(testEmail);
+      })
+      .catch((error) => {
+          // Fail the test if login fails
+          fail("Login should have been successful.");
+      });
+});
+
+  it("should detect logged-in user", async () => {
+      let currentUser = null;
+      onAuthStateChanged(auth, (user) => {
+          currentUser = user;
+      });
+
+      await signInWithEmailAndPassword(auth, testEmail, testPassword).then(() => {
+          expect(currentUser.email).toBe(testEmail);
+      });
+  });
+});
 
