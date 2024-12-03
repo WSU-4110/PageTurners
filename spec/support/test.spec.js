@@ -40,7 +40,7 @@ import {
   fetchTopRecommendations,
   loadProfilePicture,
   changeBackgroundColor,
-} from "/public/scripts/project.js";
+} from "PageTurners/public/scripts/project.js";
 class Clubhomepage{
 
     constructor()
