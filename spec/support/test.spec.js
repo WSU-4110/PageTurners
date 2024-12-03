@@ -375,6 +375,17 @@ global.FileReader = class {
   }
 };
 
+// Mock global fetch (no need to import node-fetch)
+global.fetch = jasmine.createSpy("fetch").and.returnValue(
+  Promise.resolve({
+    json: () =>
+      Promise.resolve({
+        items: [
+          { id: "1", volumeInfo: { imageLinks: { thumbnail: "img1.jpg" } } },
+        ],
+      }),
+  })
+);
 describe("Unit Testing", () => {
   // Setup before each test
   beforeEach(() => {
