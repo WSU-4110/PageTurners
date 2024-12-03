@@ -77,6 +77,7 @@ class Clubhomepage{
 
     async GenClubDocRefAndSnap()
     {
+      //test comment
       let docRef = doc(db,"BookClubs", "8jVPhq50GdSfISN9BiQ7");
       this.ClubDocRef = docRef;
       const docSnap = await getDoc(docRef);
