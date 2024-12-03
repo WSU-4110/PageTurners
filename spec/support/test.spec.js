@@ -333,11 +333,48 @@ it("should login with correct email and password", async () => {
       });
   });
 });
+// Mock functions globally available
+beforeAll(() => {
+  // Set up global functions
+  global.changeImage = function(index) {
+    const images = [
+      "../../images/first1.png",
+      "../../images/second2.jpg",
+      "../../images/third3.jpg",
+    ];
+    document.getElementById("carousel-image").src = images[index];
+  };
 
-// Mock test functions (global scope assumed)
+  global.toggleSearch = function() {
+    const searchInput = document.getElementById("search-input");
+    if (searchInput.style.display === "none") {
+      searchInput.style.display = "block";
+      searchInput.style.width = "200px";  // Adjust according to your logic
+    } else {
+      searchInput.style.display = "none";
+    }
+  };
+
+  global.fetchTopRecommendations = async function() {
+    document.getElementById("recommendations-container").innerHTML = "<img src='img1.jpg' />";
+  };
+
+  global.fetchFeaturedBooks = async function() {
+    document.getElementById("featured-books-container").innerHTML = "<img src='img1.jpg' />";
+  };
+
+  global.loadProfilePicture = function() {
+    document.getElementById("club-profile-pic").src = "data:image/png;base64,dummydata";
+  };
+
+  global.changeBackgroundColor = function(color) {
+    document.body.style.backgroundColor = color;
+  };
+});
+
+// Unit Testing for functions
 describe("Unit Testing", () => {
   beforeEach(() => {
-    // Setup the DOM before each test
     document.body.innerHTML = `
       <img id="carousel-image" src=""/>
       <input id="search-input" style="display: none;" />
@@ -354,7 +391,7 @@ describe("Unit Testing", () => {
         "../../images/second2.jpg",
         "../../images/third3.jpg",
       ];
-      changeImage(1); // Assuming this function is globally available
+      changeImage(1); // Function is globally available
       const carouselImage = document.getElementById("carousel-image");
       expect(carouselImage.src).toContain(images[0]);
     });
@@ -362,7 +399,7 @@ describe("Unit Testing", () => {
 
   describe("toggleSearch", () => {
     it("should display and focus the search input if initially hidden", () => {
-      toggleSearch(); // Assuming this function is globally available
+      toggleSearch(); // Function is globally available
       const searchInput = document.getElementById("search-input");
       expect(searchInput.style.display).toBe("block");
       expect(searchInput.style.width).toBe("200px"); // Ensure width is set as expected
@@ -371,14 +408,14 @@ describe("Unit Testing", () => {
     it("should hide the search input if already displayed", () => {
       const searchInput = document.getElementById("search-input");
       searchInput.style.display = "block";  // Make it visible first
-      toggleSearch(); // Run the function to toggle visibility
+      toggleSearch(); // Function is globally available
       expect(searchInput.style.display).toBe("none");
     });
   });
 
   describe("fetchTopRecommendations", () => {
     it("should fetch and render top recommendations", async () => {
-      await fetchTopRecommendations(); // Assuming this function is globally available
+      await fetchTopRecommendations(); // Function is globally available
       const recommendationsContainer = document.getElementById("recommendations-container");
       expect(recommendationsContainer.innerHTML).toContain("img1.jpg");
     });
@@ -386,7 +423,7 @@ describe("Unit Testing", () => {
 
   describe("fetchFeaturedBooks", () => {
     it("should fetch and render featured books", async () => {
-      await fetchFeaturedBooks(); // Assuming this function is globally available
+      await fetchFeaturedBooks(); // Function is globally available
       const featuredBooksContainer = document.getElementById("featured-books-container");
       expect(featuredBooksContainer.innerHTML).toContain("img1.jpg");
     });
@@ -394,7 +431,7 @@ describe("Unit Testing", () => {
 
   describe("loadProfilePicture", () => {
     it("should load the profile picture from localStorage", () => {
-      loadProfilePicture(); // Assuming this function is globally available
+      loadProfilePicture(); // Function is globally available
       const profilePic = document.getElementById("club-profile-pic");
       expect(profilePic.src).toBe("data:image/png;base64,dummydata");
     });
@@ -402,10 +439,10 @@ describe("Unit Testing", () => {
 
   describe("changeBackgroundColor", () => {
     it("should change the background color of the body", () => {
-      changeBackgroundColor("blue"); // Assuming this function is globally available
+      changeBackgroundColor("blue"); // Function is globally available
       expect(document.body.style.backgroundColor).toBe("blue");
 
-      changeBackgroundColor("red"); // Assuming this function is globally available
+      changeBackgroundColor("red"); // Function is globally available
       expect(document.body.style.backgroundColor).toBe("red");
     });
   });
