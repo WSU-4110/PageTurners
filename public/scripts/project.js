@@ -13,12 +13,12 @@ const images = [
 ];
 
 // Function to change the carousel image
-export function changeImage(index) {
+window.changeImage = function(index) {
   document.getElementById("carousel-image").src = images[index - 1];
-}
+};
 
-// In your main.js
-export function toggleSearch() {
+// Function to toggle search input visibility
+window.toggleSearch = function() {
   const searchInput = document.getElementById("search-input");
   if (searchInput.style.display === "none" || !searchInput.style.display) {
     searchInput.style.display = "block";
@@ -26,12 +26,10 @@ export function toggleSearch() {
   } else {
     searchInput.style.display = "none";
   }
-}
-
-window.toggleSearch = toggleSearch; // Making 
+};
 
 // Function to fetch and display top book recommendations
-export async function fetchTopRecommendations() {
+window.fetchTopRecommendations = async function() {
   const API_KEY = "YOUR_GOOGLE_BOOKS_API_KEY"; // Replace with your actual API key
   const API_URL = `https://www.googleapis.com/books/v1/volumes?q=fiction&maxResults=3&key=${API_KEY}`;
 
@@ -39,9 +37,7 @@ export async function fetchTopRecommendations() {
     const response = await fetch(API_URL);
     const data = await response.json();
 
-    const recommendationsContainer = document.getElementById(
-      "recommendations-container"
-    );
+    const recommendationsContainer = document.getElementById("recommendations-container");
     recommendationsContainer.innerHTML = ""; // Clear previous content
 
     if (data.items) {
@@ -58,9 +54,7 @@ export async function fetchTopRecommendations() {
         link.target = "_blank"; // Open in a new tab
 
         const image = document.createElement("img");
-        image.src = book.volumeInfo.imageLinks
-          ? book.volumeInfo.imageLinks.thumbnail
-          : "../../images/placeholder.jpg";
+        image.src = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "../../images/placeholder.jpg";
         image.alt = book.volumeInfo.title;
 
         link.appendChild(image);
@@ -74,10 +68,10 @@ export async function fetchTopRecommendations() {
   } catch (error) {
     console.error("Error fetching book data:", error);
   }
-}
+};
 
 // Function to fetch and display featured books
-export async function fetchFeaturedBooks() {
+window.fetchFeaturedBooks = async function() {
   const API_KEY = "YOUR_GOOGLE_BOOKS_API_KEY"; // Replace with your actual API key
   const API_URL = `https://www.googleapis.com/books/v1/volumes?q=fiction&maxResults=10&key=${API_KEY}`;
 
@@ -85,9 +79,7 @@ export async function fetchFeaturedBooks() {
     const response = await fetch(API_URL);
     const data = await response.json();
 
-    const featuredBooksContainer = document.getElementById(
-      "featured-books-container"
-    );
+    const featuredBooksContainer = document.getElementById("featured-books-container");
     featuredBooksContainer.innerHTML = ""; // Clear previous content
 
     if (data.items) {
@@ -100,9 +92,7 @@ export async function fetchFeaturedBooks() {
         link.target = "_blank"; // Open in a new tab
 
         const image = document.createElement("img");
-        image.src = book.volumeInfo.imageLinks
-          ? book.volumeInfo.imageLinks.thumbnail
-          : "../../images/placeholder.jpg";
+        image.src = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "../../images/placeholder.jpg";
         image.alt = book.volumeInfo.title;
 
         link.appendChild(image);
@@ -115,14 +105,14 @@ export async function fetchFeaturedBooks() {
   } catch (error) {
     console.error("Error fetching books:", error);
   }
-}
+};
 
 // Function to handle the profile picture change
- function changeProfilePicture(event) {
+window.changeProfilePicture = function(event) {
   const reader = new FileReader();
   const file = event.target.files[0];
 
-  reader.onload = function () {
+  reader.onload = function() {
     const profilePic = document.getElementById("club-profile-pic");
     profilePic.src = reader.result;
 
@@ -133,26 +123,23 @@ export async function fetchFeaturedBooks() {
   if (file) {
     reader.readAsDataURL(file);
   }
-}
-
+};
 
 // Function to load the profile picture from localStorage on page load
-export function loadProfilePicture() {
+window.loadProfilePicture = function() {
   const savedProfilePic = localStorage.getItem("profilePicture");
   if (savedProfilePic) {
     document.getElementById("club-profile-pic").src = savedProfilePic;
   }
-}
+};
 
-
-export function changeBackgroundColor(color) {
+window.changeBackgroundColor = function(color) {
   document.body.style.backgroundColor = color;
-}
-
+};
 
 // Load the profile picture when the page is loaded
 window.onload = loadProfilePicture;
 
 // Fetch initial data for the dashboard
-fetchTopRecommendations();
-fetchFeaturedBooks();
+window.fetchTopRecommendations();
+window.fetchFeaturedBooks();
