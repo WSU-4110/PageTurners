@@ -32,8 +32,7 @@ from "firebase/auth";
   
   
 
-import { changeImage, toggleSearch, fetchFeaturedBooks, fetchTopRecommendations, loadProfilePicture, changeBackgroundColor } 
-  from public/scripts/project.js";
+
 class Clubhomepage{
 
     constructor()
@@ -332,8 +331,10 @@ it("should login with correct email and password", async () => {
 });
 
 
-describe("Unit Testing", () => {
+describe("Suite of unit tests for PageTurners functionality", () => {
+  
   beforeEach(() => {
+    // Set up the DOM before each test
     document.body.innerHTML = `
       <img id="carousel-image" src=""/>
       <input id="search-input" style="display: none;" />
@@ -341,6 +342,8 @@ describe("Unit Testing", () => {
       <div id="featured-books-container"></div>
       <img id="club-profile-pic" src=""/>
     `;
+    
+    // Spy on localStorage methods
     spyOn(localStorage, "setItem");
     spyOn(localStorage, "getItem").and.callFake((key) => {
       if (key === "profilePicture") return "data:image/png;base64,dummydata";
@@ -356,7 +359,8 @@ describe("Unit Testing", () => {
         "../../images/second2.jpg",
         "../../images/third3.jpg",
       ];
-      changeImage(1);
+      
+      window.changeImage(1); // Assuming changeImage is available globally
       const carouselImage = document.getElementById("carousel-image");
       expect(carouselImage.src).toContain(images[0]);
     });
@@ -365,7 +369,7 @@ describe("Unit Testing", () => {
   // Test method toggleSearch()
   describe("toggleSearch", () => {
     it("should display and focus the search input if initially hidden", () => {
-      toggleSearch();
+      window.toggleSearch(); // Assuming toggleSearch is available globally
       const searchInput = document.getElementById("search-input");
       expect(searchInput.style.display).toBe("block");
       expect(searchInput.style.width).toBe("200px");
@@ -374,7 +378,7 @@ describe("Unit Testing", () => {
     it("should hide the search input if already displayed", () => {
       const searchInput = document.getElementById("search-input");
       searchInput.style.display = "block";
-      toggleSearch();
+      window.toggleSearch(); // Assuming toggleSearch is available globally
       expect(searchInput.style.display).toBe("none");
     });
   });
@@ -396,10 +400,8 @@ describe("Unit Testing", () => {
         })
       );
 
-      await fetchTopRecommendations();
-      const recommendationsContainer = document.getElementById(
-        "recommendations-container"
-      );
+      await window.fetchTopRecommendations(); // Assuming fetchTopRecommendations is available globally
+      const recommendationsContainer = document.getElementById("recommendations-container");
       expect(recommendationsContainer.innerHTML).toContain("img1.jpg");
     });
   });
@@ -421,10 +423,8 @@ describe("Unit Testing", () => {
         })
       );
 
-      await fetchFeaturedBooks();
-      const featuredBooksContainer = document.getElementById(
-        "featured-books-container"
-      );
+      await window.fetchFeaturedBooks(); // Assuming fetchFeaturedBooks is available globally
+      const featuredBooksContainer = document.getElementById("featured-books-container");
       expect(featuredBooksContainer.innerHTML).toContain("img2.jpg");
     });
   });
@@ -432,7 +432,7 @@ describe("Unit Testing", () => {
   // Test method loadProfilePicture()
   describe("loadProfilePicture", () => {
     it("should load the profile picture from localStorage", () => {
-      loadProfilePicture();
+      window.loadProfilePicture(); // Assuming loadProfilePicture is available globally
       const profilePic = document.getElementById("club-profile-pic");
       expect(profilePic.src).toBe("data:image/png;base64,dummydata");
     });
@@ -441,13 +441,12 @@ describe("Unit Testing", () => {
   // Test method changeBackgroundColor
   describe("changeBackgroundColor", () => {
     it("should change the background color of the body", () => {
-      changeBackgroundColor("blue");
+      window.changeBackgroundColor("blue"); // Assuming changeBackgroundColor is available globally
       expect(document.body.style.backgroundColor).toBe("blue");
 
-      changeBackgroundColor("red");
+      window.changeBackgroundColor("red"); // Assuming changeBackgroundColor is available globally
       expect(document.body.style.backgroundColor).toBe("red");
     });
   });
 });
-
 
