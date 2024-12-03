@@ -29,6 +29,19 @@ from "firebase/auth";
   const auth = getAuth();
   const db = getFirestore(app);
 
+const { JSDOM } = require('jsdom');
+
+// Set up a virtual DOM before each test
+beforeEach(() => {
+  const dom = new JSDOM(`<!DOCTYPE html><html><body></body></html>`);
+  global.document = dom.window.document;
+  global.window = dom.window;
+  global.navigator = dom.window.navigator;
+  global.FileReader = require("file-api").FileReader;
+  
+  // Set up global fetch for testing fetch calls
+  global.fetch = require('node-fetch');
+});
   
   
 
