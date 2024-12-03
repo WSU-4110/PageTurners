@@ -336,15 +336,14 @@ it("should login with correct email and password", async () => {
   });
 });
 
-
 // Eunice Shobowale hd5862
 // Suite for DOM Manipulation and Fetching Data
 
 describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
-  // Mock the functions before the tests
+
   beforeAll(() => {
-    // Mocking functions
-    global.changeImage = jest.fn((index) => {
+    // Mocking DOM manipulation and fetching functions using Jasmine's spyOn
+    spyOn(window, 'changeImage').and.callFake((index) => {
       const images = [
         "../../images/first1.png",
         "../../images/second2.jpg",
@@ -354,7 +353,7 @@ describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
       carouselImage.src = images[index]; // Update image src based on index
     });
 
-    global.toggleSearch = jest.fn(() => {
+    spyOn(window, 'toggleSearch').and.callFake(() => {
       const searchInput = document.getElementById("search-input");
       if (searchInput.style.display === "none" || !searchInput.style.display) {
         searchInput.style.display = "block";
@@ -364,22 +363,22 @@ describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
       }
     });
 
-    global.fetchTopRecommendations = jest.fn(async () => {
+    spyOn(window, 'fetchTopRecommendations').and.callFake(async () => {
       const recommendationsContainer = document.getElementById("recommendations-container");
       recommendationsContainer.innerHTML = "<img src='img1.jpg' />";
     });
 
-    global.fetchFeaturedBooks = jest.fn(async () => {
+    spyOn(window, 'fetchFeaturedBooks').and.callFake(async () => {
       const featuredBooksContainer = document.getElementById("featured-books-container");
       featuredBooksContainer.innerHTML = "<img src='img1.jpg' />";
     });
 
-    global.loadProfilePicture = jest.fn(() => {
+    spyOn(window, 'loadProfilePicture').and.callFake(() => {
       const profilePic = document.getElementById("club-profile-pic");
       profilePic.src = "data:image/png;base64,dummydata";
     });
 
-    global.changeBackgroundColor = jest.fn((color) => {
+    spyOn(window, 'changeBackgroundColor').and.callFake((color) => {
       document.body.style.backgroundColor = color;
     });
   });
@@ -447,4 +446,5 @@ describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
     });
   });
 });
+
 
