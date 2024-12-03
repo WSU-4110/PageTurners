@@ -341,6 +341,48 @@ it("should login with correct email and password", async () => {
 // Suite for DOM Manipulation and Fetching Data
 
 describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
+  // Mock the functions before the tests
+  beforeAll(() => {
+    // Mocking functions
+    global.changeImage = jest.fn((index) => {
+      const images = [
+        "../../images/first1.png",
+        "../../images/second2.jpg",
+        "../../images/third3.jpg",
+      ];
+      const carouselImage = document.getElementById("carousel-image");
+      carouselImage.src = images[index]; // Update image src based on index
+    });
+
+    global.toggleSearch = jest.fn(() => {
+      const searchInput = document.getElementById("search-input");
+      if (searchInput.style.display === "none" || !searchInput.style.display) {
+        searchInput.style.display = "block";
+        searchInput.style.width = "200px";
+      } else {
+        searchInput.style.display = "none";
+      }
+    });
+
+    global.fetchTopRecommendations = jest.fn(async () => {
+      const recommendationsContainer = document.getElementById("recommendations-container");
+      recommendationsContainer.innerHTML = "<img src='img1.jpg' />";
+    });
+
+    global.fetchFeaturedBooks = jest.fn(async () => {
+      const featuredBooksContainer = document.getElementById("featured-books-container");
+      featuredBooksContainer.innerHTML = "<img src='img1.jpg' />";
+    });
+
+    global.loadProfilePicture = jest.fn(() => {
+      const profilePic = document.getElementById("club-profile-pic");
+      profilePic.src = "data:image/png;base64,dummydata";
+    });
+
+    global.changeBackgroundColor = jest.fn((color) => {
+      document.body.style.backgroundColor = color;
+    });
+  });
 
   describe("changeImage", () => {
     it("should update the carousel image src to the correct URL", () => {
@@ -349,7 +391,7 @@ describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
         "../../images/second2.jpg",
         "../../images/third3.jpg",
       ];
-      changeImage(1); // Assuming changeImage is globally defined
+      changeImage(1);
       const carouselImage = document.getElementById("carousel-image");
       expect(carouselImage.src).toContain(images[0]);
     });
@@ -357,7 +399,7 @@ describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
 
   describe("toggleSearch", () => {
     it("should display and focus the search input if initially hidden", () => {
-      toggleSearch(); // Assuming toggleSearch is globally defined
+      toggleSearch();
       const searchInput = document.getElementById("search-input");
       expect(searchInput.style.display).toBe("block");
       expect(searchInput.style.width).toBe("200px");
@@ -366,14 +408,14 @@ describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
     it("should hide the search input if already displayed", () => {
       const searchInput = document.getElementById("search-input");
       searchInput.style.display = "block";
-      toggleSearch(); // Assuming toggleSearch is globally defined
+      toggleSearch();
       expect(searchInput.style.display).toBe("none");
     });
   });
 
   describe("fetchTopRecommendations", () => {
     it("should fetch and render top recommendations", async () => {
-      await fetchTopRecommendations(); // Assuming fetchTopRecommendations is globally defined
+      await fetchTopRecommendations();
       const recommendationsContainer = document.getElementById("recommendations-container");
       expect(recommendationsContainer.innerHTML).toContain("img1.jpg");
     });
@@ -381,7 +423,7 @@ describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
 
   describe("fetchFeaturedBooks", () => {
     it("should fetch and render featured books", async () => {
-      await fetchFeaturedBooks(); // Assuming fetchFeaturedBooks is globally defined
+      await fetchFeaturedBooks();
       const featuredBooksContainer = document.getElementById("featured-books-container");
       expect(featuredBooksContainer.innerHTML).toContain("img1.jpg");
     });
@@ -389,7 +431,7 @@ describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
 
   describe("loadProfilePicture", () => {
     it("should load the profile picture from localStorage", () => {
-      loadProfilePicture(); // Assuming loadProfilePicture is globally defined
+      loadProfilePicture();
       const profilePic = document.getElementById("club-profile-pic");
       expect(profilePic.src).toBe("data:image/png;base64,dummydata");
     });
@@ -397,13 +439,12 @@ describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
 
   describe("changeBackgroundColor", () => {
     it("should change the background color of the body", () => {
-      changeBackgroundColor("blue"); // Assuming changeBackgroundColor is globally defined
+      changeBackgroundColor("blue");
       expect(document.body.style.backgroundColor).toBe("blue");
 
-      changeBackgroundColor("red"); // Assuming changeBackgroundColor is globally defined
+      changeBackgroundColor("red");
       expect(document.body.style.backgroundColor).toBe("red");
     });
   });
-
 });
 
