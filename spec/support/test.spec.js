@@ -1,3 +1,15 @@
+import { JSDOM } from 'jsdom'; // Use import instead of require
+
+// Set up jsdom to simulate the browser environment before any tests
+beforeAll(() => {
+  // Create a new instance of jsdom and set up global document and window
+  const dom = new JSDOM(`<!DOCTYPE html><html><body></body></html>`);
+  global.document = dom.window.document;
+  global.window = dom.window;
+  global.HTMLElement = dom.window.HTMLElement;
+  global.navigator = dom.window.navigator;
+});
+
 import { initializeApp } from "firebase/app";
   import { getAnalytics } from "firebase/analytics";
   import { getFirestore, collection, orderBy, getDoc, getDocs, doc, query, where } from "firebase/firestore";
@@ -335,55 +347,8 @@ it("should login with correct email and password", async () => {
 });
 
 
-// Setup mock functions globally available for tests
-beforeAll(() => {
-  // Setup jsdom
-  const { JSDOM } = require("jsdom");
-  const dom = new JSDOM(`<!DOCTYPE html><html><body></body></html>`);
-  global.document = dom.window.document;
-  global.window = dom.window;
-  global.HTMLElement = dom.window.HTMLElement;
-  global.navigator = dom.window.navigator;
-
-  // Set up global functions
-  global.changeImage = function(index) {
-    const images = [
-      "../../images/first1.png",
-      "../../images/second2.jpg",
-      "../../images/third3.jpg",
-    ];
-    document.getElementById("carousel-image").src = images[index];
-  };
-
-  global.toggleSearch = function() {
-    const searchInput = document.getElementById("search-input");
-    if (searchInput.style.display === "none") {
-      searchInput.style.display = "block";
-      searchInput.style.width = "200px";
-    } else {
-      searchInput.style.display = "none";
-    }
-  };
-
-  global.fetchTopRecommendations = async function() {
-    document.getElementById("recommendations-container").innerHTML = "<img src='img1.jpg' />";
-  };
-
-  global.fetchFeaturedBooks = async function() {
-    document.getElementById("featured-books-container").innerHTML = "<img src='img1.jpg' />";
-  };
-
-  global.loadProfilePicture = function() {
-    document.getElementById("club-profile-pic").src = "data:image/png;base64,dummydata";
-  };
-
-  global.changeBackgroundColor = function(color) {
-    document.body.style.backgroundColor = color;
-  };
-});
-
-// Unit Testing for functions
-describe("Unit Testing", () => {
+/ Test setup
+describe("Suite of 6 tests for Assignment 5", () => {
   beforeEach(() => {
     document.body.innerHTML = `
       <img id="carousel-image" src=""/>
@@ -401,7 +366,7 @@ describe("Unit Testing", () => {
         "../../images/second2.jpg",
         "../../images/third3.jpg",
       ];
-      changeImage(1); // Function is globally available
+      changeImage(1);
       const carouselImage = document.getElementById("carousel-image");
       expect(carouselImage.src).toContain(images[0]);
     });
