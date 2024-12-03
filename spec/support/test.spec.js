@@ -44,8 +44,23 @@ beforeEach(() => {
 });
   
   
+import fileApi from "file-api";
+const { FileReader } = fileApi;
 
+import fetch from "node-fetch";
+global.fetch = fetch;  // Mock global fetch
 
+global.FileReader = FileReader;  // Mock global FileReader
+
+// Import functions from your project.js
+import {
+  changeImage,
+  toggleSearch,
+  fetchFeaturedBooks,
+  fetchTopRecommendations,
+  loadProfilePicture,
+  changeBackgroundColor,
+} from "/public/scripts/project.js";  
 class Clubhomepage{
 
     constructor()
@@ -364,6 +379,22 @@ describe("Suite of unit tests for PageTurners functionality", () => {
     });
   });
 
+  describe("Unit Testing", () => {
+  beforeEach(() => {
+    document.body.innerHTML = `
+      <img id="carousel-image" src=""/>
+      <input id="search-input" style="display: none;" />
+      <div id="recommendations-container"></div>
+      <div id="featured-books-container"></div>
+      <img id="club-profile-pic" src=""/>
+    `;
+    spyOn(localStorage, "setItem");
+    spyOn(localStorage, "getItem").and.callFake((key) => {
+      if (key === "profilePicture") return "data:image/png;base64,dummydata";
+      return null;
+    });
+  });
+
   // Test method changeImage
   describe("changeImage", () => {
     it("should update the carousel image src to the correct URL", () => {
@@ -372,8 +403,7 @@ describe("Suite of unit tests for PageTurners functionality", () => {
         "../../images/second2.jpg",
         "../../images/third3.jpg",
       ];
-      
-      window.changeImage(1); // Assuming changeImage is available globally
+      changeImage(1);
       const carouselImage = document.getElementById("carousel-image");
       expect(carouselImage.src).toContain(images[0]);
     });
@@ -382,7 +412,7 @@ describe("Suite of unit tests for PageTurners functionality", () => {
   // Test method toggleSearch()
   describe("toggleSearch", () => {
     it("should display and focus the search input if initially hidden", () => {
-      window.toggleSearch(); // Assuming toggleSearch is available globally
+      toggleSearch();
       const searchInput = document.getElementById("search-input");
       expect(searchInput.style.display).toBe("block");
       expect(searchInput.style.width).toBe("200px");
@@ -391,7 +421,7 @@ describe("Suite of unit tests for PageTurners functionality", () => {
     it("should hide the search input if already displayed", () => {
       const searchInput = document.getElementById("search-input");
       searchInput.style.display = "block";
-      window.toggleSearch(); // Assuming toggleSearch is available globally
+      toggleSearch();
       expect(searchInput.style.display).toBe("none");
     });
   });
@@ -413,8 +443,10 @@ describe("Suite of unit tests for PageTurners functionality", () => {
         })
       );
 
-      await window.fetchTopRecommendations(); // Assuming fetchTopRecommendations is available globally
-      const recommendationsContainer = document.getElementById("recommendations-container");
+      await fetchTopRecommendations();
+      const recommendationsContainer = document.getElementById(
+        "recommendations-container"
+      );
       expect(recommendationsContainer.innerHTML).toContain("img1.jpg");
     });
   });
@@ -436,8 +468,10 @@ describe("Suite of unit tests for PageTurners functionality", () => {
         })
       );
 
-      await window.fetchFeaturedBooks(); // Assuming fetchFeaturedBooks is available globally
-      const featuredBooksContainer = document.getElementById("featured-books-container");
+      await fetchFeaturedBooks();
+      const featuredBooksContainer = document.getElementById(
+        "featured-books-container"
+      );
       expect(featuredBooksContainer.innerHTML).toContain("img2.jpg");
     });
   });
@@ -445,7 +479,7 @@ describe("Suite of unit tests for PageTurners functionality", () => {
   // Test method loadProfilePicture()
   describe("loadProfilePicture", () => {
     it("should load the profile picture from localStorage", () => {
-      window.loadProfilePicture(); // Assuming loadProfilePicture is available globally
+      loadProfilePicture();
       const profilePic = document.getElementById("club-profile-pic");
       expect(profilePic.src).toBe("data:image/png;base64,dummydata");
     });
@@ -454,10 +488,10 @@ describe("Suite of unit tests for PageTurners functionality", () => {
   // Test method changeBackgroundColor
   describe("changeBackgroundColor", () => {
     it("should change the background color of the body", () => {
-      window.changeBackgroundColor("blue"); // Assuming changeBackgroundColor is available globally
+      changeBackgroundColor("blue");
       expect(document.body.style.backgroundColor).toBe("blue");
 
-      window.changeBackgroundColor("red"); // Assuming changeBackgroundColor is available globally
+      changeBackgroundColor("red");
       expect(document.body.style.backgroundColor).toBe("red");
     });
   });
