@@ -32,6 +32,10 @@ from "firebase/auth";
 
   
 
+global.fetch = fetch;  // Mock global fetch
+
+global.FileReader = FileReader;  // Mock global FileReader
+
 // Import functions from your project.js
 import {
   changeImage,
@@ -40,7 +44,7 @@ import {
   fetchTopRecommendations,
   loadProfilePicture,
   changeBackgroundColor,
-} from "../public/scripts/project.js";
+} from "/public/scripts/project.js"; 
 class Clubhomepage{
 
     constructor()
