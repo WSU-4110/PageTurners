@@ -24,8 +24,6 @@ from "firebase/auth";
     measurementId: "G-C6DKQSJ1R8"
   };
 
-import fileApi from "file-api";
-const { FileReader } = fileApi;
 
 import fetch from "node-fetch";
 global.fetch = fetch;
@@ -348,8 +346,37 @@ it("should login with correct email and password", async () => {
 });
 
 
-// Unit Testing for Project.js Methods
+// Mock FileReader for global scope (without file-api)
+global.FileReader = class {
+  constructor() {
+    this.result = null;
+    this.error = null;
+    this.onload = null;
+    this.onloadend = null;
+    this.onerror = null;
+    this.readAsDataURL = jasmine.createSpy("readAsDataURL").and.callFake((file) => {
+      // Simulate reading a file and triggering the load event
+      setTimeout(() => {
+        this.result = "data:image/png;base64,dummydata";
+        if (this.onload) {
+          this.onload({ target: this });
+        }
+      }, 100);
+    });
+    this.readAsText = jasmine.createSpy("readAsText").and.callFake((file) => {
+      // Simulate reading text data and triggering the load event
+      setTimeout(() => {
+        this.result = "Mock text data";
+        if (this.onload) {
+          this.onload({ target: this });
+        }
+      }, 100);
+    });
+  }
+};
+
 describe("Unit Testing", () => {
+  // Setup before each test
   beforeEach(() => {
     document.body.innerHTML = `
       <img id="carousel-image" src=""/>
