@@ -339,6 +339,7 @@ it("should login with correct email and password", async () => {
 
 describe("Suite of 6 tests for Assignment 5", () => {
   beforeEach(() => {
+    // Setting up the mock DOM elements before each test
     document.body.innerHTML = `
       <img id="carousel-image" src=""/>
       <input id="search-input" style="display: none;" />
