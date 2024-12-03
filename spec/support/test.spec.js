@@ -337,9 +337,13 @@ it("should login with correct email and password", async () => {
 });
 
 
-describe("Suite of 6 tests for Assignment 5", () => {
-  beforeEach(() => {
-    // Setting up the mock DOM elements before each test
+//Eunice Shobowale hd5862
+// Suite for DOM Manipulation and Fetching Data
+
+describe("Suite of 6 tests for DOM Manipulation and Fetching Data", () => {
+
+  beforeAll(() => {
+    // Set up mock DOM elements before all tests
     document.body.innerHTML = `
       <img id="carousel-image" src=""/>
       <input id="search-input" style="display: none;" />
@@ -356,7 +360,7 @@ describe("Suite of 6 tests for Assignment 5", () => {
         "../../images/second2.jpg",
         "../../images/third3.jpg",
       ];
-      changeImage(1); // Using globally defined function
+      changeImage(1); // Assuming changeImage is globally defined
       const carouselImage = document.getElementById("carousel-image");
       expect(carouselImage.src).toContain(images[0]);
     });
@@ -364,7 +368,7 @@ describe("Suite of 6 tests for Assignment 5", () => {
 
   describe("toggleSearch", () => {
     it("should display and focus the search input if initially hidden", () => {
-      toggleSearch(); // Using globally defined function
+      toggleSearch(); // Assuming toggleSearch is globally defined
       const searchInput = document.getElementById("search-input");
       expect(searchInput.style.display).toBe("block");
       expect(searchInput.style.width).toBe("200px");
@@ -373,14 +377,14 @@ describe("Suite of 6 tests for Assignment 5", () => {
     it("should hide the search input if already displayed", () => {
       const searchInput = document.getElementById("search-input");
       searchInput.style.display = "block";
-      toggleSearch(); // Using globally defined function
+      toggleSearch(); // Assuming toggleSearch is globally defined
       expect(searchInput.style.display).toBe("none");
     });
   });
 
   describe("fetchTopRecommendations", () => {
     it("should fetch and render top recommendations", async () => {
-      await fetchTopRecommendations(); // Using globally defined function
+      await fetchTopRecommendations(); // Assuming fetchTopRecommendations is globally defined
       const recommendationsContainer = document.getElementById("recommendations-container");
       expect(recommendationsContainer.innerHTML).toContain("img1.jpg");
     });
@@ -388,7 +392,7 @@ describe("Suite of 6 tests for Assignment 5", () => {
 
   describe("fetchFeaturedBooks", () => {
     it("should fetch and render featured books", async () => {
-      await fetchFeaturedBooks(); // Using globally defined function
+      await fetchFeaturedBooks(); // Assuming fetchFeaturedBooks is globally defined
       const featuredBooksContainer = document.getElementById("featured-books-container");
       expect(featuredBooksContainer.innerHTML).toContain("img1.jpg");
     });
@@ -396,7 +400,7 @@ describe("Suite of 6 tests for Assignment 5", () => {
 
   describe("loadProfilePicture", () => {
     it("should load the profile picture from localStorage", () => {
-      loadProfilePicture(); // Using globally defined function
+      loadProfilePicture(); // Assuming loadProfilePicture is globally defined
       const profilePic = document.getElementById("club-profile-pic");
       expect(profilePic.src).toBe("data:image/png;base64,dummydata");
     });
@@ -404,11 +408,13 @@ describe("Suite of 6 tests for Assignment 5", () => {
 
   describe("changeBackgroundColor", () => {
     it("should change the background color of the body", () => {
-      changeBackgroundColor("blue"); // Using globally defined function
+      changeBackgroundColor("blue"); // Assuming changeBackgroundColor is globally defined
       expect(document.body.style.backgroundColor).toBe("blue");
 
-      changeBackgroundColor("red"); // Using globally defined function
+      changeBackgroundColor("red"); // Assuming changeBackgroundColor is globally defined
       expect(document.body.style.backgroundColor).toBe("red");
     });
   });
+
 });
+
