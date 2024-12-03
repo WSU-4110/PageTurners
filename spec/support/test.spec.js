@@ -29,28 +29,8 @@ from "firebase/auth";
   const auth = getAuth();
   const db = getFirestore(app);
 
-const { JSDOM } = require('jsdom');
 
-// Set up a virtual DOM before each test
-beforeEach(() => {
-  const dom = new JSDOM(`<!DOCTYPE html><html><body></body></html>`);
-  global.document = dom.window.document;
-  global.window = dom.window;
-  global.navigator = dom.window.navigator;
-  global.FileReader = require("file-api").FileReader;
   
-  // Set up global fetch for testing fetch calls
-  global.fetch = require('node-fetch');
-});
-  
-  
-import fileApi from "file-api";
-const { FileReader } = fileApi;
-
-import fetch from "node-fetch";
-global.fetch = fetch;  // Mock global fetch
-
-global.FileReader = FileReader;  // Mock global FileReader
 
 // Import functions from your project.js
 import {
@@ -358,28 +338,7 @@ it("should login with correct email and password", async () => {
   });
 });
 
-
-describe("Suite of unit tests for PageTurners functionality", () => {
-  
-  beforeEach(() => {
-    // Set up the DOM before each test
-    document.body.innerHTML = `
-      <img id="carousel-image" src=""/>
-      <input id="search-input" style="display: none;" />
-      <div id="recommendations-container"></div>
-      <div id="featured-books-container"></div>
-      <img id="club-profile-pic" src=""/>
-    `;
-    
-    // Spy on localStorage methods
-    spyOn(localStorage, "setItem");
-    spyOn(localStorage, "getItem").and.callFake((key) => {
-      if (key === "profilePicture") return "data:image/png;base64,dummydata";
-      return null;
-    });
-  });
-
-  describe("Unit Testing", () => {
+describe("Unit Testing", () => {
   beforeEach(() => {
     document.body.innerHTML = `
       <img id="carousel-image" src=""/>
