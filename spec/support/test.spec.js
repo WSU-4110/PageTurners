@@ -507,6 +507,12 @@ describe("Suite of 6 tests for Function Logic", () => {
     `;
   });
 
+  // Cleanup after each test
+  afterEach(() => {
+    // Reset any global state if necessary
+    document.body.innerHTML = '';  // Clear the DOM after each test
+  });
+
   // Test function to change the image URL
   it("testing changeImage function", () => {
     const images = [
@@ -520,7 +526,8 @@ describe("Suite of 6 tests for Function Logic", () => {
     const carouselImage = document.getElementById("carousel-image");
     carouselImage.src = images[index - 1];
 
-    expect(carouselImage.src).toBe("file:///path/to/../../images/first1.png");  // Adjust path as needed for your environment
+    // Here, ensure the comparison reflects how your environment resolves paths
+    expect(carouselImage.src).toContain("images/first1.png");
   });
 
   // Test for toggling the search input
@@ -542,15 +549,16 @@ describe("Suite of 6 tests for Function Logic", () => {
       { id: "2", title: "Book 2" }
     ];
 
-    // Simulate fetching data
+    // Simulate fetching data by appending mock data to the container
     const recommendationsContainer = document.getElementById("recommendations-container");
-    recommendations.forEach((book, index) => {
+    recommendations.forEach((book) => {
       const div = document.createElement("div");
       div.classList.add("recommendation-item");
       div.textContent = book.title;
       recommendationsContainer.appendChild(div);
     });
 
+    // Ensure the recommendations are rendered
     expect(recommendationsContainer.children.length).toBe(2);
     expect(recommendationsContainer.children[0].textContent).toBe("Book 1");
   });
@@ -561,7 +569,7 @@ describe("Suite of 6 tests for Function Logic", () => {
       { id: "1", title: "Featured Book 1" }
     ];
 
-    // Simulate fetching data
+    // Simulate fetching data by appending mock data to the container
     const featuredBooksContainer = document.getElementById("featured-books-container");
     featuredBooks.forEach((book) => {
       const div = document.createElement("div");
@@ -570,6 +578,7 @@ describe("Suite of 6 tests for Function Logic", () => {
       featuredBooksContainer.appendChild(div);
     });
 
+    // Ensure the featured books are rendered
     expect(featuredBooksContainer.children.length).toBe(1);
     expect(featuredBooksContainer.children[0].textContent).toBe("Featured Book 1");
   });
@@ -591,5 +600,3 @@ describe("Suite of 6 tests for Function Logic", () => {
     expect(document.body.style.backgroundColor).toBe("red");
   });
 });
-
-
