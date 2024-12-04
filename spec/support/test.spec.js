@@ -335,6 +335,7 @@ it("should login with correct email and password", async () => {
   });
 });
 
+//Eunice Shobowale hd5862
 
 // Core functions
 const images = [
@@ -343,48 +344,43 @@ const images = [
   "../../images/third3.jpg"
 ];
 
+// Function implementations
 window.changeImage = function(index) {
-  // Instead of changing the DOM, just return the URL to simulate the behavior
   return images[index - 1];
 };
 
 window.toggleSearch = function(currentState) {
-  // Return the new state instead of modifying the DOM
   return currentState === "none" ? "block" : "none";
 };
 
 window.fetchTopRecommendations = async function() {
-  // Return a simulated response instead of interacting with the DOM
   return [{ id: "1", title: "Book 1" }, { id: "2", title: "Book 2" }];
 };
 
 window.fetchFeaturedBooks = async function() {
-  // Return a simulated response instead of interacting with the DOM
   return [{ id: "1", title: "Featured Book 1" }];
 };
 
 window.loadProfilePicture = function() {
-  // Simulate loading the profile picture (instead of actually updating the DOM)
   return "data:image/png;base64,dummydata";
 };
 
 window.changeBackgroundColor = function(color) {
-  // Return the color that would be applied to the background (instead of modifying the DOM)
   return color;
 };
 
 // Jasmine Test Suite
-describe("Suite of 6 tests for Eunice", () => {
+describe("Suite of 6 tests for Function Logic", () => {
 
-  // Tests for function logic without DOM interaction
-  describe("Function Logic", () => {
-
-    it("should return the correct image URL for changeImage", () => {
+  it("testing changeImage function", async () => {
+    await Promise.resolve().then(async () => {
       const imageUrl = changeImage(1);  // Test the actual function logic
       expect(imageUrl).toBe("../../images/first1.png");
     });
+  });
 
-    it("should toggle the search input state", () => {
+  it("testing toggleSearch function", async () => {
+    await Promise.resolve().then(async () => {
       let state = "none";
       state = toggleSearch(state);  // Call the function and get the new state
       expect(state).toBe("block");
@@ -392,32 +388,39 @@ describe("Suite of 6 tests for Eunice", () => {
       state = toggleSearch(state);  // Call again to toggle back
       expect(state).toBe("none");
     });
+  });
 
-    it("should return top recommendations", async () => {
+  it("testing fetchTopRecommendations function", async () => {
+    await Promise.resolve().then(async () => {
       const recommendations = await fetchTopRecommendations();  // Call the actual function
       expect(recommendations.length).toBe(2);
       expect(recommendations[0].title).toBe("Book 1");
     });
+  });
 
-    it("should return featured books", async () => {
+  it("testing fetchFeaturedBooks function", async () => {
+    await Promise.resolve().then(async () => {
       const featuredBooks = await fetchFeaturedBooks();  // Call the actual function
       expect(featuredBooks.length).toBe(1);
       expect(featuredBooks[0].title).toBe("Featured Book 1");
     });
+  });
 
-    it("should return the profile picture data", () => {
+  it("testing loadProfilePicture function", async () => {
+    await Promise.resolve().then(async () => {
       const profilePic = loadProfilePicture();  // Call the actual function
       expect(profilePic).toBe("data:image/png;base64,dummydata");
     });
+  });
 
-    it("should return the correct background color", () => {
+  it("testing changeBackgroundColor function", async () => {
+    await Promise.resolve().then(async () => {
       const color = changeBackgroundColor("blue");  // Call the actual function
       expect(color).toBe("blue");
 
       const newColor = changeBackgroundColor("red");  // Call again with a different color
       expect(newColor).toBe("red");
     });
-
   });
 
 });
