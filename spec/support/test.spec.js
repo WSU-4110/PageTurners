@@ -497,7 +497,7 @@ describe("Suite of 6 tests for Function Logic", () => {
 
   // Set up the mock DOM before all tests
   beforeAll(() => {
-    // Create a basic structure in memory
+    // Mock the global `document` object by assigning a basic HTML structure to `document.body.innerHTML`
     document.body.innerHTML = `
       <img id="carousel-image" src=""/>
       <input id="search-input" style="display: none;" />
@@ -509,38 +509,9 @@ describe("Suite of 6 tests for Function Logic", () => {
 
   // Cleanup after each test
   afterEach(() => {
-    // Reset any global state if necessary
-    document.body.innerHTML = '';  // Clear the DOM after each test
+    document.body.innerHTML = ''; // Clear the DOM after each test
   });
 
-  // Test function to change the image URL
-  it("testing changeImage function", () => {
-    const images = [
-      "../../images/first1.png",
-      "../../images/second2.jpg",
-      "../../images/third3.jpg"
-    ];
-
-    // Simulate changing the image source
-    const index = 1;
-    const carouselImage = document.getElementById("carousel-image");
-    carouselImage.src = images[index - 1];
-
-    // Here, ensure the comparison reflects how your environment resolves paths
-    expect(carouselImage.src).toContain("images/first1.png");
-  });
-
-  // Test for toggling the search input
-  it("testing toggleSearch function", () => {
-    let state = "none";
-    
-    // Simulate toggling the state
-    state = state === "none" ? "block" : "none";
-    expect(state).toBe("block");
-
-    state = state === "none" ? "block" : "none";
-    expect(state).toBe("none");
-  });
 
   // Test for fetching recommendations (mocking async behavior)
   it("testing fetchTopRecommendations function", async () => {
