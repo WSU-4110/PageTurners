@@ -493,53 +493,66 @@ describe("BookSearchModule", () => {
   });
 
 //Eunice Shobowale hd5862
-beforeAll(() => {
-    const jsdom = new JSDOM(`
-      <!DOCTYPE html>
-      <html>
-        <body>
-          <img id="carousel-image" src=""/>
-          <input id="search-input" style="display: none;" />
-          <div id="recommendations-container"></div>
-          <div id="featured-books-container"></div>
-          <img id="club-profile-pic" src=""/>
-        </body>
-      </html>
-    `);
+describe("Unit Testing", () => {
+    let dom;
   
-    global.window = jsdom.window;
-    global.document = jsdom.window.document;
-  });
+    beforeAll(async () => {
+      // Ensure the DOM setup is correct before running the tests
+      dom = new JSDOM(`
+        <!DOCTYPE html>
+        <html>
+          <body>
+            <input id="search-input" />
+            <ul id="suggestions-list"></ul>
+            <img id="carousel-image" />
+            <img id="club-profile-pic" />
+            <div id="recommendations-container"></div>
+            <div id="featured-books-container"></div>
+          </body>
+        </html>
+      `);
   
-      // Mock fetch for Jasmine
-    const mockFetch = () =>
-      Promise.resolve({
-        json: () =>
-          Promise.resolve({
-            items: [{ volumeInfo: { title: "Mock Book Title" } }],
-          }),
-      });
-     
+      global.window = dom.window;
+      global.document = dom.window.document;
   
-    // Test function to change the image URL
-    it("testing changeImage function", () => {
+      // Mock fetch for all tests
+      global.fetch = () =>
+        Promise.resolve({
+          json: () =>
+            Promise.resolve({
+              items: [{ volumeInfo: { title: "Mock Book Title" } }],
+            }),
+        });
+    });
+  
+    afterAll(() => {
+      // Clean up after all tests are done
+      dom.window.close();
+      delete global.window;
+      delete global.document;
+      delete global.fetch;
+    });
+  
+    it("should change the image source", async () => {
       const images = [
         "../../images/first1.png",
         "../../images/second2.jpg",
         "../../images/third3.jpg"
       ];
   
-      const index = 1;
+      const index = 1; // Example index to select the first image
       const carouselImage = document.getElementById("carousel-image");
+  
+      // Set image source based on the index
       carouselImage.src = images[index - 1];
   
+      // Check if the source is correctly updated
       expect(carouselImage.src).toContain("images/first1.png");
     });
   
-    // Test for toggling the search input
-    it("testing toggleSearch function", () => {
+    it("should toggle search input visibility", async () => {
       let state = "none";
-      
+  
       // Simulate toggling the state
       state = state === "none" ? "block" : "none";
       expect(state).toBe("block");
@@ -548,10 +561,7 @@ beforeAll(() => {
       expect(state).toBe("none");
     });
   
-    // Test for fetching recommendations (mocking async behavior)
-    it("testing fetchTopRecommendations function", async () => {
-      global.fetch = mockFetch;
-  
+    it("should fetch top recommendations and update the recommendations container", async () => {
       const recommendationsContainer = document.getElementById("recommendations-container");
   
       const recommendations = [
@@ -566,14 +576,12 @@ beforeAll(() => {
         recommendationsContainer.appendChild(div);
       });
   
+      // Check if the recommendations are correctly added to the DOM
       expect(recommendationsContainer.children.length).toBe(2);
       expect(recommendationsContainer.children[0].textContent).toBe("Book 1");
     });
   
-    // Test for featured books (mocking async behavior)
-    it("testing fetchFeaturedBooks function", async () => {
-      global.fetch = mockFetch;
-  
+    it("should fetch featured books and update the featured books container", async () => {
       const featuredBooksContainer = document.getElementById("featured-books-container");
   
       const featuredBooks = [
@@ -587,24 +595,24 @@ beforeAll(() => {
         featuredBooksContainer.appendChild(div);
       });
   
+      // Check if the featured books are correctly added to the DOM
       expect(featuredBooksContainer.children.length).toBe(1);
       expect(featuredBooksContainer.children[0].textContent).toBe("Featured Book 1");
     });
   
-    // Test for loading profile picture
-    it("testing loadProfilePicture function", () => {
+    it("should load profile picture", async () => {
       const profilePic = document.getElementById("club-profile-pic");
       profilePic.src = "data:image/png;base64,dummydata";
   
+      // Check if the profile picture is set correctly
       expect(profilePic.src).toBe("data:image/png;base64,dummydata");
     });
   
-    // Test for changing background color
-    it("testing changeBackgroundColor function", () => {
+    it("should change the background color of the body", async () => {
       document.body.style.backgroundColor = "blue";
       expect(document.body.style.backgroundColor).toBe("blue");
   
       document.body.style.backgroundColor = "red";
       expect(document.body.style.backgroundColor).toBe("red");
     });
-
+  });
