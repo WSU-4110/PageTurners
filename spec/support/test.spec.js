@@ -1,4 +1,4 @@
-
+import { JSDOM } from 'jsdom';  // Use import for jsdom
 
 import { initializeApp } from "firebase/app";
   import { getAnalytics } from "firebase/analytics";
@@ -337,7 +337,6 @@ it("should login with correct email and password", async () => {
 
 //Eunice Shobowale hd5862
 
-const { JSDOM } = require('jsdom');  // Use require for jsdom
 
 // Core functions
 const images = [
