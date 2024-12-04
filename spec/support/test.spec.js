@@ -337,6 +337,8 @@ it("should login with correct email and password", async () => {
 
 //Eunice Shobowale hd5862
 
+const { JSDOM } = require('jsdom');  // Use require for jsdom
+
 // Core functions
 const images = [
   "../../images/first1.png",
@@ -372,55 +374,51 @@ window.changeBackgroundColor = function(color) {
 // Jasmine Test Suite
 describe("Suite of 6 tests for Function Logic", () => {
 
+  // Set up jsdom before all tests to mock the window and document objects
+  beforeAll(() => {
+    const dom = new JSDOM(`<!DOCTYPE html><html><head></head><body></body></html>`);
+    global.window = dom.window; // Assign jsdom window object to global window
+    global.document = dom.window.document; // Assign jsdom document object to global document
+    global.HTMLElement = dom.window.HTMLElement; // Make HTMLElement available globally
+  });
+
   it("testing changeImage function", async () => {
-    await Promise.resolve().then(async () => {
-      const imageUrl = changeImage(1);  // Test the actual function logic
-      expect(imageUrl).toBe("../../images/first1.png");
-    });
+    const imageUrl = changeImage(1);  // Test the actual function logic
+    expect(imageUrl).toBe("../../images/first1.png");
   });
 
   it("testing toggleSearch function", async () => {
-    await Promise.resolve().then(async () => {
-      let state = "none";
-      state = toggleSearch(state);  // Call the function and get the new state
-      expect(state).toBe("block");
+    let state = "none";
+    state = toggleSearch(state);  // Call the function and get the new state
+    expect(state).toBe("block");
 
-      state = toggleSearch(state);  // Call again to toggle back
-      expect(state).toBe("none");
-    });
+    state = toggleSearch(state);  // Call again to toggle back
+    expect(state).toBe("none");
   });
 
   it("testing fetchTopRecommendations function", async () => {
-    await Promise.resolve().then(async () => {
-      const recommendations = await fetchTopRecommendations();  // Call the actual function
-      expect(recommendations.length).toBe(2);
-      expect(recommendations[0].title).toBe("Book 1");
-    });
+    const recommendations = await fetchTopRecommendations();  // Call the actual function
+    expect(recommendations.length).toBe(2);
+    expect(recommendations[0].title).toBe("Book 1");
   });
 
   it("testing fetchFeaturedBooks function", async () => {
-    await Promise.resolve().then(async () => {
-      const featuredBooks = await fetchFeaturedBooks();  // Call the actual function
-      expect(featuredBooks.length).toBe(1);
-      expect(featuredBooks[0].title).toBe("Featured Book 1");
-    });
+    const featuredBooks = await fetchFeaturedBooks();  // Call the actual function
+    expect(featuredBooks.length).toBe(1);
+    expect(featuredBooks[0].title).toBe("Featured Book 1");
   });
 
   it("testing loadProfilePicture function", async () => {
-    await Promise.resolve().then(async () => {
-      const profilePic = loadProfilePicture();  // Call the actual function
-      expect(profilePic).toBe("data:image/png;base64,dummydata");
-    });
+    const profilePic = loadProfilePicture();  // Call the actual function
+    expect(profilePic).toBe("data:image/png;base64,dummydata");
   });
 
   it("testing changeBackgroundColor function", async () => {
-    await Promise.resolve().then(async () => {
-      const color = changeBackgroundColor("blue");  // Call the actual function
-      expect(color).toBe("blue");
+    const color = changeBackgroundColor("blue");  // Call the actual function
+    expect(color).toBe("blue");
 
-      const newColor = changeBackgroundColor("red");  // Call again with a different color
-      expect(newColor).toBe("red");
-    });
+    const newColor = changeBackgroundColor("red");  // Call again with a different color
+    expect(newColor).toBe("red");
   });
 
 });
