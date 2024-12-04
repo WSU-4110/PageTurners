@@ -2,7 +2,8 @@
   "spec_dir": "spec",
   "spec_files": [
     "jasmine-esm.js",
-    "**/*[sS]pec.?(m)js"
+    "**/*[sS]pec.?(m)js",
+    "myTest.spec.js"
   ],
   "helpers": [
     "helpers/**/*.js"
