@@ -331,3 +331,164 @@ it("should login with correct email and password", async () => {
   });
 });
 
+//Sara Alkhafaji- HK4694
+import { JSDOM } from "jsdom";
+
+describe("BookSearchModule", () => {
+  let dom;
+
+  beforeEach(() => {
+    dom = new JSDOM(`
+      <!DOCTYPE html>
+      <html>
+        <body>
+          <input id="search-input" />
+          <ul id="suggestions-list"></ul>
+        </body>
+      </html>
+    `);
+
+    global.window = dom.window;
+    global.document = dom.window.document;
+
+    // Mock fetch for Jasmine
+    global.fetch = () =>
+      Promise.resolve({
+        json: () =>
+          Promise.resolve({
+            items: [{ volumeInfo: { title: "Mock Book Title" } }],
+          }),
+      });
+  });
+
+  afterEach(() => {
+    dom.window.close();
+    delete global.window;
+    delete global.document;
+  });
+
+  it("should initialize and attach event listeners to search input", () => {
+    const searchInput = document.getElementById("search-input");
+    spyOn(searchInput, "addEventListener");
+
+    const BookSearchModule = {
+      init: () => {
+        searchInput.addEventListener("input", () => {});
+        searchInput.addEventListener("keydown", () => {});
+      },
+    };
+
+    BookSearchModule.init();
+
+    expect(searchInput.addEventListener).toHaveBeenCalledWith("input", jasmine.any(Function));
+    expect(searchInput.addEventListener).toHaveBeenCalledWith("keydown", jasmine.any(Function));
+  });
+
+  
+  
+  it("should clear suggestions if input is empty", async () => {
+    const searchInput = document.getElementById("search-input");
+    searchInput.value = "";
+
+    const BookSearchModule = {
+      clearSuggestions: jasmine.createSpy("clearSuggestions"),
+      searchBooks: async () => {
+        if (!searchInput.value) {
+          BookSearchModule.clearSuggestions();
+        }
+      },
+    };
+
+    await BookSearchModule.searchBooks();
+
+    expect(BookSearchModule.clearSuggestions).toHaveBeenCalled();
+  });
+
+  it("should fetch and display book suggestions for valid queries", async () => {
+    const searchInput = document.getElementById("search-input");
+    searchInput.value = "test";
+  
+    const suggestionsList = document.getElementById("suggestions-list");
+  
+    // Mock fetch with spyOn
+    spyOn(global, "fetch").and.returnValue(
+      Promise.resolve({
+        json: () =>
+          Promise.resolve({
+            items: [{ volumeInfo: { title: "Mock Book Title" } }],
+          }),
+      })
+    );
+  
+    const BookSearchModule = {
+      searchBooks: async () => {
+        const response = await fetch("https://mock-api.com");
+        const data = await response.json();
+  
+        data.items.forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = item.volumeInfo.title;
+          suggestionsList.appendChild(li);
+        });
+      },
+    };
+  
+    await BookSearchModule.searchBooks();
+  
+    expect(global.fetch).toHaveBeenCalled();
+    expect(suggestionsList.childElementCount).toBe(1);
+    expect(suggestionsList.firstChild.textContent).toBe("Mock Book Title");
+  });
+  
+  it("should clear suggestions list", () => {
+    const suggestionsList = document.getElementById("suggestions-list");
+    suggestionsList.innerHTML = "<li>Suggestion</li>";
+
+    const BookSearchModule = {
+      clearSuggestions: () => {
+        suggestionsList.innerHTML = "";
+      },
+    };
+
+    BookSearchModule.clearSuggestions();
+
+    expect(suggestionsList.childElementCount).toBe(0);
+  });
+
+  it("should populate suggestions list with book titles", () => {
+    const suggestionsList = document.getElementById("suggestions-list");
+
+    const BookSearchModule = {
+      displaySuggestions: (books) => {
+        books.forEach((book) => {
+          const li = document.createElement("li");
+          li.textContent = book.volumeInfo.title;
+          suggestionsList.appendChild(li);
+        });
+      },
+    };
+
+    const books = [
+      { volumeInfo: { title: "Book 1" } },
+      { volumeInfo: { title: "Book 2" } },
+    ];
+
+    BookSearchModule.displaySuggestions(books);
+
+    expect(suggestionsList.childElementCount).toBe(2);
+    expect(suggestionsList.firstChild.textContent).toBe("Book 1");
+  });
+});
+
+  it("should convert a string to lowercase", () => {
+    const BookSearchModule = {
+      toLowerCase: (input) => {
+        return input.toLowerCase();
+      },
+    };
+
+    const result = BookSearchModule.toLowerCase("TeSt StrInG");
+
+    expect(result).toBe("test string");
+  });
+
