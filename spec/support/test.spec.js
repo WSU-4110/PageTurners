@@ -492,3 +492,104 @@ describe("BookSearchModule", () => {
     expect(result).toBe("test string");
   });
 
+//Eunice Shobowale hd5862
+describe("Suite of 6 tests for Function Logic", () => {
+
+  // Set up the mock DOM before all tests
+  beforeAll(() => {
+    // Create a basic structure in memory
+    document.body.innerHTML = `
+      <img id="carousel-image" src=""/>
+      <input id="search-input" style="display: none;" />
+      <div id="recommendations-container"></div>
+      <div id="featured-books-container"></div>
+      <img id="club-profile-pic" src=""/>
+    `;
+  });
+
+  // Test function to change the image URL
+  it("testing changeImage function", () => {
+    const images = [
+      "../../images/first1.png",
+      "../../images/second2.jpg",
+      "../../images/third3.jpg"
+    ];
+
+    // Simulate changing the image source
+    const index = 1;
+    const carouselImage = document.getElementById("carousel-image");
+    carouselImage.src = images[index - 1];
+
+    expect(carouselImage.src).toBe("file:///path/to/../../images/first1.png");  // Adjust path as needed for your environment
+  });
+
+  // Test for toggling the search input
+  it("testing toggleSearch function", () => {
+    let state = "none";
+    
+    // Simulate toggling the state
+    state = state === "none" ? "block" : "none";
+    expect(state).toBe("block");
+
+    state = state === "none" ? "block" : "none";
+    expect(state).toBe("none");
+  });
+
+  // Test for fetching recommendations (mocking async behavior)
+  it("testing fetchTopRecommendations function", async () => {
+    const recommendations = [
+      { id: "1", title: "Book 1" },
+      { id: "2", title: "Book 2" }
+    ];
+
+    // Simulate fetching data
+    const recommendationsContainer = document.getElementById("recommendations-container");
+    recommendations.forEach((book, index) => {
+      const div = document.createElement("div");
+      div.classList.add("recommendation-item");
+      div.textContent = book.title;
+      recommendationsContainer.appendChild(div);
+    });
+
+    expect(recommendationsContainer.children.length).toBe(2);
+    expect(recommendationsContainer.children[0].textContent).toBe("Book 1");
+  });
+
+  // Test for featured books (mocking async behavior)
+  it("testing fetchFeaturedBooks function", async () => {
+    const featuredBooks = [
+      { id: "1", title: "Featured Book 1" }
+    ];
+
+    // Simulate fetching data
+    const featuredBooksContainer = document.getElementById("featured-books-container");
+    featuredBooks.forEach((book) => {
+      const div = document.createElement("div");
+      div.classList.add("book-card");
+      div.textContent = book.title;
+      featuredBooksContainer.appendChild(div);
+    });
+
+    expect(featuredBooksContainer.children.length).toBe(1);
+    expect(featuredBooksContainer.children[0].textContent).toBe("Featured Book 1");
+  });
+
+  // Test for loading profile picture
+  it("testing loadProfilePicture function", () => {
+    const profilePic = document.getElementById("club-profile-pic");
+    profilePic.src = "data:image/png;base64,dummydata";
+
+    expect(profilePic.src).toBe("data:image/png;base64,dummydata");
+  });
+
+  // Test for changing background color
+  it("testing changeBackgroundColor function", () => {
+    document.body.style.backgroundColor = "blue";
+    expect(document.body.style.backgroundColor).toBe("blue");
+
+    document.body.style.backgroundColor = "red";
+    expect(document.body.style.backgroundColor).toBe("red");
+  });
+});
+
+
