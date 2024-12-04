@@ -508,15 +508,49 @@ footer {
   font-size: 14px;
 }
 
-/* Style for the user dropdown */
+/* Style for the user dropdown container */
 .user-dropdown {
-  position: relative;
+  position: relative; /* Ensures the dropdown menu aligns to this container */
   display: inline-block;
 }
 
-.user-icon {
-  cursor: pointer;
+/* Style for the user dropdown menu */
+#user-dropdown-menu {
+  display: none; /* Hidden by default */
+  position: absolute; /* Positioned relative to .user-dropdown */
+  top: 100%; /* Aligns below the user icon */
+  right: 0; /* Aligns to the right edge of the icon */
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  min-width: 150px;
+  padding: 0.5em 0;
+  z-index: 10; /* Ensure it appears above other content */
 }
+
+/* Dropdown menu list items */
+#user-dropdown-menu li {
+  padding: 0.5em 1em;
+  list-style: none;
+}
+
+#user-dropdown-menu li a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+}
+
+#user-dropdown-menu li a:hover {
+  background-color: #ff6f61;
+  color: white;
+}
+
+/* Show the user dropdown menu when .open is added */
+.user-dropdown.open #user-dropdown-menu {
+  display: block;
+}
+
+
 
 .dropdown-menu {
   display: none;
@@ -546,10 +580,7 @@ footer {
   color: white;
 }
 
-/* Show dropdown on click */
-.user-dropdown.open .dropdown-menu {
-  display: block;
-}
+
 /*results.html*/
 /* General styling for the results container */
 .results-container {
@@ -682,3 +713,52 @@ h1 {
 .modal-content button:hover {
   background-color: #45a049; /* Darker green when hovered */
 }
+
+/* Dropdown styling */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  list-style: none;
+  padding: 0.5em 0;
+  top: 100%; /* Aligns below "My Clubs" */
+  left: 0;
+}
+
+.dropdown-menu li {
+  padding: 0.5em 1em;
+}
+
+.dropdown-menu li a {
+  text-decoration: none;
+  color: #333;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-arrow {
+  margin-left: 5px;
+  font-size: 0.8em;
+}
+
+.dropdown-arrow {
+  background: none;
+  border: none;
+  font-size: 0.8em;
+  cursor: pointer;
+  margin-left: 5px;
+  color: #333;
+}
+
+.dropdown-arrow:focus {
+  outline: none;
+}
+
