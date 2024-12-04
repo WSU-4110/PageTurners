@@ -8,78 +8,132 @@
   </head>
   <body>
     <header>
-      <div class="header-container">
-        <div class="logo-container">
-          <img src="../../images/logo1.png" alt="PageTurners Logo" class="logo" />
-          <span class="site-title">PageTurners</span>
-        </div>
-        <nav class="nav-container">
-          <ul class="nav-list">
-            <li><a href="dashboard.html">Home</a></li>
-            <!-- <li class="dropdown">
-              <a href="MyClubs.html">My Clubs</a>
-              <ul class="dropdownmenu" id="userdropdownmenu">
-                <li><a href="overview.html">My Club Creation</a></li>
-                <li><a href="club.html">Create my Club</a></li>
-              </ul>
-            </li> -->
-
-            <li>
-              <a href="MyClubs.html"><button class="loginbutton">My Clubs</button></button></a>
-              <a href="club.html"><button class="loginbutton">Create A Club</button></button></a>
-              <a href="join.html"><button class="loginbutton">Join</button></a>
-              <a href="logout.html"><button class="loginbutton">Logout</button></a>
-              <a href="calender.html"><button class= "loginbutton">Calendar</button></a>
-            </li>
+     <div class="header-container">
+       <div class="logo-container">
+         <img src="../../images/logo1.png" alt="PageTurners Logo" class="logo" />
+         <span class="site-title">PageTurners</span>
+       </div>
+       <nav class="nav-container">
+         <ul class="nav-list">
+           <li><a href="dashboard.html">Home</a></li>
+            <li><a href="myBooks.html">My Books</a></li>
+           <!-- <li class="dropdown">
+             <a href="MyClubs.html">My Clubs</a>
+             <ul class="dropdownmenu" id="userdropdownmenu">
+               <li><a href="overview.html">My Club Creation</a></li>
+               <li><a href="club.html">Create my Club</a></li>
+             </ul>
+           </li> -->
 
 
-            <li class="user-dropdown">
-              <img
-                src="https://img.icons8.com/ios-glyphs/30/000000/user.png"
-                alt="User Icon"
-                class="user-icon"
-                onclick="toggleDropdown()"
-              />
-              <ul class="dropdown-menu" id="user-dropdown-menu">
-                <li><a href="#">Discussions</a></li>
-                <li><a href="#">Account</a></li>
-                <li><a href="verify-email.html">Verify Email</a></li>
-                <li><a href="logout.html">Logout</a></li>
-              </ul>
-            </li>
-            <script>
-              function closeAllDropdowns() {
-                document
-                  .querySelectorAll(".dropdown.open, .user-dropdown.open")
-                  .forEach((dropdown) => {
-                    dropdown.classList.remove("open");
-                  });
-              }
-document
-                .querySelector(".dropdown > a")
-                .addEventListener("click", function (event) {
-                  event.preventDefault();
-                  closeAllDropdowns(); // Close any other open dropdown
-                  const dropdown = document.querySelector(".dropdown");
-                  dropdown.classList.toggle("open"); // Toggle the clicked dropdown
-                });
-              document
-                .querySelector(".user-icon")
-                .addEventListener("click", function () {
-                  closeAllDropdowns(); // Close any other open dropdown
-                  const userDropdown = document.querySelector(".user-dropdown");
-                  userDropdown.classList.toggle("open"); // Toggle the clicked dropdown
-                });
-              document.addEventListener("click", function (event) {
-                const isClickInsideDropdown = event.target.closest(
-                  ".dropdown, .user-dropdown"
-                );
+        <li class="dropdown">
+ <a href="MyClubs.html" class="dropdown-link">My Clubs</a>
+ <button class="dropdown-arrow" onclick="toggleMyClubsDropdown(event)">▼</button>
+ <ul class="dropdown-menu">
+   <li><a href="join.html">Join</a></li>
+   <li><a href="club.html">Create a Club</a></li>
+ </ul>
+</li>
 
-                if (!isClickInsideDropdown) {
-                  closeAllDropdowns(); // Close all dropdowns if clicked outside
-                }
-              });
-            </script>
+
+
+
+
+
+
+
+           <li>
+           <!--  <a href="MyClubs.html"><button class="loginbutton">My Clubs</button></button></a>
+             <a href="club.html"><button class="loginbutton">Create A Club</button></button></a>
+             <a href="join.html"><button class="loginbutton">Join</button></a> -->
+           
+             <a href="calender.html"><button class= "loginbutton">Calendar</button></a>
+           </li>
+
+
+<li class="user-dropdown">
+ <img
+   src="https://img.icons8.com/ios-glyphs/30/000000/user.png"
+   alt="User Icon"
+   class="user-icon"
+   onclick="toggleUserDropdown(event)"
+ />
+ <ul class="dropdown-menu" id="user-dropdown-menu">
+   <li><a href="verify-email.html">Verify Email</a></li>
+   <li><a href="logout.html">Logout</a></li>
+ </ul>
+</li>
+
+
+
+
+
+
+           <!-- <li class="user-dropdown">
+             <img
+               src="https://img.icons8.com/ios-glyphs/30/000000/user.png"
+               alt="User Icon"
+               class="user-icon"
+               onclick="toggleDropdown()"
+             />
+             <ul class="dropdown-menu" id="user-dropdown-menu">
+               <li><a href="#">Discussions</a></li>
+               <li><a href="#">Account</a></li>
+               <li><a href="verify-email.html">Verify Email</a></li>
+               <li><a href="logout.html">Logout</a></li>
+             </ul>
+           </li> -->
+           <script>
+             // Toggle the dropdown for "My Clubs"
+function toggleMyClubsDropdown(event) {
+ event.stopPropagation(); // Prevent closing other dropdowns
+ const dropdown = event.target.closest('.dropdown');
+ const menu = dropdown.querySelector('.dropdown-menu');
+
+
+ // Close all other dropdowns
+ document.querySelectorAll('.dropdown-menu').forEach((otherMenu) => {
+   if (otherMenu !== menu) otherMenu.style.display = 'none';
+ });
+
+
+ // Toggle current dropdown
+ menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+}
+
+
+// Toggle the dropdown for the User Icon
+function toggleUserDropdown(event) {
+ event.stopPropagation(); // Prevent closing other dropdowns
+ const userDropdown = document.getElementById('user-dropdown-menu');
+
+
+ // Close all other dropdowns
+ document.querySelectorAll('.dropdown-menu').forEach((otherMenu) => {
+   if (otherMenu !== userDropdown) otherMenu.style.display = 'none';
+ });
+
+
+ // Toggle user dropdown
+ userDropdown.style.display =
+   userDropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+
+// Close all dropdowns when clicking outside
+document.addEventListener('click', () => {
+ document.querySelectorAll('.dropdown-menu').forEach((menu) => {
+   menu.style.display = 'none';
+ });
+});
+
+
+
+
+
+
+           </script>
+
             <li>
               
 
