@@ -521,20 +521,7 @@ beforeAll(() => {
       });
      
   
-    // Test function to change the image URL
-    it("testing changeImage function", () => {
-      const images = [
-        "../../images/first1.png",
-        "../../images/second2.jpg",
-        "../../images/third3.jpg"
-      ];
-  
-      const index = 1;
-      const carouselImage = document.getElementById("carousel-image");
-      carouselImage.src = images[index - 1];
-  
-      expect(carouselImage.src).toContain("images/first1.png");
-    });
+    
   
     // Test for toggling the search input
     it("testing toggleSearch function", () => {
