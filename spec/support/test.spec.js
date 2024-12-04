@@ -1,4 +1,4 @@
-import { JSDOM } from 'jsdom';  // Use import for jsdom
+import { JSDOM } from 'jsdom';  
 
 import { initializeApp } from "firebase/app";
   import { getAnalytics } from "firebase/analytics";
