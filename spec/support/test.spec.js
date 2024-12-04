@@ -493,36 +493,45 @@ describe("BookSearchModule", () => {
   });
 
 //Eunice Shobowale hd5862
+import { JSDOM } from "jsdom";
+
 describe("Suite of 6 tests for Function Logic", () => {
 
-  // Set up the mock DOM before all tests
+  let dom;
+  
+  // Set up the mock DOM before each test
   beforeAll(() => {
-    // Create a basic structure in memory
-    global.document = {
-      body: {
-        innerHTML: `
+    dom = new JSDOM(`
+      <!DOCTYPE html>
+      <html>
+        <body>
           <img id="carousel-image" src=""/>
           <input id="search-input" style="display: none;" />
           <div id="recommendations-container"></div>
           <div id="featured-books-container"></div>
           <img id="club-profile-pic" src=""/>
-        `,
-        // Mock getElementById to return the corresponding element from the innerHTML
-        getElementById: function(id) {
-          const el = this.body.querySelector(`#${id}`);
-          return el ? el : null;
-        }
-      }
-    };
+        </body>
+      </html>
+    `);
 
-    // Assign global window object to simulate the window
-    global.window = { document: global.document };
+    global.window = dom.window;
+    global.document = dom.window.document;
+
+    // Mock fetch for Jasmine
+    global.fetch = () =>
+      Promise.resolve({
+        json: () =>
+          Promise.resolve({
+            items: [{ volumeInfo: { title: "Mock Book Title" } }],
+          }),
+      });
   });
 
-  // Cleanup after each test
+  // Clean up after each test
   afterEach(() => {
-    // Reset any global state if necessary
-    global.document.body.innerHTML = '';  // Clear the DOM after each test
+    dom.window.close();
+    delete global.window;
+    delete global.document;
   });
 
   // Test function to change the image URL
@@ -535,10 +544,9 @@ describe("Suite of 6 tests for Function Logic", () => {
 
     // Simulate changing the image source
     const index = 1;
-    const carouselImage = global.document.getElementById("carousel-image");
+    const carouselImage = document.getElementById("carousel-image");
     carouselImage.src = images[index - 1];
 
-    // Here, ensure the comparison reflects how your environment resolves paths
     expect(carouselImage.src).toContain("images/first1.png");
   });
 
@@ -562,7 +570,7 @@ describe("Suite of 6 tests for Function Logic", () => {
     ];
 
     // Simulate fetching data by appending mock data to the container
-    const recommendationsContainer = global.document.getElementById("recommendations-container");
+    const recommendationsContainer = document.getElementById("recommendations-container");
     recommendations.forEach((book) => {
       const div = document.createElement("div");
       div.classList.add("recommendation-item");
@@ -582,7 +590,7 @@ describe("Suite of 6 tests for Function Logic", () => {
     ];
 
     // Simulate fetching data by appending mock data to the container
-    const featuredBooksContainer = global.document.getElementById("featured-books-container");
+    const featuredBooksContainer = document.getElementById("featured-books-container");
     featuredBooks.forEach((book) => {
       const div = document.createElement("div");
       div.classList.add("book-card");
@@ -597,7 +605,7 @@ describe("Suite of 6 tests for Function Logic", () => {
 
   // Test for loading profile picture
   it("testing loadProfilePicture function", () => {
-    const profilePic = global.document.getElementById("club-profile-pic");
+    const profilePic = document.getElementById("club-profile-pic");
     profilePic.src = "data:image/png;base64,dummydata";
 
     expect(profilePic.src).toBe("data:image/png;base64,dummydata");
@@ -605,10 +613,11 @@ describe("Suite of 6 tests for Function Logic", () => {
 
   // Test for changing background color
   it("testing changeBackgroundColor function", () => {
-    global.document.body.style.backgroundColor = "blue";
-    expect(global.document.body.style.backgroundColor).toBe("blue");
+    document.body.style.backgroundColor = "blue";
+    expect(document.body.style.backgroundColor).toBe("blue");
 
-    global.document.body.style.backgroundColor = "red";
-    expect(global.document.body.style.backgroundColor).toBe("red");
+    document.body.style.backgroundColor = "red";
+    expect(document.body.style.backgroundColor).toBe("red");
   });
 });
+
