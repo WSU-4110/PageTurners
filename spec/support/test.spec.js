@@ -507,8 +507,10 @@ describe("Suite of 6 tests for Function Logic", () => {
           <div id="featured-books-container"></div>
           <img id="club-profile-pic" src=""/>
         `,
+        // Mock getElementById to return the corresponding element from the innerHTML
         getElementById: function(id) {
-          return this.innerHTML.includes(id) ? { src: '', style: {} } : null;
+          const el = this.body.querySelector(`#${id}`);
+          return el ? el : null;
         }
       }
     };
@@ -562,7 +564,9 @@ describe("Suite of 6 tests for Function Logic", () => {
     // Simulate fetching data by appending mock data to the container
     const recommendationsContainer = global.document.getElementById("recommendations-container");
     recommendations.forEach((book) => {
-      const div = { classList: { add: () => {} }, textContent: book.title };
+      const div = document.createElement("div");
+      div.classList.add("recommendation-item");
+      div.textContent = book.title;
       recommendationsContainer.appendChild(div);
     });
 
@@ -580,7 +584,9 @@ describe("Suite of 6 tests for Function Logic", () => {
     // Simulate fetching data by appending mock data to the container
     const featuredBooksContainer = global.document.getElementById("featured-books-container");
     featuredBooks.forEach((book) => {
-      const div = { classList: { add: () => {} }, textContent: book.title };
+      const div = document.createElement("div");
+      div.classList.add("book-card");
+      div.textContent = book.title;
       featuredBooksContainer.appendChild(div);
     });
 
