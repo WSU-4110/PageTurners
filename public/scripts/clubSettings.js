@@ -29,7 +29,8 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
   const analytics = getAnalytics(app);
   const auth = getAuth();
   const db = getFirestore(app);
-
+  //google books apikey
+  const apiKey = 'AIzaSyBqG0BFb33Rs14ofEIfIrsCunnWedF5YSY';
   async function getClubdocRefFromQParams(queryParams)
   {
     let docRef = doc(db,"BookClubs",queryParams.get("id"));
@@ -41,33 +42,55 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
   const queryParams = new URLSearchParams(window.location.search);
 
   let docRef = await getClubdocRefFromQParams(queryParams);
-  console.log(docRef.id);
+  let bookJson = null;
+  fetch(`https://www.googleapis.com/books/v1/volumes/${docRef.data()["clubBook"]}?key=${apiKey}`)
+        .then(response => {
+          if (!response.ok)
+          {
+            this.bookApiJson = null;
+          }
+          return response.json();
+        })
+        .then(data=>{
+          console.log(data);
+          document.getElementById("booktitle").textContent = data.volumeInfo.title;
+          document.getElementById("bookcover").setAttribute("src",data.volumeInfo.imageLinks?.thumbnail);
+          bookJson = data;
+        })
  
+
   const clubEditForm = document.getElementById("clubmanage");
   
   clubEditForm.addEventListener('submit', async function(e){
     e.preventDefault();
-    let title = clubEditForm["currBook"].value;
-    let reading = clubEditForm["currentReading"].value;
-    let disc = clubEditForm["DiscTopic"].value;
-    if (title== "")
-    {
-      title = docRef.data()["clubBook"];
-    }
-    if (reading == "")
-    {
-      reading = docRef.data()["clubWeekReading"];
-    }
+    let readingStart = document.getElementById("startPage").value;
+    let readingEnd = document.getElementById("endPage").value;
+    let disc = document.getElementById("DiscTopic").value;
     if (disc == "")
     {
       disc = docRef.data()["discussionTopic"];
     }
+    if (readingStart == "")
+    {
+      readingStart = docRef.data()["clubWeekReadingStart"];
+    }
+    if (readingEnd == "")
+    {
+       readingEnd = docRef.data()["clubWeekReadingEnd"];
+    }
+    if (currBookId=="")
+    {
+      currBookId = docRef.data()["clubBook"];
+    }
+
+      
     
     await updateDoc(doc(db,"BookClubs", docRef.id), {
-    clubBook: title,
-    clubWeekReading: reading,
+    clubBook: currBookId,
+    clubWeekReadingStart: readingStart,
+    clubWeekReadingEnd: readingEnd,
     discussionTopic: disc
-    }, title).then(()=>
+    }).then(()=>
     {
         window.location.href = "./clubhomepage.html?id=" + docRef.id;
     })

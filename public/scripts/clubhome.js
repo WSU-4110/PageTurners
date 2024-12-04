@@ -29,6 +29,8 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
   const analytics = getAnalytics(app);
   const auth = getAuth();
   const db = getFirestore(app);
+  const apiKey = 'AIzaSyBqG0BFb33Rs14ofEIfIrsCunnWedF5YSY';
+
 
   document.body.style.visibility = "visible";
   const queryParams = new URLSearchParams(window.location.search);
@@ -61,8 +63,7 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
       this.DiscDocSnap = null;
       this.ClubName = "";
       this.ClubDesc = "";
-      this.CurrBook = "";
-      this.CurrReading = "";
+      this.bookApiJson = "";
       this.DiscTopic = "";
       this.Members = [];
       this.Discussion =[];
@@ -72,9 +73,15 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
     {
       document.getElementById("clubName").textContent = "Welcome to the \"" + this.ClubName + "\" Book Club";
       document.getElementById("clubDescription").textContent = this.ClubDesc;
-      document.getElementById("booktitle").textContent = this.CurrBook;
-      document.getElementById("bookdesc").textContent = this.CurrReading;
       document.getElementById("disctopic").textContent = "Current Discussion Topic: " + this.DiscTopic;
+      
+      if (!(this.bookApiJson == null))
+      {
+        document.getElementById("booktitle").textContent = this.bookApiJson.volumeInfo.title;
+        document.getElementById("bookdesc").innerHTML = this.bookApiJson.volumeInfo.description;
+        document.getElementById("bookcover").setAttribute("src",this.bookApiJson.volumeInfo.imageLinks?.large)
+        this.setupProgBar()
+      }
 
       const memberUL = document.getElementById("members");
       for (const email of this.Members)
@@ -90,6 +97,8 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
       {
         dicsussionUL.appendChild(post);
       }
+
+      
 
       document.body.style.visibility = "visibile";
     }
@@ -107,6 +116,19 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
       return this.ClubDocSnap;
     }
 
+    setupProgBar()
+    {
+      const totalPages = this.bookApiJson.volumeInfo.pageCount;
+      const pageStart = this.ClubDocSnap.data()["clubWeekReadingStart"];
+      const pageEnd = this.ClubDocSnap.data()["clubWeekReadingEnd"];
+
+      document.getElementById("green").style.width = ""+pageStart/totalPages*100+"%";
+      document.getElementById("red").style.width = ""+pageEnd/totalPages*100+"%";
+      document.getElementById("totalp").textContent = "Total Pages: " + totalPages;
+      document.getElementById("pagest").textContent = "Pages to Read This Week: pp"+pageStart+"-pp" + pageEnd;
+
+    }
+
     async genDiscSnap()
     {
       const discRef = collection(this.ClubDocRef, "DiscussionPosts");
@@ -115,6 +137,26 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
       this.DiscDocSnap = dqsnap;
     }
 
+    async setBook(bookid)
+    {
+      if (bookid == "No Current Book" || bookid == "")
+      {
+        this.bookApiJson=null;
+        return;
+      }
+      fetch(`https://www.googleapis.com/books/v1/volumes/${bookid}?key=${apiKey}`)
+        .then(response => {
+          if (!response.ok)
+          {
+            this.bookApiJson = null;
+          }
+          return response.json();
+        })
+        .then(data=>{
+          this.bookApiJson = data;
+        })
+
+    }
     setClubName()
     {
       this.ClubName = this.ClubDocSnap.data()["BookClubName"];
@@ -126,19 +168,7 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
       this.ClubDesc = this.ClubDocSnap.data()["clubDescription"];
       return this.ClubDesc;
     }
-
-    setCurrBook()
-    {
-      this.CurrBook = this.ClubDocSnap.data()["clubBook"];
-      return this.CurrBook;
-    }
-
-    setCurrReading()
-    {
-      this.CurrReading = this.ClubDocSnap.data()["clubWeekReading"];
-      return this.CurrReading;
-    }
-
+    
     setDiscTopic()
     {
       this.DiscTopic = this.ClubDocSnap.data()["discussionTopic"];
@@ -210,21 +240,22 @@ const Homepage = new Clubhomepage();
 
 
 
-await Homepage.GenClubDocRefAndSnap().then(async ()=>
+await Homepage.GenClubDocRefAndSnap().then(async (clubdoc)=>
 {
   
   Homepage.setClubClubDesc();
   Homepage.setClubName();
-  Homepage.setCurrBook();
-  Homepage.setCurrReading();
   Homepage.setDiscTopic();
   Homepage.setMembers();
+  await Homepage.setBook(clubdoc.data()["clubBook"]);
   await Homepage.convertMembers();
   await Homepage.genDiscSnap().then(()=>
   {
     Homepage.setDiscussion();
   })
   Homepage.updatePage();
+  const post = document.getElementById("post");
+  post.href = "discussionpost.html?id=" + queryParams.get("id");
 });
 
 if (await isAdmin(userUID, Homepage.getClubDoc()) == 1)

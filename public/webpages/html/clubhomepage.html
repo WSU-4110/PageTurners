@@ -1,19 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <script type="module" src="../../scripts/clubhome.js"></script>
-    <h1 id="clubName">Club Name</h1>
-    <h2 id="clubDescription">club clubDescription</h2>
-    <ul id="members">members</ul>
-
-    <a id="manage" href="overview.html?">Manage Club</a>
-</body>
-</html> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,270 +20,470 @@
             color: #333;
             line-height: 1.6;
             padding: 20px;
+            margin: 0;
         }
 
+        /* Header Styles */
         header {
-            text-align: center;
-            margin-bottom: 30px;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
         }
 
-        header h1 {
-            font-size: 2.5em;
+        header .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        header .logo {
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        header .site-title a {
+            font-size: 1.8em;
             color: #333;
+            text-decoration: none;
         }
 
-        header p {
-            font-size: 1.2em;
-            color: #555;
+        nav {
+            display: flex;
+            align-items: center;
         }
 
+        nav .nav-list {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav .nav-list li {
+            padding: 10px 15px;
+        }
+
+        nav .nav-list li a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        /* Manage Club Button */
         .manage-club-btn {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 12px 20px;
             background-color: #4CAF50;
             color: white;
-            font-size: 1.1em;
+            font-size: 1.2em;
             text-decoration: none;
             border-radius: 5px;
-            margin-top: 20px;
-            margin-bottom: 30px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            margin-top: 20px;
         }
 
         .manage-club-btn:hover {
             background-color: #45a049;
         }
 
-        .section {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-        }
-
-        .section h2 {
-            font-size: 1.8em;
-            margin-bottom: 10px;
-            color: #4CAF50;
-        }
-
-        .section p {
-            font-size: 1.1em;
-            color: #666;
-        }
-
-        /* Club Title and Description Section */
-        .club-info {
+        /* Main Header Section */
+        #header {
             text-align: center;
             margin-bottom: 40px;
         }
 
+        #header h1 {
+            font-size: 2.5em;
+            color: #333;
+        }
+
+        #header p {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        /* Club Info Section */
+        .club-info {
+            text-align: center;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
         .club-info h2 {
-            margin-bottom: 10px;
+            font-size: 2em;
+            margin-bottom: 20px;
             color: #4CAF50;
         }
 
         .club-info p {
-            margin-bottom: 20px;
+            font-size: 1.2em;
+            color: #666;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        /* Layout for User List and Current Book side by side */
+        /* Layout for User List and Current Book */
         .main-content {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 30px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
-        .user-list, .book-info {
-            width: 48%; /* Ensures a balanced layout */
-        }
-
-        .user-list ul, .book-info div {
-            padding: 10px;
+        /* User List Styling */
+        .user-list {
             background-color: #fff;
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        /* User List Styling */
+        .user-list h2 {
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
         .user-list ul {
-            list-style-type: none;
+            list-style: none;
             padding: 0;
         }
 
         .user-list li {
             background-color: #f9f9f9;
-            padding: 10px;
-            margin: 5px 0;
+            padding: 12px;
+            margin: 8px 0;
             border-radius: 4px;
             box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
         }
 
+        /* Progress Bar Section */
+        .progress-bar-container {
+            margin-top: 30px;
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 10px;
+        }
+
+        progress {
+            width: 100%;
+            height: 20px;
+            appearance: none;
+            background-color: #f3f3f3;
+            border-radius: 10px;
+        }
+
+        progress::-webkit-progress-bar {
+            background-color: #f3f3f3;
+        }
+
         /* Current Book Styling */
-        .book-info h3 {
-            margin-bottom: 10px;
-        }
-
-        .book-info img {
-            width: 100px;
-            height: auto;
-            border-radius: 5px;
-            margin-right: 20px;
-        }
-
-        /* Discussion Section */
-        .discussion-board {
-            background-color: #f9f9f9;
+        .book-info {
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
+        .book-info h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .book-details {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start; /* Align items at the top */
+            flex-wrap: wrap; /* Ensure responsiveness */
+        }
+
+        .book-info img {
+            width: 200px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 20px;
+        }
+
+        .book-text {
+            flex: 1;
+        }
+
+        .book-text h3 {
+            font-size: 1.6em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .book-text p {
+            font-size: 1.1em;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .discussion-board {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+
         .discussion-board h3 {
-            font-size: 1.4em;
-            margin-bottom: 15px;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            color: #333;
         }
 
         .discussion-board ul {
-            list-style-type: none;
+            list-style: none;
             padding: 0;
         }
 
         .discussion-board li {
             background-color: #fff;
-            padding: 10px;
+            padding: 12px;
             margin-bottom: 10px;
             border-radius: 4px;
             box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
         }
 
         .discussion-board li p {
-            margin: 0;
-            font-size: 1em;
+            font-size: 1.1em;
             color: #444;
         }
 
         .discussion-board li small {
-            color: #777;
             font-size: 0.9em;
+            color: #777;
         }
 
-        .discussion-board button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
+        .book-info {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            width: 100%;
         }
 
-        .discussion-board button:hover {
-            background-color: #45a049;
+        #myProgress {
+            width: 80%;
+            background-color: grey;
         }
 
-        .bold{
-            font-weight: bold;
-        }
-        .underline{
-            text-decoration: underline;
-        }
-
-        #header {
-            text-align: center;
-            margin-bottom: 30px;
+        #myBar {
+            width: 20%;
+            height: 30px;
+            background-color: green;
         }
 
-        #header h1 {
-            text-align: left;
-            font-size: 2.5em;
+        .book-info h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
             color: #333;
         }
 
-        #header p {
-            text-align: center;
-            font-size: 1.2em;
-            color: #555;
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .manage-club-btn {
+                width: 100%;
+            }
         }
 
+        /* New Progress Section */
+        .progress-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+
+        .progress-section h3 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #4CAF50;
+        }
+
+        .progress-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .progress-details span {
+            font-size: 1.1em;
+            color: #666;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        progress {
+            width: 100%;
+            height: 20px;
+            appearance: none;
+            background-color: #f3f3f3;
+            border-radius: 10px;
+        }
+
+        progress::-webkit-progress-bar {
+            background-color: #f3f3f3;
+        }
+        .progress-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+
+        .progress-section h3 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #4CAF50;
+        }
+
+        .progress-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .progress-details span {
+            font-size: 1.1em;
+            color: #666;
+        }
+
+                /* Progress Bar Section */
+                .progress-bar-container {
+            margin-top: 30px;
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 10px;
+            position: relative; /* Needed for stacking layers */
+            height: 20px; /* Set the height of the container */
+        }
+
+        /* Blue Progress Bar (represents overall progress) */
+        .blue-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: #ff6f61;
+            width: 60%; /* Change width to match overall progress */
+            border-radius: 10px;
+        }
+
+        /* Green Progress Bar (represents specific subset of progress) */
+        .green-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: #4CAF50;
+            width: 40%; /* Change width to match specific progress */
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Header Section -->
     <header>
         <div class="header-container">
             <div class="logo-container">
                 <img src="../../images/logo1.png" alt="PageTurners Logo" class="logo">
                 <span class="site-title"><a href="dashboard.html">PageTurners</a></span>
             </div>
-            <nav class="nav-container">
+            <nav>
                 <ul class="nav-list">
                     <li><a href="dashboard.html" class="loginbutton">Home</a></li>
-                    <li class="user-dropdown">
-                        <img src="https://img.icons8.com/ios-glyphs/30/000000/user.png" alt="User Icon" class="user-icon" onclick="toggleDropdown()">
-                        <ul class="dropdown-menu" id="user-dropdown-menu">
-                            <li><a href="#">Discussions</a></li>
-                            <li><a href="#">Account</a></li>
-                            <li><a href="logout.html">Logout</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <form class="search-form" action="/search" method="GET">
-                            <input type="text" name="query" placeholder="Search for books, clubs, or authors" class="search-input" id="search-input">
-                            <button type="button" class="search-button" onclick="toggleSearch()">
-                                <img src="https://img.icons8.com/ios-glyphs/30/000000/search.png" alt="Search" class="search-icon">
-                            </button>
-                        </form>
-                    </li>
+                    <li><a id="manage" href="overview.html" class="manage-club-btn">Manage Club</a></li>
                 </ul>
             </nav>
         </div>
     </header>
-        <div id="header">
-            <h1 id="clubName">Welcome to the "PageTurners" Book Club</h1>
-            <p>Your home for book discussions</p>
-            <!-- Manage Club Button -->
-            <a href="overview.html" id="manage" class="manage-club-btn">Manage Club</a>
-        </div>
 
-    <!-- Club Title and Description Section -->
-    <section class="section club-info">
-        <h2>About Our Club</h2>
+    <!-- Main Content Header Section -->
+
+
+    <!-- Club Info Section -->
+    <section class="club-info">
+        <h2 id="clubName"></h2>
+        <h3>About Our Club</h3>
         <p id="clubDescription">PageTurners is a friendly and inclusive book club where readers from all over the world come together to share their love of books. Whether you’re a fan of fantasy, fiction, non-fiction, or mysteries, we have something for everyone. Our mission is to create a space where readers can discover new books, engage in meaningful discussions, and build a community around their shared love of reading.</p>
     </section>
 
-    <!-- User List and Current Book Section (Horizontal Layout) -->
+    <!-- User List and Current Book Section -->
     <section class="main-content">
         <!-- User List -->
         <div class="user-list">
             <h2>Current Members</h2>
-            <ul id="members">
-            </ul>
+            <ul id="members"></ul>
         </div>
 
         <!-- Current Book -->
         <div class="book-info">
             <h2>Current Book</h2>
-            <div>
-                <img src="https://via.placeholder.com/100x150.png?text=Book+Cover" alt="Current Book Cover">
+            <div class="book-details">
+                <img id="bookcover" src="https://via.placeholder.com/200x300.png?text=Book+Cover" alt="Current Book Cover">
+                <div class="book-text">
+                    <h3 id="booktitle">NO CURRENT BOOK</h3>
+                    <p id="bookdesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque suscipit auctor finibus. Integer ultricies sollicitudin faucibus. Curabitur semper vel justo varius tristique.</p>
+                </div>
             </div>
-            <div>
-                <h3 id="booktitle">NO CURRENT BOOK</h3>
-                <h2>Reading for the Week</h2>
-                <p id = "bookdesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque suscipit auctor finibus. Integer ultricies sollicitudin faucibus. Curabitur semper vel justo varius tristique. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque lacinia lobortis elit, ut dignissim tellus. Proin in metus nisi.</p>
+        </div>
+    </section>
+
+    <!-- Progress Section -->
+    <section class="progress-section">
+        <h3>Reading for This Week</h3>
+        <div class="progress-details">
+            <span id="pagest">Pages to Read This Week: 50</span>
+            <span id="totalp">Total Pages: 300</span>
+        </div>
+        <!-- Progress Bar Container with 2 layers -->
+        <div class="progress-bar-container">
+            <!-- Blue Progress Bar (represents overall progress) -->
+            <div id="red" class="blue-progress" style="width: 60%;"></div> <!-- Blue bar, 60% of total -->
+            <!-- Green Progress Bar (represents specific subset of progress) -->
+            <div id="green" class="green-progress" style="width: 40%;"></div> <!-- Green bar, 40% of blue -->
         </div>
     </section>
 
     <!-- Discussion Board Section -->
-    <section class="section discussion-board">
+    <section class="discussion-board">
         <h3>Discussion Board</h3>
         <h2 id="disctopic">Current Topic: None</h2>
-        <ul id="disc">
-        </ul>
-        <a id="post"><button>Add Your Own Post</button>
+        <ul id="disc"></ul>
+        <a class="loginbutton" id="post">Add Your Own Post</a>
     </section>
+
     <script type="module" src="../../scripts/clubhome.js"></script>
 </body>
 </html>

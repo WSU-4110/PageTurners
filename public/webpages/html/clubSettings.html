@@ -5,6 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Club Settings</title>
   <link rel="stylesheet" href="../css/created.css" />
+  <style>
+    .suggestions-list {
+      display: inline;
+    }
+
+    /* Custom Styling for the Range Inputs */
+    .range-inputs {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .range-inputs input {
+      width: 80px;
+      padding: 8px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .range-inputs label {
+      font-size: 1.2em;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -36,25 +64,50 @@
       <h2>Edit Club Settings</h2>
       <form class="club-settings-form" id="clubmanage" method="POST" action="saveSettings.php">
         <div class="form-group">
-          <label for="currBook">Title of Current Book</label>
-          <input
-            type="text"
-            id="currBook"
-            name="currBook"
-            placeholder="Enter the current book title"
-            required
-          />
+          <div class="book-info">
+            <h3>Current Book</h3>
+            <div>
+              <img id="bookcover" src="https://via.placeholder.com/100x150.png?text=Book+Cover" alt="Current Book Cover">
+            </div>
+            <div>
+              <h3 id="booktitle">NO CURRENT BOOK</h3>
+            </div>
+            <label for="currBook"></label>
+            <div class="search-form" id="search-form">
+              <input
+                type="text"
+                name="query"
+                placeholder="Search for books"
+                class="search-input"
+                id="search-input"
+              />
+              <ul id="suggestions-list" class="suggestions-list"> </ul>
+            </div>
+          </div>
         </div>
 
+        <!-- Range Input for Current Reading -->
         <div class="form-group">
-          <label for="currentReading">This Week's Reading</label>
-          <textarea
-            id="currentReading"
-            name="currentReading"
-            placeholder="Describe this week's reading"
-            rows="4"
-            required
-          ></textarea>
+          <label for="currentReading">This Week's Reading (Page Range)</label>
+          <div class="range-inputs">
+            <input
+              type="number"
+              id="startPage"
+              name="startPage"
+              placeholder="Start"
+              min="1"
+
+            />
+            <span>-</span>
+            <input
+              type="number"
+              id="endPage"
+              name="endPage"
+              placeholder="End"
+              min="1"
+
+            />
+          </div>
         </div>
 
         <div class="form-group">
@@ -64,14 +117,7 @@
             id="DiscTopic"
             name="DiscTopic"
             placeholder="Enter the discussion topic"
-            required
           />
-        </div>
-
-        <!-- Optional Clear Discussion -->
-        <div class="form-group">
-          <label for="clearDiscussion">Clear Current Discussion</label>
-          <input type="checkbox" id="clearDiscussion" name="clearDiscussion" />
         </div>
 
         <button type="submit" class="save-btn">Save Changes</button>
@@ -91,7 +137,26 @@
         reader.readAsDataURL(file);
       }
     }
+
+    // Optional: Add validation to make sure the end page is greater than the start page
+    const startPageInput = document.getElementById('startPage');
+    const endPageInput = document.getElementById('endPage');
+
+    startPageInput.addEventListener('input', validatePageRange);
+    endPageInput.addEventListener('input', validatePageRange);
+
+    function validatePageRange() {
+      const start = parseInt(startPageInput.value);
+      const end = parseInt(endPageInput.value);
+
+      if (start >= end) {
+        endPageInput.setCustomValidity("End page must be greater than start page.");
+      } else {
+        endPageInput.setCustomValidity("");
+      }
+    }
   </script>
   <script type="module" src="../../scripts/clubSettings.js"></script>
+  <script src="../../scripts/clubSettingSearch.js"></script>
 </body>
 </html>

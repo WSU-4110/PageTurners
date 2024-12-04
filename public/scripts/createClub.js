@@ -42,7 +42,8 @@ auth.onAuthStateChanged(function(user){
                 JoinCode: joinCode,
                 clubDescription: "no description",
                 clubBook: "No Current Book",
-                clubWeekReading: "No Reading for this Week",
+                clubWeekReadingStart: 0,
+                clubWeekReadingEnd: 0,
                 discussionTopic: "No Current Discussion Topic"
             }, clubName);
 
