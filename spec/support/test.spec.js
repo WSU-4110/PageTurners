@@ -494,12 +494,12 @@ describe("BookSearchModule", () => {
 
 //Eunice Shobowale hd5862
 
+
 describe("Suite of 6 tests for Function Logic", () => {
   let dom;
 
   // Set up the mock DOM environment before all tests
   beforeAll(() => {
-    // Initialize JSDOM and create a mock DOM environment
     dom = new JSDOM(`
       <!DOCTYPE html>
       <html>
@@ -513,27 +513,26 @@ describe("Suite of 6 tests for Function Logic", () => {
       </html>
     `);
 
-    // Attach the global window and document objects
     global.window = dom.window;
     global.document = dom.window.document;
-
-    // Mock fetch for Jasmine
-    global.fetch = () =>
-      Promise.resolve({
-        json: () =>
-          Promise.resolve({
-            items: [{ volumeInfo: { title: "Mock Book Title" } }],
-          }),
-      });
   });
 
   // Clean up after each test
   afterEach(() => {
-    // Reset the global state and close the mock DOM window
     dom.window.close();
     delete global.window;
     delete global.document;
+    delete global.fetch; // Reset fetch mock after each test
   });
+
+  // Mock fetch for Jasmine
+  const mockFetch = () =>
+    Promise.resolve({
+      json: () =>
+        Promise.resolve({
+          items: [{ volumeInfo: { title: "Mock Book Title" } }],
+        }),
+    });
 
   // Test function to change the image URL
   it("testing changeImage function", () => {
@@ -564,12 +563,15 @@ describe("Suite of 6 tests for Function Logic", () => {
 
   // Test for fetching recommendations (mocking async behavior)
   it("testing fetchTopRecommendations function", async () => {
+    global.fetch = mockFetch;
+
+    const recommendationsContainer = document.getElementById("recommendations-container");
+
     const recommendations = [
       { id: "1", title: "Book 1" },
       { id: "2", title: "Book 2" }
     ];
 
-    const recommendationsContainer = document.getElementById("recommendations-container");
     recommendations.forEach((book) => {
       const div = document.createElement("div");
       div.classList.add("recommendation-item");
@@ -583,11 +585,14 @@ describe("Suite of 6 tests for Function Logic", () => {
 
   // Test for featured books (mocking async behavior)
   it("testing fetchFeaturedBooks function", async () => {
+    global.fetch = mockFetch;
+
+    const featuredBooksContainer = document.getElementById("featured-books-container");
+
     const featuredBooks = [
       { id: "1", title: "Featured Book 1" }
     ];
 
-    const featuredBooksContainer = document.getElementById("featured-books-container");
     featuredBooks.forEach((book) => {
       const div = document.createElement("div");
       div.classList.add("book-card");
@@ -616,4 +621,3 @@ describe("Suite of 6 tests for Function Logic", () => {
     expect(document.body.style.backgroundColor).toBe("red");
   });
 });
-
