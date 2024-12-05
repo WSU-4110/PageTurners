@@ -95,13 +95,7 @@ const BookSearchModule = (function () {
                 <p>by ${book.volumeInfo.authors?.join(', ') || 'Unknown author'}</p>
                 <p>${(book.volumeInfo.description || 'No description available').slice(0, 100)}...</p>
                 
-                <label for="status-${bookId}">Update Status:</label>
-                <select id="status-${bookId}" onchange="BookStatus.updateStatus('${bookId}', '${bookTitle}', this.value)">
-                    <option value="">Select Status</option>
-                    <option value="Want to Read">Want to Read</option>
-                    <option value="Currently Reading">Currently Reading</option>
-                    <option value="Finished">Finished</option>
-                </select>
+                
             </div>
             `;
         }).join('') || '<p>No results found</p>';
