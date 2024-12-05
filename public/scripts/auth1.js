@@ -32,7 +32,7 @@ from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 // signup form
 
 
-const signupForm = document.querySelector("#signup-form");
+const signupForm = document.querySelector("signupForm");
 
 if (signupForm != null) {
     signupForm.addEventListener('submit', function(e) {
@@ -45,24 +45,17 @@ if (signupForm != null) {
         console.log(email, password);
 
         // Sign up user
-        createUserWithEmailAndPassword(auth, email, password)
-            .then(cred => {
-                let user = cred.user;
-                return setDoc(doc(db, "Users", user.uid), {
-                    email: user.email,
-                    uid: user.uid
+        auth.onAuthStateChanged(function(user){
+            if (user) {   
+            setDoc(doc(db, "Users", user.uid), {
+                 email: user.email,
+                 uid: user.uid
                 });
-            })
-            .then(() => {
-                alert("Account Creation Success");
-                window.location.href = "./dashboard.html";
-            })
-            .catch(error => {
-                console.error("Error: ", error);
-                alert("Error creating account: " + error.message);
+            }
             });
     });
 }
+
         
 
 
@@ -100,20 +93,3 @@ logout.addEventListener('click', (e)=>{
     
 });
 }
-
-
-
-
-
-
- // addDoc(collection(db,"Users"), 
-    // {
-    //     email: user.email,
-    //     uid: user.uid,
-    //     clubs: []
-    // }).then(docref=>{
-    //     console.log("Doc written with ID: ", docref.id);
-    // }).catch(error => {
-    //     console.error("Error writing document: ", error);
-    //     alert("Error creating account: " + error.message);
-    //   })

@@ -61,13 +61,13 @@
             auth.createUserWithEmailAndPassword(email, password)
                 .then(userCredential => {
                     const user = userCredential.user;
-
+                    const myEvent = new CustomEvent("custom", {detail: {data : [user.uid, email, password]}});
                     // Send verification email after registration
                     user.sendEmailVerification()
                         .then(() => {
                             loading.style.display = 'none';
                             verificationMessage.style.display = 'block';
-
+                            window.dispatchEvent(myEvent);
                             // Optionally, log the user out until they verify the email
                             auth.signOut();
                         })
@@ -82,5 +82,20 @@
                 });
         });
     </script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+        import { getFirestore, collection, addDoc, setDoc, doc} from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js';
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app)
+        window.addEventListener("custom",(event)=>{
+            console.log(event.detail.data)
+            setDoc(doc(db, "Users", event.detail.data[0]), {
+                 email: event.detail.data[1],
+                 uid: event.detail.data[0]
+                });
+        })
+
+    </script>
+
 </body>
 </html>
