@@ -5,10 +5,13 @@ Pageturners is a dynamic web application designed to connect book enthusiasts an
 
 The Team
 
-Eunice Showbowale(eunice-showbowale)
-Ben Sanderson(benS-03)
-Sanjida Islam(hk3351)
-Sara Alkhafaji(alkhafaji4)
+ Eunice Showbowale(eunice-showbowale)
+
+ Ben Sanderson(benS-03)
+
+ Sanjida Islam(hk3351)
+
+ Sara Alkhafaji(alkhafaji4)
 
 Technology Framework
 
