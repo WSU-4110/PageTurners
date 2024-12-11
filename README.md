@@ -16,5 +16,7 @@ The Team
 Technology Framework
 
 HTML
+
 CSS
+
 JavaScript
