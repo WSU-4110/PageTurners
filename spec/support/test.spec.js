@@ -79,7 +79,7 @@ class Clubhomepage{
     async GenClubDocRefAndSnap()
     {
       //test comment
-      let docRef = doc(db,"BookClubs", "8jVPhq50GdSfISN9BiQ7");
+      let docRef = doc(db,"BookClubs", "5qVP2dazFnAvA0WUtI91");
       this.ClubDocRef = docRef;
       const docSnap = await getDoc(docRef);
       this.ClubDocSnap = docSnap;
@@ -232,7 +232,7 @@ describe("Suite of 6 tests for Assignment 5", ()=>
         {
             await Homepage.GenClubDocRefAndSnap().then(async ()=>
             {
-                expect(Homepage.setCurrReading()).toBe("test3");
+                expect(Homepage.setCurrReading()).toBe(undefined);
             });
         })
 
@@ -248,7 +248,7 @@ describe("Suite of 6 tests for Assignment 5", ()=>
         {
             await Homepage.GenClubDocRefAndSnap().then(async ()=>
             {
-                expect(Homepage.setMembers()).toEqual(["UOuyu3tQOyYo2BK46CqeJjlL1Ff1"])
+                expect(Homepage.setMembers()).toEqual(["pG4lwaJlTBhaEVSt31S6gA2piPD3"])
             });
         })
 
